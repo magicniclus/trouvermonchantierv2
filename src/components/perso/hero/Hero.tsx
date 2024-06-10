@@ -6,6 +6,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -73,21 +80,23 @@ const metiersBatiment = [
 ];
 
 const FormSchema = z.object({
+  name: z.string().min(1, "Veuillez entrer votre nom."),
   email: z
     .string({
-      required_error: "Please select an email to display.",
+      required_error: "Veuillez entrer un email.",
     })
-    .email(),
+    .email("Veuillez entrer un email valide."),
+  metier: z.string().min(1, "Veuillez sélectionner un métier."),
 });
 
-export function SelectForm() {
+const Hero = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
-      title: "You submitted the following values:",
+      title: "Vous avez soumis les valeurs suivantes :",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -95,18 +104,16 @@ export function SelectForm() {
       ),
     });
   }
-}
 
-const Hero = () => {
   return (
-    <section className="w-full relative flex items-center h-[650px]">
+    <section className="w-full relative flex items-center min-h-[650px] h-full">
       <img
         src="/images/hero.png"
         alt="hero"
-        className="w-full h-[650px] object-cover absolute top-0 left-0 -z-10"
+        className="w-full min-h-[650px] h-full object-cover absolute top-0 left-0 -z-10"
       />
-      <div className="mx-auto w-full h-full flex max-w-7xl items-center justify-between p-6 lg:px-8 z-10">
-        <div className="w-full md:w-1/2 px-4">
+      <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-7xl items-center justify-between p-6 lg:px-8 md:py-6 py-16 z-10">
+        <div className="w-full md:w-1/2 px-4 md:max-w-[400px]">
           <h1 className="text-5xl text-white font-bold">
             Trouvez{" "}
             <span
@@ -140,30 +147,93 @@ const Hero = () => {
             développer votre activité dans le bâtiment.
           </p>
         </div>
-        <div className="w-full md:w-1/2">
-          <form className="p-5 md:p-12 px-20 bg-slate-200/70 rounded-md flex flex-col items-center">
-            <h2 className="text-slate-700 font-semibold mt-7 text-center">
-              Vous êtes professionnel du bâtiment et vous recherchez de nouveaux
-              chantiers ?
-            </h2>
-            <Input type="text" placeholder="Nom, prénom" className="mt-7" />
-            <Input type="email" placeholder="Email" className="mt-3" />
-            <Select>
-              <SelectTrigger className="mt-3">
-                <SelectValue placeholder="Sélectionnez un métier du bâtiment" />
-              </SelectTrigger>
-              <SelectContent>
-                {metiersBatiment.map((metier) => (
-                  <SelectItem key={metier} value={metier}>
-                    {metier}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Button type="submit" className="mt-6">
-              Soumettre
-            </Button>
-          </form>
+        <div className="w-full md:w-1/2 px-4 md:mt-0 mt-10">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="p-5 md:p-12 md:bg-white/70 bg-white rounded-md flex flex-col items-center shadow-lg w-full"
+            >
+              <h2 className="text-slate-700 font-semibold text-center">
+                Vous êtes professionnel du bâtiment et vous recherchez de
+                nouveaux chantiers ?
+              </h2>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="w-full mt-7">
+                    <FormControl className="w-full">
+                      <Input
+                        type="text"
+                        placeholder="Nom, prénom"
+                        {...field}
+                        className="mt-2 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="w-full">
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        {...field}
+                        className="mt-2 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="metier"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="w-full">
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="mt-2 w-full">
+                          <SelectValue placeholder="Sélectionnez votre métier" />
+                        </SelectTrigger>
+                        <SelectContent className="w-full">
+                          {metiersBatiment.map((metier) => (
+                            <SelectItem key={metier} value={metier}>
+                              {metier}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="mt-6 w-full bg-yellow-500 hover:bg-yellow-400"
+              >
+                Envoyer
+              </Button>
+              <p className="text-xs text-center mt-4">
+                <a href="#" className="underline">
+                  Conditions générales
+                </a>{" "}
+                et{" "}
+                <a href="#" className="underline">
+                  politique de confidentialité
+                </a>
+              </p>
+            </form>
+          </Form>
         </div>
       </div>
     </section>
