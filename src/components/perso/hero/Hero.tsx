@@ -112,8 +112,8 @@ const Hero = () => {
         alt="hero"
         className="w-full min-h-[650px] h-full object-cover absolute top-0 left-0 -z-10"
       />
-      <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-7xl items-center justify-between p-6 lg:px-8 md:py-6 py-16 z-10">
-        <div className="w-full md:w-1/2 px-4 md:max-w-[400px]">
+      <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-5xl items-center justify-between p-6 lg:px-4 md:py-6 py-16 z-10">
+        <div className="w-full md:w-1/2 md:px-4 md:max-w-[400px]">
           <h1 className="text-5xl text-white font-bold">
             Trouvez{" "}
             <span
@@ -147,7 +147,7 @@ const Hero = () => {
             développer votre activité dans le bâtiment.
           </p>
         </div>
-        <div className="w-full md:w-1/2 px-4 md:mt-0 mt-10">
+        <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
