@@ -1,6 +1,6 @@
 const ModalFixed = () => {
   return (
-    <div className="w-full mx-auto max-w-7xl hidden md:flex fixed top-24 left-1/2 transform -translate-x-1/2 justify-end px-6 z-10">
+    <div className="w-full mx-auto max-w-5xl hidden md:flex fixed top-24 left-1/2 transform -translate-x-1/2 justify-end px-6 z-50">
       <a
         href="tel:0631420045"
         className="p-3 rounded-lg shadow-md flex h-[70px] items-center justify-center w-max bg-white"
