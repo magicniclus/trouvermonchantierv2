@@ -5,9 +5,13 @@ const Footer = () => {
   return (
     <footer className=" bg-bgPrimary">
       <div className="mx-auto flex max-w-5xl justify-between flex-col p-6 lg:px-8 py-10">
-        <div className="flex justify-between sm:items-center flex-col md:flex-row">
-          <img src="/logowhite.png" alt="terabois" className="h-7 w-auto" />
-          <h2 className="text-3xl font-bold text-white mt-5 sm:mt-5">
+        <div className="flex justify-between sm:items-center flex-col sm:flex-row">
+          <img
+            src="/logowhite.png"
+            alt="terabois"
+            className="sm:h-7 h-auto sm:w-auto w-24"
+          />
+          <h2 className="md:text-3xl text-xl font-bold text-white mt-5 sm:mt-5">
             {" "}
             Apporter d&apos;affaire n°1 pour les artisans
           </h2>
@@ -61,7 +65,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+        <div className="mt-10 border-t border-white/10 pt-8 sm:mt-10 lg:mt-10">
           <p className="text-xs leading-5 text-white">
             &copy; 2024 touver-mon-chantier.fr, Inc. All rights reserved.
           </p>
