@@ -1,9 +1,36 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const ModalFixed = () => {
+  const [isFixed, setIsFixed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 85) {
+        // Vous pouvez ajuster la valeur selon vos besoins
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="w-full mx-auto max-w-5xl hidden md:flex fixed top-24 left-1/2 transform -translate-x-1/2 justify-end px-6 z-50">
+    <div
+      className={`w-full mx-auto max-w-5xl hidden md:flex ${
+        isFixed ? "fixed top-5" : "absolute top-7"
+      } left-1/2 transform -translate-x-1/2 justify-end px-6 z-50`}
+      style={{ pointerEvents: "none" }}
+    >
       <a
         href="tel:0631420045"
         className="p-3 rounded-lg shadow-md flex h-[70px] items-center justify-center w-max bg-white"
+        style={{ pointerEvents: "auto" }}
       >
         <div className="text-sm h-full flex flex-col justify-center mt-1">
           <p className="text-green-500">Appelez-nous !</p>
