@@ -106,7 +106,10 @@ const Hero = () => {
   }
 
   return (
-    <section className="w-full relative flex items-center min-h-[650px] h-full">
+    <section
+      id="hero"
+      className="w-full relative flex items-center min-h-[650px] h-full"
+    >
       <img
         src="/images/hero.png"
         alt="hero"
@@ -140,7 +143,7 @@ const Hero = () => {
             <span className="text-4xl font-semibold">400 000€</span>
           </h2>
           <h3 className="text-white">Efficace, fiable et continu</h3>
-          <p className="text-white text-xs mt-7">
+          <p className="text-white mt-7">
             Trouvez vos chantiers grâce à des prospects qualifiés et des projets
             sur-mesure, clés en main, sans engagement ni frais de service.
             Trouver-mon-chantier.fr est votre partenaire de confiance pour
