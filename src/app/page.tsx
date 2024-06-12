@@ -27,12 +27,12 @@ export default function Home() {
           <img
             src="/images/Ellipse.png"
             alt="ellipse"
-            className="absolute -top-[20%] -left-[20%] w-full object-cover h-auto -z-10 opacity-30"
+            className="absolute -top-[20%] -left-[20%] w-full object-cover h-auto -z-10 opacity-60"
           />
           <img
             src="/images/Ellipse2.png"
             alt="ellipse"
-            className="absolute top-[50%] -right-[20%] w-full object-cover h-auto -z-10 opacity-30"
+            className="absolute top-[50%] -right-[20%] w-full object-cover h-auto -z-10 opacity-60"
           />
           <Tarifs />
           <Process />
