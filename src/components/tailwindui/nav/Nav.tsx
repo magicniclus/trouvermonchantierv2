@@ -88,7 +88,10 @@ const Nav = () => {
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Avantages
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a
+            href="#price"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Tarifs
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -141,7 +144,7 @@ const Nav = () => {
                   Avantages
                 </a>
                 <a
-                  href="#"
+                  href="#price"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Tarifs
