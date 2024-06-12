@@ -3,7 +3,7 @@ import Price from "@/components/tailwindui/price/Price";
 
 const Tarifs = () => {
   return (
-    <section className="w-full py-16 px-4 pb-20 relative">
+    <section className="w-full py-16 px-4 pb-20 relative" id="price">
       <div className="w-full max-w-5xl mx-auto lg:px-4 flex items-center flex-col">
         <h3 className="text-yellow-500 text-xl font-semibold text-center">
           Tarifs
