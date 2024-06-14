@@ -1,9 +1,9 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-const Footer = () => {
+const Footer = ({ className }: { className?: string }) => {
   return (
-    <footer className=" bg-bgPrimary">
+    <footer className={`${className} bg-bgPrimary`}>
       <div className="mx-auto flex max-w-5xl justify-between flex-col p-6 lg:px-8 py-10">
         <div className="flex justify-between sm:items-center flex-col sm:flex-row">
           <img
