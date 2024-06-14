@@ -56,7 +56,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Nav = () => {
+const Nav = ({ withMenu }: { withMenu?: boolean }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -66,7 +66,7 @@ const Nav = () => {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-8 w-auto" src="/logo.png" alt="terabois" />
           </a>
@@ -81,23 +81,34 @@ const Nav = () => {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Comment ça marche ?
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Avantages
-          </a>
-          <a
-            href="#price"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Tarifs
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            F.A.Q.
-          </a>
-        </PopoverGroup>
+        {withMenu && (
+          <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Comment ça marche ?
+            </a>
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Avantages
+            </a>
+            <a
+              href="#price"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Tarifs
+            </a>
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              F.A.Q.
+            </a>
+          </PopoverGroup>
+        )}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
             href="#"
@@ -115,7 +126,7 @@ const Nav = () => {
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Terabois</span>
               <img className="h-8 w-auto" src="/logo.png" alt="terabois" />
             </a>
@@ -130,32 +141,34 @@ const Nav = () => {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Comment ça marche ?
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Avantages
-                </a>
-                <a
-                  href="#price"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Tarifs
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  F.A.Q.
-                </a>
-              </div>
+              {withMenu && (
+                <div className="space-y-2 py-6">
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Comment ça marche ?
+                  </a>
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Avantages
+                  </a>
+                  <a
+                    href="#price"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Tarifs
+                  </a>
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    F.A.Q.
+                  </a>
+                </div>
+              )}
               <div className="py-6">
                 <a
                   href="#"
