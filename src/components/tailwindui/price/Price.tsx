@@ -35,9 +35,9 @@ const tiers: Tier[] = [
       "Notre pack d’essai pour les artisans souhaitant découvrir notre service.",
     features: [
       "1 demande de devis dans votre secteur et prestations",
+      "Page Web dédié avec nom de domaine personnalisé",
       "Sans engagement",
       "Service support 6j/7",
-      "Page Web dédié avec nom de domaine personnalisé",
     ],
     mostPopular: false,
   },
@@ -50,9 +50,9 @@ const tiers: Tier[] = [
       "Notre pack essentiel pour les artisans désireux de faire croître leur chiffre d'affaires.",
     features: [
       "5 demandes de devis minimum dans votre secteur et prestations",
+      "Page Web dédié avec nom de domaine personnalisé",
       "Sans engagement",
       "Service support Premium 6j/7",
-      "Page Web dédié avec nom de domaine personnalisé",
     ],
     mostPopular: true,
   },
@@ -64,9 +64,9 @@ const tiers: Tier[] = [
     description: "Notre pack ultime pour les artisans ambitieux.",
     features: [
       "10 demandes de devis minimum dans votre secteur et prestations",
+      "Page Web dédié avec nom de domaine personnalisé",
       "Sans engagement",
       "Service support Premium 6j/7",
-      "Page Web dédié avec nom de domaine personnalisé",
     ],
     mostPopular: false,
   },
