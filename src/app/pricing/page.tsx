@@ -26,9 +26,9 @@ const pricing = {
       price: { mois: "49€", an: "499€" },
       mainFeatures: [
         "1 demande de devis dans votre secteur et prestations",
+        "Page Web dédiée avec nom de domaine personnalisé",
         "Sans engagement",
         "Service support 6j/7",
-        "Page Web dédiée avec nom de domaine personnalisé",
       ],
     },
     {
@@ -41,9 +41,9 @@ const pricing = {
       price: { mois: "199€", an: "1999€" },
       mainFeatures: [
         "5 demandes de devis minimum dans votre secteur et prestations",
+        "Page Web dédiée avec nom de domaine personnalisé",
         "Sans engagement",
         "Service support Premium 6j/7",
-        "Page Web dédiée avec nom de domaine personnalisé",
       ],
     },
     {
@@ -55,9 +55,9 @@ const pricing = {
       price: { mois: "349€", an: "3799€" },
       mainFeatures: [
         "10 demandes de devis minimum dans votre secteur et prestations",
+        "Page Web dédiée avec nom de domaine personnalisé",
         "Sans engagement",
         "Service support Premium 6j/7",
-        "Page Web dédiée avec nom de domaine personnalisé",
       ],
     },
   ],
