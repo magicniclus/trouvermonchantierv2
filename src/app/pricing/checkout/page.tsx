@@ -14,21 +14,21 @@ const pricing = {
   features: {
     "tier-starter": [
       "1 demande de devis par mois",
+      "Page Web dédiée avec nom de domaine personnalisé",
       "Sans engagement",
       "Service support 6j/7",
-      "Page Web dédiée avec nom de domaine personnalisé",
     ],
     "tier-scale": [
       "5 demandes de devis par mois",
+      "Page Web dédiée avec nom de domaine personnalisé",
       "Sans engagement",
       "Service support Premium 6j/7",
-      "Page Web dédiée avec nom de domaine personnalisé",
     ],
     "tier-growth": [
       "10 demandes de devis par mois",
+      "Page Web dédiée avec nom de domaine personnalisé",
       "Sans engagement",
       "Service support Premium 6j/7",
-      "Page Web dédiée avec nom de domaine personnalisé",
     ],
   },
 };
@@ -77,10 +77,37 @@ const CheckoutPage = () => {
           aria-labelledby="order-heading"
           className="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden"
         >
-          <h2 id="order-heading" className="text-lg font-medium text-gray-900">
-            Votre commande
-          </h2>
-          <div>
+          <div className="flex-auto px-6 py-6">
+            <h2 id="pt-4 text-slate-700 font-bold">
+              Récapitulatif de la commande
+            </h2>
+            <ul className="mt-6 space-y-4 border-gray-200">
+              {mainFeatures.map((feature, index) => (
+                <li
+                  key={index}
+                  className={`flex items-start ${
+                    index === 0 ? "font-bold slate-700" : "text-slate-700"
+                  }`}
+                >
+                  <svg
+                    className="flex-shrink-0 w-6 h-6 text-yellow-500 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                  <span className="text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
             <dl className="mt-6 space-y-6 text-sm font-medium text-gray-500">
               <div className="flex justify-between">
                 <dt>Sous-total</dt>
@@ -90,11 +117,17 @@ const CheckoutPage = () => {
                 <dt>TVA (20%)</dt>
                 <dd className="text-gray-900">{VAT.toFixed(2)}€</dd>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between border-t pt-6">
                 <dt>Total</dt>
                 <dd className="text-gray-900">{total.toFixed(2)}€</dd>
               </div>
             </dl>
+            <p className="mt-10 text-xs text-slate-400">
+              Un prélèvement sera effectué chaque{" "}
+              {frequency === "mois" ? "mois" : "année"}. L&apos;abonnement peut
+              être arrêté à tout moment et prendra fin à la date
+              d&apos;expiration de la période en cours.
+            </p>
           </div>
         </section>
 
@@ -112,13 +145,11 @@ const CheckoutPage = () => {
                 <li
                   key={index}
                   className={`flex items-start ${
-                    index === 0
-                      ? "font-semibold text-blue-500"
-                      : "text-gray-700"
+                    index === 0 ? "font-bold slate-700" : "text-slate-700"
                   }`}
                 >
                   <svg
-                    className="flex-shrink-0 w-6 h-6 text-blue-500 mr-2"
+                    className="flex-shrink-0 w-6 h-6 text-yellow-500 mr-2"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
