@@ -81,7 +81,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        {withMenu && (
+        {withMenu !== false && (
           <PopoverGroup className="hidden lg:flex lg:gap-x-12">
             <a
               href="#"
