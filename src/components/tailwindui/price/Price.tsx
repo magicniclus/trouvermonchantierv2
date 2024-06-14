@@ -27,7 +27,7 @@ const frequencies: Frequency[] = [
 
 const tiers: Tier[] = [
   {
-    name: "1 Demande de devis",
+    name: "1 Demande de devis par mois",
     id: "tier-freelancer",
     href: "#hero",
     price: { monthly: "49€", annually: "499€" },
@@ -42,7 +42,7 @@ const tiers: Tier[] = [
     mostPopular: false,
   },
   {
-    name: "5 demande de devis",
+    name: "5 demande de devis par mois",
     id: "tier-startup",
     href: "#hero",
     price: { monthly: "199€", annually: "1999€" },
@@ -57,7 +57,7 @@ const tiers: Tier[] = [
     mostPopular: true,
   },
   {
-    name: "10 demande de devis",
+    name: "10 demande de devis par mois",
     id: "tier-enterprise",
     href: "#hero",
     price: { monthly: "349€", annually: "3799€" },
