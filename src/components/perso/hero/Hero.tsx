@@ -93,6 +93,14 @@ const FormSchema = z.object({
       required_error: "Veuillez entrer un email.",
     })
     .email("Veuillez entrer un email valide."),
+  phone: z
+    .string()
+    .min(10, "Veuillez entrer un numéro de téléphone valide.")
+    .max(15, "Le numéro de téléphone ne doit pas dépasser 15 caractères.")
+    .regex(
+      /^[0-9\s\-\+\(\)]+$/,
+      "Le numéro de téléphone ne doit contenir que des chiffres et des caractères spéciaux autorisés."
+    ),
   metier: z.string().min(1, "Veuillez sélectionner un métier."),
 });
 
@@ -201,6 +209,23 @@ const Hero = () => {
                       <Input
                         type="email"
                         placeholder="Email"
+                        {...field}
+                        className="mt-2 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="w-full">
+                      <Input
+                        type="text"
+                        placeholder="Téléphone"
                         {...field}
                         className="mt-2 w-full"
                       />
