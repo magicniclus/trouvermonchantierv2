@@ -3,7 +3,7 @@ import { getDatabase } from "firebase/database";
 
 // Votre configuration Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAZLlEQ-UIwZtjVpCWuuIfxp1Hj78ypXKk",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "trouvermonchantier.firebaseapp.com",
   databaseURL:
     "https://trouvermonchantier-default-rtdb.europe-west1.firebasedatabase.app",
