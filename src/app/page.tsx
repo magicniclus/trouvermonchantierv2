@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
 import ModalFixed from "@/components/perso/ModalFixed";
 import Stats from "@/components/perso/Stats";
 import Banner from "@/components/perso/banner/Banner";
@@ -9,9 +11,31 @@ import Prospection from "@/components/perso/content/Prospection";
 import Tarifs from "@/components/perso/content/Tarifs";
 import Footer from "@/components/perso/footer/Footer";
 import Hero from "@/components/perso/hero/Hero";
+import { useEffect } from "react";
 import Nav from "../components/tailwindui/nav/Nav";
 
 export default function Home() {
+  useEffect(() => {
+    const handleSmoothScroll = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.matches("a[href^='#']")) {
+        event.preventDefault();
+        const id = target.getAttribute("href")?.slice(1);
+        if (id) {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }
+    };
+
+    document.addEventListener("click", handleSmoothScroll);
+
+    return () => {
+      document.removeEventListener("click", handleSmoothScroll);
+    };
+  }, []);
   return (
     <>
       <header>
