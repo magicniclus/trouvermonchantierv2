@@ -35,7 +35,6 @@ const pricing = {
 
 type TierKey = keyof typeof pricing.tiers;
 type FrequencyKey = keyof (typeof pricing.tiers)[TierKey];
-// type MetierKey = keyof (typeof metier)[TierKey];
 
 const CheckoutPage = () => {
   const searchParams = useSearchParams();
@@ -45,32 +44,28 @@ const CheckoutPage = () => {
   const [mainFeatures, setMainFeatures] = useState<string[]>([]);
   const [email, setEmail] = useState<string>("");
   const [metier, setMetier] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
 
   useEffect(() => {
     const tierParam = searchParams.get("tier") as TierKey | null;
     const frequencyParam = searchParams.get("frequency") as FrequencyKey | null;
     const metierParam = searchParams.get("metier");
     const emailParam = searchParams.get("email");
-    if (tierParam && frequencyParam) {
-      setTier(tierParam);
-      setFrequency(frequencyParam);
-      setMainFeatures(pricing.features[tierParam]);
-    }
-    if (emailParam) {
-      setEmail(emailParam);
-    }
-    if (metierParam) {
-      setMetier(metierParam);
-    }
-  }, [searchParams]);
+    const addressParam = searchParams.get("address");
 
-  useEffect(() => {
-    if (tier && frequency) {
-      const selectedPriceString = pricing.tiers[tier][frequency];
+    if (tierParam) setTier(tierParam);
+    if (frequencyParam) setFrequency(frequencyParam);
+    if (metierParam) setMetier(metierParam);
+    if (emailParam) setEmail(emailParam);
+    if (addressParam) setAddress(addressParam);
+
+    if (tierParam && frequencyParam) {
+      setMainFeatures(pricing.features[tierParam]);
+      const selectedPriceString = pricing.tiers[tierParam][frequencyParam];
       const selectedPrice = parseFloat(selectedPriceString.replace("€", ""));
       setPrice(selectedPrice);
     }
-  }, [tier, frequency]);
+  }, [searchParams]);
 
   const VAT_RATE = 0.2;
   const subtotal = price ? price / (1 + VAT_RATE) : 0;
@@ -93,11 +88,13 @@ const CheckoutPage = () => {
               Récapitulatif de la commande
             </h2>
             <ul className="mt-6 space-y-4 border-gray-200">
-              <li className={`flex items-start ${"font-bold slate-700"}`}>
+              <li className={`flex items-start ${"slate-700"}`}>
                 Metier choisi:{" "}
-                <span className="underline decoration-yellow-500">
-                  {metier}
-                </span>
+                <span className="text-yellow-500 font-semibold">{metier}</span>
+              </li>
+              <li className={`flex items-start ${"slate-700"}`}>
+                Secteur:{" "}
+                <span className="text-yellow-500 font-semibold">{address}</span>
               </li>
               {mainFeatures.map((feature, index) => (
                 <li
@@ -160,9 +157,11 @@ const CheckoutPage = () => {
             <ul className="mt-6 space-y-4 border-gray-200">
               <li className={`flex items-start ${"slate-700"}`}>
                 Metier choisi:{" "}
-                <span className="underline decoration-yellow-500">
-                  {metier}
-                </span>
+                <span className="text-yellow-500 font-semibold">{metier}</span>
+              </li>
+              <li className={`flex items-start ${"font slate-700"}`}>
+                Secteur:{" "}
+                <span className="text-yellow-500 font-semibold">{address}</span>
               </li>
               {mainFeatures.map((feature, index) => (
                 <li
