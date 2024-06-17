@@ -52,5 +52,18 @@ const updateProspect = (
       });
   });
 };
+const transferProspectToClient = (uid: string): Promise<void> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const prospectData = await getProspect(uid);
+      const clientRef = ref(database, `clients/${uid}`);
+      await set(clientRef, prospectData);
+      resolve();
+    } catch (error) {
+      console.error("Error transferring prospect to client: ", error);
+      reject("Failed to transfer prospect to client");
+    }
+  });
+};
 
-export { addProspect, getProspect, updateProspect };
+export { addProspect, getProspect, updateProspect, transferProspectToClient };
