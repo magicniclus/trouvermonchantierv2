@@ -1,5 +1,7 @@
+// firebaseUtils.ts
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { get, push, ref, set, update } from "firebase/database";
-import { database } from "./firebase.config";
+import { auth, database } from "./firebase.config";
 
 const date = new Date();
 const dateString = date.toISOString().split("T")[0];
@@ -52,6 +54,7 @@ const updateProspect = (
       });
   });
 };
+
 const transferProspectToClient = (uid: string): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -66,4 +69,21 @@ const transferProspectToClient = (uid: string): Promise<void> => {
   });
 };
 
-export { addProspect, getProspect, updateProspect, transferProspectToClient };
+const createFirebaseUser = (email: string, password: string): Promise<any> => {
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      return userCredential.user;
+    })
+    .catch((error) => {
+      console.error("Error creating Firebase user: ", error);
+      throw new Error("Failed to create Firebase user");
+    });
+};
+
+export {
+  addProspect,
+  createFirebaseUser,
+  getProspect,
+  transferProspectToClient,
+  updateProspect,
+};
