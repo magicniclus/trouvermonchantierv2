@@ -1,9 +1,26 @@
 "use client";
 
+// CheckoutPage component
 import Nav from "@/components/tailwindui/nav/Nav";
+import { transferProspectToClient } from "@/firebase/database";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  Elements,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
+);
 
 const pricing = {
   tiers: {
@@ -33,8 +50,236 @@ const pricing = {
   },
 };
 
+const priceIds = {
+  "tier-starter": {
+    mois: process.env.NEXT_PUBLIC_SENDGRID_STARTER_MOIS,
+    an: process.env.NEXT_PUBLIC_SENDGRID_STARTER_ANNEE,
+  },
+  "tier-scale": {
+    mois: process.env.NEXT_PUBLIC_SENDGRID_SCALE_MOIS,
+    an: process.env.NEXT_PUBLIC_SENDGRID_SCALE_ANNEE,
+  },
+  "tier-growth": {
+    mois: process.env.NEXT_PUBLIC_SENDGRID_GROWTH_MOIS,
+    an: process.env.NEXT_PUBLIC_SENDGRID_GROWTH_ANNEE,
+  },
+};
+
 type TierKey = keyof typeof pricing.tiers;
 type FrequencyKey = keyof (typeof pricing.tiers)[TierKey];
+
+const CheckoutForm = ({
+  tier,
+  frequency,
+  price,
+  email,
+  setEmail,
+  metier,
+  address,
+}: any) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const searchParams = useSearchParams();
+
+  const handlePayment = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const cardNumberElement = elements.getElement(CardNumberElement);
+
+    const response = await fetch("/api/checkout_sessions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        priceId: priceIds[tier][frequency],
+        email,
+        uid: searchParams.get("uid"),
+      }),
+    });
+
+    const session = await response.json();
+    const result = await stripe.confirmCardPayment(session.clientSecret, {
+      payment_method: {
+        card: cardNumberElement!,
+        billing_details: {
+          email,
+        },
+      },
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+    } else {
+      if (result.paymentIntent.status === "succeeded") {
+        await handleSuccessfulPayment(searchParams.get("uid")!, email);
+      }
+    }
+  };
+
+  const handleSuccessfulPayment = async (uid: string, email: string) => {
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        "defaultPassword"
+      );
+      const user = userCredential.user;
+
+      await transferProspectToClient(uid);
+      console.log("Prospect transferred to client");
+
+      const db = getDatabase();
+      await set(ref(db, `clients/${user.uid}`), {
+        email,
+        metier,
+        address,
+        tier,
+        frequency,
+      });
+
+      console.log("Client data saved");
+    } catch (error) {
+      console.error("Error handling successful payment: ", error);
+    }
+  };
+
+  return (
+    <form className="mt-6" onSubmit={handlePayment}>
+      <div className="grid grid-cols-12 gap-x-4 gap-y-6">
+        <div className="col-span-full">
+          <label
+            htmlFor="email-address"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Adresse email
+          </label>
+          <div className="mt-1">
+            <input
+              type="email"
+              id="email-address"
+              name="email-address"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+        </div>
+
+        <div className="col-span-full">
+          <label
+            htmlFor="card-element"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Informations de la carte
+          </label>
+          <div className="mt-1">
+            <CardNumberElement
+              id="card-number-element"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#32325d",
+                    "::placeholder": {
+                      color: "#a0aec0",
+                    },
+                  },
+                  invalid: {
+                    color: "#fa755a",
+                    iconColor: "#fa755a",
+                  },
+                },
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="col-span-6">
+          <label
+            htmlFor="expiry-element"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Date d&apos;expiration
+          </label>
+          <div className="mt-1">
+            <CardExpiryElement
+              id="expiry-element"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#32325d",
+                    "::placeholder": {
+                      color: "#a0aec0",
+                    },
+                  },
+                  invalid: {
+                    color: "#fa755a",
+                    iconColor: "#fa755a",
+                  },
+                },
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="col-span-6">
+          <label
+            htmlFor="cvc-element"
+            className="block text-sm font-medium text-gray-700"
+          >
+            CVC
+          </label>
+          <div className="mt-1">
+            <CardCvcElement
+              id="cvc-element"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#32325d",
+                    "::placeholder": {
+                      color: "#a0aec0",
+                    },
+                  },
+                  invalid: {
+                    color: "#fa755a",
+                    iconColor: "#fa755a",
+                  },
+                },
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        className="mt-6 w-full rounded-md border border-transparent bg-yellow-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+      >
+        Payer {price?.toFixed(2)}€
+      </button>
+
+      <p className="mt-6 flex justify-center text-sm font-medium text-gray-500">
+        <LockClosedIcon
+          className="mr-1.5 h-5 w-5 text-gray-400"
+          aria-hidden="true"
+        />
+        Paiement securisé SSL par STRIPE
+      </p>
+    </form>
+  );
+};
 
 const CheckoutPage = () => {
   const searchParams = useSearchParams();
@@ -215,195 +460,24 @@ const CheckoutPage = () => {
         {/* Checkout form */}
         <section
           aria-labelledby="payment-heading"
-          className="flex-auto overflow-y-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-4"
+          className="flex-auto overflow-y-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-4 rounded-md"
         >
-          <h2 id="payment-heading" className="">
+          <h2 id="payment-heading" className="text-center">
             Information de paiement
           </h2>
 
           <div className="mx-auto max-w-lg lg:pt-16">
-            <form className="mt-6">
-              <div className="grid grid-cols-12 gap-x-4 gap-y-6">
-                <div className="col-span-full">
-                  <label
-                    htmlFor="email-address"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Adresse email
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="email"
-                      id="email-address"
-                      name="email-address"
-                      autoComplete="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label
-                    htmlFor="name-on-card"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Nom sur la carte
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="name-on-card"
-                      name="name-on-card"
-                      autoComplete="cc-name"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label
-                    htmlFor="card-number"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Numéro de carte
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="card-number"
-                      name="card-number"
-                      autoComplete="cc-number"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-8 sm:col-span-9">
-                  <label
-                    htmlFor="expiration-date"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Date d&apos;expiration (MM/AA)
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="expiration-date"
-                      id="expiration-date"
-                      autoComplete="cc-exp"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-4 sm:col-span-3">
-                  <label
-                    htmlFor="cvc"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    CVC
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="cvc"
-                      id="cvc"
-                      autoComplete="csc"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Adresse
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="address"
-                      name="address"
-                      autoComplete="street-address"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full sm:col-span-4">
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Ville
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="city"
-                      name="city"
-                      autoComplete="address-level2"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full sm:col-span-4">
-                  <label
-                    htmlFor="region"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    État / Province
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="region"
-                      name="region"
-                      autoComplete="address-level1"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full sm:col-span-4">
-                  <label
-                    htmlFor="postal-code"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Code postal
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      id="postal-code"
-                      name="postal-code"
-                      autoComplete="postal-code"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className="mt-6 w-full rounded-md border border-transparent bg-yellow-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
-              >
-                Payer {total.toFixed(2)}€
-              </button>
-
-              <p className="mt-6 flex justify-center text-sm font-medium text-gray-500">
-                <LockClosedIcon
-                  className="mr-1.5 h-5 w-5 text-gray-400"
-                  aria-hidden="true"
-                />
-                Paiement securisé SSL par STRIPE
-              </p>
-            </form>
+            <Elements stripe={stripePromise}>
+              <CheckoutForm
+                tier={tier}
+                frequency={frequency}
+                price={total}
+                email={email}
+                setEmail={setEmail}
+                metier={metier}
+                address={address}
+              />
+            </Elements>
           </div>
         </section>
       </main>
