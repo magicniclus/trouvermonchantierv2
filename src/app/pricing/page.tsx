@@ -225,9 +225,19 @@ const Page = () => {
   const router = useRouter(); // Utiliser useRouter
 
   const handleSubscribe = (tierId: string) => {
-    router.push(
-      `/pricing/checkout?tier=${tierId}&frequency=${frequency.value}`
-    );
+    // Obtenir les paramètres de l'URL actuelle
+    const currentUrl = new URL(window.location.href);
+    const searchParams = new URLSearchParams(currentUrl.search);
+
+    // Ajouter les nouveaux paramètres
+    searchParams.set("tier", tierId);
+    searchParams.set("frequency", frequency.value);
+
+    // Construire la nouvelle URL avec les paramètres existants et les nouveaux
+    const newUrl = `/pricing/checkout?${searchParams.toString()}`;
+
+    // Rediriger vers la nouvelle URL
+    router.push(newUrl);
   };
 
   return (
