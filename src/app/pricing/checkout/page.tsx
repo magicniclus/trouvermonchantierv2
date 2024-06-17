@@ -1,20 +1,9 @@
 "use client";
 
-// CheckoutPage component
+import CheckoutForm from "@/components/stripe/CheckoutForm";
 import Nav from "@/components/tailwindui/nav/Nav";
-import { transferProspectToClient } from "@/firebase/database";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import {
-  CardCvcElement,
-  CardExpiryElement,
-  CardNumberElement,
-  Elements,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -68,219 +57,6 @@ const priceIds = {
 type TierKey = keyof typeof pricing.tiers;
 type FrequencyKey = keyof (typeof pricing.tiers)[TierKey];
 
-const CheckoutForm = ({
-  tier,
-  frequency,
-  price,
-  email,
-  setEmail,
-  metier,
-  address,
-}: any) => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const searchParams = useSearchParams();
-
-  const handlePayment = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    const cardNumberElement = elements.getElement(CardNumberElement);
-
-    const response = await fetch("/api/checkout_sessions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        priceId: priceIds[tier][frequency],
-        email,
-        uid: searchParams.get("uid"),
-      }),
-    });
-
-    const session = await response.json();
-    const result = await stripe.confirmCardPayment(session.clientSecret, {
-      payment_method: {
-        card: cardNumberElement!,
-        billing_details: {
-          email,
-        },
-      },
-    });
-
-    if (result.error) {
-      console.error(result.error.message);
-    } else {
-      if (result.paymentIntent.status === "succeeded") {
-        await handleSuccessfulPayment(searchParams.get("uid")!, email);
-      }
-    }
-  };
-
-  const handleSuccessfulPayment = async (uid: string, email: string) => {
-    try {
-      const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        "defaultPassword"
-      );
-      const user = userCredential.user;
-
-      await transferProspectToClient(uid);
-      console.log("Prospect transferred to client");
-
-      const db = getDatabase();
-      await set(ref(db, `clients/${user.uid}`), {
-        email,
-        metier,
-        address,
-        tier,
-        frequency,
-      });
-
-      console.log("Client data saved");
-    } catch (error) {
-      console.error("Error handling successful payment: ", error);
-    }
-  };
-
-  return (
-    <form className="mt-6" onSubmit={handlePayment}>
-      <div className="grid grid-cols-12 gap-x-4 gap-y-6">
-        <div className="col-span-full">
-          <label
-            htmlFor="email-address"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Adresse email
-          </label>
-          <div className="mt-1">
-            <input
-              type="email"
-              id="email-address"
-              name="email-address"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
-          </div>
-        </div>
-
-        <div className="col-span-full">
-          <label
-            htmlFor="card-element"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Informations de la carte
-          </label>
-          <div className="mt-1">
-            <CardNumberElement
-              id="card-number-element"
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              options={{
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "#32325d",
-                    "::placeholder": {
-                      color: "#a0aec0",
-                    },
-                  },
-                  invalid: {
-                    color: "#fa755a",
-                    iconColor: "#fa755a",
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="col-span-6">
-          <label
-            htmlFor="expiry-element"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Date d&apos;expiration
-          </label>
-          <div className="mt-1">
-            <CardExpiryElement
-              id="expiry-element"
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              options={{
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "#32325d",
-                    "::placeholder": {
-                      color: "#a0aec0",
-                    },
-                  },
-                  invalid: {
-                    color: "#fa755a",
-                    iconColor: "#fa755a",
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="col-span-6">
-          <label
-            htmlFor="cvc-element"
-            className="block text-sm font-medium text-gray-700"
-          >
-            CVC
-          </label>
-          <div className="mt-1">
-            <CardCvcElement
-              id="cvc-element"
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              options={{
-                style: {
-                  base: {
-                    fontSize: "16px",
-                    color: "#32325d",
-                    "::placeholder": {
-                      color: "#a0aec0",
-                    },
-                  },
-                  invalid: {
-                    color: "#fa755a",
-                    iconColor: "#fa755a",
-                  },
-                },
-              }}
-            />
-          </div>
-        </div>
-      </div>
-
-      <button
-        type="submit"
-        className="mt-6 w-full rounded-md border border-transparent bg-yellow-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
-      >
-        Payer {price?.toFixed(2)}€
-      </button>
-
-      <p className="mt-6 flex justify-center text-sm font-medium text-gray-500">
-        <LockClosedIcon
-          className="mr-1.5 h-5 w-5 text-gray-400"
-          aria-hidden="true"
-        />
-        Paiement securisé SSL par STRIPE
-      </p>
-    </form>
-  );
-};
-
 const CheckoutPage = () => {
   const searchParams = useSearchParams();
   const [tier, setTier] = useState<TierKey | null>(null);
@@ -292,11 +68,13 @@ const CheckoutPage = () => {
   const [address, setAddress] = useState<string>("");
 
   useEffect(() => {
-    const tierParam = searchParams.get("tier") as TierKey | null;
-    const frequencyParam = searchParams.get("frequency") as FrequencyKey | null;
-    const metierParam = searchParams.get("metier");
-    const emailParam = searchParams.get("email");
-    const addressParam = searchParams.get("address");
+    const tierParam = searchParams?.get("tier") as TierKey | null;
+    const frequencyParam = searchParams?.get(
+      "frequency"
+    ) as FrequencyKey | null;
+    const metierParam = searchParams?.get("metier");
+    const emailParam = searchParams?.get("email");
+    const addressParam = searchParams?.get("address");
 
     if (tierParam) setTier(tierParam);
     if (frequencyParam) setFrequency(frequencyParam);
@@ -467,17 +245,21 @@ const CheckoutPage = () => {
           </h2>
 
           <div className="mx-auto max-w-lg lg:pt-16">
-            <Elements stripe={stripePromise}>
-              <CheckoutForm
-                tier={tier}
-                frequency={frequency}
-                price={total}
-                email={email}
-                setEmail={setEmail}
-                metier={metier}
-                address={address}
-              />
-            </Elements>
+            {tier && frequency ? (
+              <Elements stripe={stripePromise}>
+                <CheckoutForm
+                  tier={tier}
+                  frequency={frequency}
+                  price={total}
+                  email={email}
+                  setEmail={setEmail}
+                  metier={metier}
+                  address={address}
+                />
+              </Elements>
+            ) : (
+              <p className="text-slate-700">Chargement...</p>
+            )}
           </div>
         </section>
       </main>
