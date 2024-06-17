@@ -94,7 +94,10 @@ const CheckoutPage = () => {
             </h2>
             <ul className="mt-6 space-y-4 border-gray-200">
               <li className={`flex items-start ${"font-bold slate-700"}`}>
-                Metier choisi: {metier}
+                Metier choisi:{" "}
+                <span className="underline decoration-yellow-500">
+                  {metier}
+                </span>
               </li>
               {mainFeatures.map((feature, index) => (
                 <li
@@ -156,7 +159,10 @@ const CheckoutPage = () => {
             </h2>
             <ul className="mt-6 space-y-4 border-gray-200">
               <li className={`flex items-start ${"slate-700"}`}>
-                Metier choisi: {metier}
+                Metier choisi:{" "}
+                <span className="underline decoration-yellow-500">
+                  {metier}
+                </span>
               </li>
               {mainFeatures.map((feature, index) => (
                 <li
