@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
 // Votre configuration Firebase
@@ -13,9 +14,9 @@ const firebaseConfig = {
   appId: "1:637542921551:web:8c9b360a3fa5764993c13a",
 };
 
-// Initialisez Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Exportez l'instance de la base de données
+const auth = getAuth(app);
 const database = getDatabase(app);
-export { database };
+
+export { auth, database };
