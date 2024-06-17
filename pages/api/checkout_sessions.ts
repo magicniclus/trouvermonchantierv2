@@ -1,36 +1,42 @@
-// pages/api/checkout_sessions.ts
+/* eslint-disable import/no-anonymous-default-export */
+
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "");
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY as string);
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "POST") {
-    try {
-      const { priceId, email, uid } = req.body;
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        line_items: [
-          {
-            price: priceId,
-            quantity: 1,
-          },
-        ],
-        mode: "subscription",
-        customer_email: email,
-        metadata: { uid },
-        success_url: `${req.headers.origin}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/checkout?canceled=true`,
-      });
-
-      res.status(200).json({ sessionId: session.id });
-    } catch (err) {}
-  } else {
-    res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
   }
-}
+
+  const { email, paymentMethodId, priceId } = req.body;
+
+  try {
+    // Create customer
+    const customer = await stripe.customers.create({
+      email,
+      payment_method: paymentMethodId,
+      invoice_settings: {
+        default_payment_method: paymentMethodId,
+      },
+    });
+
+    // Create subscription
+    const subscription = await stripe.subscriptions.create({
+      customer: customer.id,
+      items: [
+        {
+          price: priceId,
+          quantity: 1,
+        },
+      ],
+      expand: ["latest_invoice.payment_intent"],
+    });
+
+    res.status(200).json(subscription);
+  } catch (error) {
+    console.error("Error creating subscription:", error);
+    res.status(500).json({ error: (error as Error).message });
+  }
+};
