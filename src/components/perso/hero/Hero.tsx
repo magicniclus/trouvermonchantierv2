@@ -1,10 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -22,6 +18,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { addProspect } from "@/firebase/database"; // Assurez-vous que le chemin est correct
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const metiersBatiment = [
   "Maçonnerie",
@@ -80,7 +81,13 @@ const metiersBatiment = [
 ];
 
 const FormSchema = z.object({
-  name: z.string().min(1, "Veuillez entrer votre nom."),
+  name: z
+    .string()
+    .min(1, "Veuillez entrer votre nom.")
+    .regex(
+      /^[a-zA-Z\s]+$/,
+      "Le nom ne doit contenir que des lettres et des espaces."
+    ),
   email: z
     .string({
       required_error: "Veuillez entrer un email.",
@@ -90,20 +97,28 @@ const FormSchema = z.object({
 });
 
 const Hero = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "Vous avez soumis les valeurs suivantes :",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const uid = await addProspect(data).then((uid) => {
+        console.log(uid);
+        router.push(
+          `/pricing?uid=${uid}&email=${encodeURIComponent(
+            data.email
+          )}&metier=${encodeURIComponent(data.metier)}`
+        );
+      });
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de l'ajout du prospect.",
+      });
+    }
+  };
 
   return (
     <section
