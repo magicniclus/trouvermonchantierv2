@@ -1,5 +1,6 @@
 "use client";
 
+import { updateProspect } from "@/firebase/database";
 import Footer from "@/components/perso/footer/Footer";
 import Nav from "@/components/tailwindui/nav/Nav";
 import { Radio, RadioGroup } from "@headlessui/react";
@@ -7,8 +8,8 @@ import {
   CheckIcon,
   XMarkIcon as XMarkIconMini,
 } from "@heroicons/react/20/solid";
-import { useRouter } from "next/navigation"; // Importer useRouter de Next.js
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const pricing = {
   frequencies: [
@@ -222,22 +223,38 @@ type FeatureTiers = {
 const Page = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [frequency, setFrequency] = useState(pricing.frequencies[0]);
-  const router = useRouter(); // Utiliser useRouter
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [uid, setUid] = useState<string | null>(null);
 
-  const handleSubscribe = (tierId: string) => {
-    // Obtenir les paramètres de l'URL actuelle
-    const currentUrl = new URL(window.location.href);
-    const searchParams = new URLSearchParams(currentUrl.search);
+  useEffect(() => {
+    const uidParam = searchParams.get("uid");
+    if (uidParam) {
+      setUid(uidParam);
+    }
+  }, [searchParams]);
 
-    // Ajouter les nouveaux paramètres
-    searchParams.set("tier", tierId);
-    searchParams.set("frequency", frequency.value);
+  const handleSubscribe = async (tierId: string) => {
+    if (!uid) return;
 
-    // Construire la nouvelle URL avec les paramètres existants et les nouveaux
-    const newUrl = `/pricing/checkout?${searchParams.toString()}`;
+    const data = {
+      formula: tierId,
+      recurrence: frequency.value,
+    };
 
-    // Rediriger vers la nouvelle URL
-    router.push(newUrl);
+    try {
+      await updateProspect(uid, data);
+      const currentUrl = new URL(window.location.href);
+      const searchParams = new URLSearchParams(currentUrl.search);
+
+      searchParams.set("tier", tierId);
+      searchParams.set("frequency", frequency.value);
+
+      const newUrl = `/pricing/secteur?${searchParams.toString()}`;
+      router.push(newUrl);
+    } catch (error) {
+      console.error("Failed to update prospect: ", error);
+    }
   };
 
   return (
@@ -743,349 +760,6 @@ const Page = () => {
                           </dl>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Feature comparison (lg+) */}
-              <section
-                aria-labelledby="comparison-heading"
-                className="hidden lg:block"
-              >
-                <h2 id="comparison-heading" className="sr-only">
-                  Feature comparison
-                </h2>
-
-                <div className="grid grid-cols-4 gap-x-8 border-t border-gray-900/10 before:block">
-                  {pricing.tiers.map((tier) => (
-                    <div key={tier.id} aria-hidden="true" className="-mt-px">
-                      <div
-                        className={classNames(
-                          tier.featured
-                            ? "border-yellow-600"
-                            : "border-transparent",
-                          "border-t-2 pt-10"
-                        )}
-                      >
-                        <p
-                          className={classNames(
-                            tier.featured ? "text-yellow-600" : "text-gray-900",
-                            "text-sm font-semibold leading-6"
-                          )}
-                        >
-                          {tier.name}
-                        </p>
-                        <p className="mt-1 text-sm leading-6 text-gray-600">
-                          {tier.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="-mt-6 space-y-16">
-                  <div>
-                    <h3 className="text-sm font-semibold leading-6 text-gray-900">
-                      Services inclus
-                    </h3>
-                    <div className="relative -mx-8 mt-10">
-                      <div
-                        className="absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block"
-                        aria-hidden="true"
-                      >
-                        <div className="h-full w-full rounded-lg bg-white shadow-sm" />
-                        <div className="h-full w-full rounded-lg bg-white shadow-sm" />
-                        <div className="h-full w-full rounded-lg bg-white shadow-sm" />
-                      </div>
-
-                      <table className="relative w-full border-separate border-spacing-x-8">
-                        <thead>
-                          <tr className="text-left">
-                            <th scope="col">
-                              <span className="sr-only">Feature</span>
-                            </th>
-                            {pricing.tiers.map((tier) => (
-                              <th key={tier.id} scope="col">
-                                <span className="sr-only">
-                                  {tier.name} tier
-                                </span>
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Nombre de demandes de devis
-                              <div className="absolute inset-x-8 mt-3 h-px bg-gray-200" />
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <span className="text-gray-900">1 demande</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <span className="text-gray-900">
-                                  5 demandes
-                                </span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <span className="text-gray-900">
-                                  10 demandes
-                                </span>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Service support
-                              <div className="absolute inset-x-8 mt-3 h-px bg-gray-200" />
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <span className="text-gray-900">6j/7</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <span className="text-gray-900">
-                                  Premium 6j/7
-                                </span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <span className="text-gray-900">
-                                  Premium 6j/7
-                                </span>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Page Web dédiée
-                              <div className="absolute inset-x-8 mt-3 h-px bg-gray-200" />
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Nom de domaine personnalisé
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-sm font-semibold leading-6 text-gray-900">
-                      Autres avantages
-                    </h3>
-                    <div className="relative -mx-8 mt-10">
-                      <div
-                        className="absolute inset-x-8 inset-y-0 grid grid-cols-4 gap-x-8 before:block"
-                        aria-hidden="true"
-                      >
-                        <div className="h-full w-full rounded-lg bg-white shadow-sm" />
-                        <div className="h-full w-full rounded-lg bg-white shadow-sm" />
-                        <div className="h-full w-full rounded-lg bg-white shadow-sm" />
-                      </div>
-
-                      <table className="relative w-full border-separate border-spacing-x-8">
-                        <thead>
-                          <tr className="text-left">
-                            <th scope="col">
-                              <span className="sr-only">Feature</span>
-                            </th>
-                            {pricing.tiers.map((tier) => (
-                              <th key={tier.id} scope="col">
-                                <span className="sr-only">
-                                  {tier.name} tier
-                                </span>
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Sans engagement
-                              <div className="absolute inset-x-8 mt-3 h-px bg-gray-200" />
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Support client 24/7
-                              <div className="absolute inset-x-8 mt-3 h-px bg-gray-200" />
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <XMarkIconMini
-                                  className="mx-auto h-5 w-5 text-gray-400"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">No</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th
-                              scope="row"
-                              className="w-1/4 py-3 pr-4 text-left text-sm font-normal leading-6 text-gray-900"
-                            >
-                              Notifications instantanées
-                            </th>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                            <td className="relative w-1/4 px-4 py-0 text-center">
-                              <span className="relative h-full w-full py-3">
-                                <CheckIcon
-                                  className="mx-auto h-5 w-5 text-yellow-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">Yes</span>
-                              </span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
                     </div>
                   </div>
                 </div>
