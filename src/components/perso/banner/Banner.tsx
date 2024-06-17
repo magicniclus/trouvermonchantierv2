@@ -13,7 +13,10 @@ const Banner = () => {
             <span className="text-yellow-500">trouver-mon-chantier.fr</span>
           </h3>
         </div>
-        <a className="bg-bgPrimary text-white p-3 font-xl flex rounded-full w-max mt-5 md:mt-0">
+        <a
+          href="#hero"
+          className="bg-bgPrimary text-white p-3 font-xl flex rounded-full w-max mt-5 md:mt-0"
+        >
           DEVENIR PARTENAIRE{" "}
           <ArrowRightIcon className="h-6 w-6 text-white ml-3" />
         </a>
