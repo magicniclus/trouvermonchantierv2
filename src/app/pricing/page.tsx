@@ -228,7 +228,7 @@ const Page = () => {
   const [uid, setUid] = useState<string | null>(null);
 
   useEffect(() => {
-    const uidParam = searchParams.get("uid");
+    const uidParam = searchParams?.get("uid");
     if (uidParam) {
       setUid(uidParam);
     }
@@ -267,7 +267,9 @@ const Page = () => {
             <div className="mx-auto max-w-5xl px-6 lg:px-8">
               <div className="relative z-10">
                 <h1 className="mx-auto max-w-4xl text-center text-5xl font-bold tracking-tight text-white">
-                  Faites passer votre entreprise au{" "}
+                  <span className="text-yellow-500">Selectionnez</span> votre
+                  plan <br />
+                  Et faites passer votre entreprise au{" "}
                   <span className="text-yellow-500">niveau supérieur</span>.
                 </h1>
                 <p className="mx-auto mt-4 max-w-2xl text-center text-lg leading-8 text-white/60">
