@@ -107,23 +107,23 @@ const CheckoutPage = () => {
           className="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden"
         >
           <div className="flex-auto px-6 py-6">
-            <h2 id="pt-4 text-slate-700 font-bold">
+            <h2 className="pt-4 text-slate-700 font-bold">
               Récapitulatif de la commande
             </h2>
             <ul className="mt-6 space-y-4 border-gray-200">
-              <li className={`flex items-start ${"slate-700"}`}>
-                Metier choisi:{" "}
-                <span className="text-yellow-500 font-semibold">{metier}</span>
+              <li className="flex items-start slate-700">
+                Metier choisi:<span>&nbsp;</span>
+                <span className="text-slate-700 ">{metier}</span>
               </li>
-              <li className={`flex items-start ${"slate-700"}`}>
-                Secteur:{" "}
-                <span className="text-yellow-500 font-semibold">{address}</span>
+              <li className="flex items-start font slate-700">
+                Secteur:<span>&nbsp;</span>
+                <span className="text-slate-700 ">{address}</span>
               </li>
               {mainFeatures.map((feature, index) => (
                 <li
                   key={index}
                   className={`flex items-start ${
-                    index === 0 ? "font-bold slate-700" : "text-slate-700"
+                    index === 0 ? "slate-700" : "text-slate-700"
                   }`}
                 >
                   <svg
@@ -171,26 +171,26 @@ const CheckoutPage = () => {
         {/* Order summary */}
         <section
           aria-labelledby="summary-heading"
-          className="hidden w-full max-w-md flex-col bg-gray-50 lg:flex"
+          className="hidden w-full max-w-md flex-col bg-gray-50 lg:flex rounded-md"
         >
           <div className="flex-auto px-6 py-6">
-            <h2 id="pt-4 text-slate-700 font-bold">
+            <h2 className="pt-4 text-slate-700 font-bold">
               Récapitulatif de la commande
             </h2>
             <ul className="mt-6 space-y-4 border-gray-200">
-              <li className={`flex items-start ${"slate-700"}`}>
-                Metier choisi:{" "}
-                <span className="text-yellow-500 font-semibold">{metier}</span>
+              <li className="flex items-start slate-700">
+                Metier choisi:<span>&nbsp;</span>
+                <span className="text-slate-700 font-semibold">{metier}</span>
               </li>
-              <li className={`flex items-start ${"font slate-700"}`}>
-                Secteur:{" "}
-                <span className="text-yellow-500 font-semibold">{address}</span>
+              <li className="flex items-start font slate-700">
+                Secteur:<span>&nbsp;</span>
+                <span className="text-slate-700 font-semibold">{address}</span>
               </li>
               {mainFeatures.map((feature, index) => (
                 <li
                   key={index}
                   className={`flex items-start ${
-                    index === 0 ? "font-bold slate-700" : "text-slate-700"
+                    index === 0 ? "text-slate-700" : "text-slate-700"
                   }`}
                 >
                   <svg
@@ -238,13 +238,16 @@ const CheckoutPage = () => {
         {/* Checkout form */}
         <section
           aria-labelledby="payment-heading"
-          className="flex-auto overflow-y-auto px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-4 rounded-md"
+          className="flex-auto overflow-y-auto px-4 py-10 sm:px-12 rounded-md"
         >
-          <h2 id="payment-heading" className="text-center">
+          <h2
+            id="payment-heading"
+            className="text-center text-slate-700 font-bold"
+          >
             Information de paiement
           </h2>
 
-          <div className="mx-auto max-w-lg lg:pt-16">
+          <div className="mx-auto max-w-lg lg:pt-10">
             {tier && frequency ? (
               <Elements stripe={stripePromise}>
                 <CheckoutForm
