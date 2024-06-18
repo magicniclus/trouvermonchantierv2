@@ -37,7 +37,7 @@ const page = () => {
           </p>
         </div>
       </main>
-      <Footer />
+      <Footer className="bg-slate-900" />
     </>
   );
 };
