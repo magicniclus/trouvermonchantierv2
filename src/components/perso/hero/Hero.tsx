@@ -134,19 +134,21 @@ const Hero = () => {
           <h1 className="text-5xl text-white font-bold">
             Trouvez{" "}
             <span
-              style={{
-                textDecoration: "underline",
-                textDecorationColor: "#f59e0b",
-              }}
+              // style={{
+              //   textDecoration: "underline",
+              //   textDecorationColor: "#f59e0b",
+              // }}
+              className="text-yellow-500"
             >
               vos
             </span>
             <br />{" "}
             <span
-              style={{
-                textDecoration: "underline",
-                textDecorationColor: "#f59e0b",
-              }}
+              // style={{
+              //   textDecoration: "underline",
+              //   textDecorationColor: "#f59e0b",
+              // }}
+              className="text-yellow-500"
             >
               chantiers
             </span>
