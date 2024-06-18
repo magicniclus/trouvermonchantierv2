@@ -1,9 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
+import { Input } from "@/components/ui/input";
 import {
   createFirebaseUser,
   transferProspectToClient,
 } from "@/firebase/database"; // Import the Firebase utilities
 import { database } from "@/firebase/firebase.config"; // Import the initialized Firebase services
+import { LockClosedIcon } from "@heroicons/react/20/solid";
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -14,7 +17,6 @@ import {
 import { ref, set } from "firebase/database";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 const priceIds = {
   "tier-starter": {
@@ -148,8 +150,8 @@ const CheckoutForm = ({
           >
             Adresse email
           </label>
-          <div className="mt-1">
-            <input
+          <div className="mt-1 flex flex-col items-center">
+            <Input
               type="email"
               id="email-address"
               name="email-address"
@@ -159,6 +161,7 @@ const CheckoutForm = ({
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
+          <div className="w-[40%] h-0.5 bg-gray-300 mx-auto mt-10" />
         </div>
 
         <div className="col-span-full">
@@ -267,6 +270,8 @@ const CheckoutForm = ({
         />
         Paiement securisé SSL par STRIPE
       </p>
+
+      <img src="/logos/paiement.svg" alt="Paiement" className="mt-5 mx-auto" />
     </form>
   );
 };
