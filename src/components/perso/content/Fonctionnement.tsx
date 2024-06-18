@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 const Fonctionnement = () => {
   return (
-    <section className="w-full md:pb-20">
+    <section className="w-full md:pb-20" id="why">
       <div className="w-full max-w-5xl mx-auto lg:px-4">
         <div className="w-full bg-slate-100 rounded-md p-5 md:p-16 flex justify-between flex-col md:flex-row py-10">
           <div className="md:w-6/12 w-full flex md:hidden items-center">
