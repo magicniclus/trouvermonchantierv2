@@ -55,13 +55,13 @@ const Footer = ({ className }: { className?: string }) => {
           </div>
           <ul className="flex text-white mt-10 md:mt-0">
             <li>
-              <a>Mentions légales</a>
+              <a href="mentions-legales">Mentions légales</a>
             </li>
             <li className="ml-3 ">
-              <a>CGV</a>
+              <a href="/CGV">CGV</a>
             </li>
             <li className="ml-3 ">
-              <a>Contact</a>
+              <a href="mailto=support@trouver-mon-chantier.fr">Contact</a>
             </li>
           </ul>
         </div>
