@@ -15,7 +15,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { ref, set } from "firebase/database";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 const priceIds = {
@@ -56,6 +56,7 @@ const CheckoutForm = ({
   const stripe = useStripe();
   const elements = useElements();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handlePayment = async (event: React.FormEvent) => {
@@ -134,7 +135,7 @@ const CheckoutForm = ({
 
       console.log("Client data saved");
       // Redirect to client's profile page
-      window.location.href = `/client/${user.uid}`;
+      router.push(`/pricing/connexion`);
     } catch (error) {
       console.error("Error handling successful payment: ", error);
     }
@@ -262,7 +263,6 @@ const CheckoutForm = ({
       >
         {loading ? "Processing..." : `Payer ${price?.toFixed(2)}€`}
       </button>
-
       <p className="mt-6 flex justify-center text-sm font-medium text-gray-500">
         <LockClosedIcon
           className="mr-1.5 h-5 w-5 text-gray-400"
