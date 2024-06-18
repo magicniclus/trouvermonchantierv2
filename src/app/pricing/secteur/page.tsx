@@ -1,7 +1,6 @@
 "use client";
 
 import SearchWithCards from "@/components/mapbox/SearchWithCards";
-import Footer from "@/components/perso/footer/Footer";
 import Nav from "@/components/tailwindui/nav/Nav";
 
 const page = () => {
@@ -9,9 +8,10 @@ const page = () => {
     <>
       <Nav withMenu={false} />
       <main className="min-h-[calc(100vh-80px)]">
-        <div className="max-w-5xl mx-auto px-4 md:px-0">
-          <h1 className="text-4xl text-center mt-10 underline decoration-yellow-500">
-            Selectionné votre lieux d&apos;exercice
+        <div className="max-w-5xl mx-auto px-7 md:px-0">
+          <h1 className="mx-auto max-w-4xl text-center text-5xl font-bold tracking-tight text-slate-700 mt-7">
+            Selectionné votre{" "}
+            <span className="text-yellow-500">lieux d&apos;exercice</span>
           </h1>
           <h2 className="text-center my-7">
             Pour notre projection, nous ajoutons minimum 10km au tour de la zone
@@ -20,7 +20,7 @@ const page = () => {
         </div>
         <SearchWithCards />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
