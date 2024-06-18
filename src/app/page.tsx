@@ -64,7 +64,7 @@ export default function Home() {
           <Banner />
         </div>
       </main>
-      <Footer />
+      <Footer className="bg-slate-900" />
     </>
   );
 }
