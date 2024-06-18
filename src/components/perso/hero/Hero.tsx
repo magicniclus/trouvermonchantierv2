@@ -49,30 +49,20 @@ const metiersBatiment = [
   "Ingénieur en bâtiment",
   "Terrassier",
   "Géomètre",
-  "Ébéniste",
   "Métallier",
   "Monteur en structures métalliques",
-  "Ingénieur en génie civil",
   "Chef de chantier",
   "Poseur de cloisons",
   "Poseur de faux plafonds",
-  "Électricien industriel",
-  "Technicien de maintenance",
   "Plombier chauffagiste",
   "Installateur de systèmes de sécurité",
-  "Monteur en ascenseurs",
   "Technicien en énergies renouvelables",
   "Couvreur-zingueur",
   "Constructeur de maisons en bois",
-  "Constructeur de piscines",
   "Poseur de fenêtres et portes",
-  "Réparateur en bâtiment",
-  "Scaphandrier travaux publics",
   "Urbaniste",
-  "Économiste de la construction",
   "Dessinateur-projeteur",
   "Technicien en isolation thermique et acoustique",
-  "Monteur en installations thermiques",
   "Poseur de panneaux solaires",
   "Conducteur d'engins de chantier",
   "Spécialiste en fondations spéciales",
@@ -174,7 +164,6 @@ const Hero = () => {
             <span className="text-4xl font-semibold">30 000€</span> à{" "}
             <span className="text-4xl font-semibold">400 000€</span>
           </h2>
-          <h3 className="text-white">Efficace, fiable et continu</h3>
           <p className="text-white mt-7">
             Trouvez vos chantiers grâce à des prospects qualifiés et des projets
             sur-mesure, clés en main, sans engagement ni frais de service.
