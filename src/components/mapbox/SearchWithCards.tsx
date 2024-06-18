@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
+import { Input } from "@/components/ui/input";
 import { updateProspect } from "@/firebase/database";
 import mapboxgl, { Map } from "mapbox-gl";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -54,11 +55,11 @@ const SearchWithCards: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const metierParam = searchParams.get("metier");
+    const metierParam = searchParams?.get("metier");
     if (metierParam) {
       setMetier(metierParam);
     }
-    const uidParam = searchParams.get("uid");
+    const uidParam = searchParams?.get("uid");
     if (uidParam) {
       setUid(uidParam);
     }
@@ -130,7 +131,7 @@ const SearchWithCards: React.FC = () => {
   return (
     <div className="relative w-full h-full min-h-[500px] max-w-5xl mx-auto px-4 md:px-0">
       <div className="absolute top-10 left-10 z-10 w-1/2">
-        <input
+        <Input
           type="text"
           value={input}
           onChange={handleInputChange}
