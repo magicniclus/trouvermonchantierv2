@@ -102,6 +102,11 @@ const FormSchema = z.object({
       "Le numéro de téléphone ne doit contenir que des chiffres et des caractères spéciaux autorisés."
     ),
   metier: z.string().min(1, "Veuillez sélectionner un métier."),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({
+      message: "Vous devez accepter les conditions générales.",
+    }),
+  }),
 });
 
 const Hero = () => {
@@ -135,7 +140,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="w-full relative flex items-center min-h-[700px] h-full"
+      className="w-full relative flex items-center min-h-[680px] h-full"
     >
       <img
         src="/images/hero.png"
@@ -264,21 +269,25 @@ const Hero = () => {
                   </FormItem>
                 )}
               />
+              <div className="text-slate-500 mt-3 w-full flex itels-start">
+                <input
+                  type="checkbox"
+                  {...form.register("acceptTerms")}
+                  required
+                />
+                <label htmlFor="acceptTerms" className="text-xs ml-2">
+                  J&apos;accepte les{" "}
+                  <a href="/CGV" className="underline">
+                    conditions générales de vente
+                  </a>
+                </label>
+              </div>
               <Button
                 type="submit"
                 className="mt-6 w-full bg-yellow-500 hover:bg-yellow-400"
               >
                 Envoyer
               </Button>
-              <p className="text-xs text-center mt-4">
-                <a href="#" className="underline">
-                  Conditions générales
-                </a>{" "}
-                et{" "}
-                <a href="#" className="underline">
-                  politique de confidentialité
-                </a>
-              </p>
             </form>
           </Form>
         </div>
