@@ -117,7 +117,11 @@ const Hero = () => {
         router.push(
           `/pricing?uid=${uid}&email=${encodeURIComponent(
             data.email
-          )}&metier=${encodeURIComponent(data.metier)}`
+          )}&metier=${encodeURIComponent(
+            data.metier
+          )}&telephone=${encodeURIComponent(
+            data.phone
+          )}&name=${encodeURIComponent(data.name)}`
         );
       });
     } catch (error) {
@@ -131,7 +135,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="w-full relative flex items-center min-h-[650px] h-full"
+      className="w-full relative flex items-center min-h-[700px] h-full"
     >
       <img
         src="/images/hero.png"
