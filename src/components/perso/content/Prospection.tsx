@@ -34,7 +34,7 @@ const Prospection = () => {
               face à vos concurrents. Une page web dédiée renforce votre
               crédibilité et votre présence en ligne.
             </p>
-            <h3 className="text-xl font-semibold mt-5">
+            {/* <h3 className="text-xl font-semibold mt-5">
               Présence Stratégique et Conversion Optimale
             </h3>
             <p className="text-white mt-3">
@@ -46,7 +46,7 @@ const Prospection = () => {
               plateformes et votre site dédié est déjà à la recherche de
               services comme les vôtres, augmentant ainsi les probabilités
               qu&apos;ils deviennent vos clients fidèles.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
