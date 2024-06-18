@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import CheckoutForm from "@/components/stripe/CheckoutForm";
@@ -66,6 +67,8 @@ const CheckoutPage = () => {
   const [email, setEmail] = useState<string>("");
   const [metier, setMetier] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [telephone, setTelephone] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   useEffect(() => {
     const tierParam = searchParams?.get("tier") as TierKey | null;
@@ -75,12 +78,16 @@ const CheckoutPage = () => {
     const metierParam = searchParams?.get("metier");
     const emailParam = searchParams?.get("email");
     const addressParam = searchParams?.get("address");
+    const telephone = searchParams?.get("telephone");
+    const name = searchParams?.get("name");
 
     if (tierParam) setTier(tierParam);
     if (frequencyParam) setFrequency(frequencyParam);
     if (metierParam) setMetier(metierParam);
     if (emailParam) setEmail(emailParam);
     if (addressParam) setAddress(addressParam);
+    if (telephone) setTelephone(telephone);
+    if (name) setName(name);
 
     if (tierParam && frequencyParam) {
       setMainFeatures(pricing.features[tierParam]);
@@ -258,6 +265,8 @@ const CheckoutPage = () => {
                   setEmail={setEmail}
                   metier={metier}
                   address={address}
+                  telephone={telephone}
+                  name={name}
                 />
               </Elements>
             ) : (
