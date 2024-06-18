@@ -44,6 +44,8 @@ const CheckoutForm = ({
   setEmail,
   metier,
   address,
+  telephone,
+  name,
 }: {
   tier: TierKey;
   frequency: FrequencyKey;
@@ -52,6 +54,8 @@ const CheckoutForm = ({
   setEmail: (email: string) => void;
   metier: string;
   address: string;
+  telephone: string;
+  name: string;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -118,11 +122,11 @@ const CheckoutForm = ({
     }
   };
 
-  const handleSuccessfulPayment = async (uid: string, email: string) => {
+  const handleSuccessfulPayment = async (oldUid: string, email: string) => {
     try {
       const user = await createFirebaseUser(email, "defaultPassword");
 
-      await transferProspectToClient(uid);
+      await transferProspectToClient(oldUid, user.uid);
       console.log("Prospect transferred to client");
 
       await set(ref(database, `clients/${user.uid}`), {
@@ -131,6 +135,8 @@ const CheckoutForm = ({
         address,
         tier,
         frequency,
+        telephone,
+        name,
       });
 
       console.log("Client data saved");
