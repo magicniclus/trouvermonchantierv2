@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 const Prospection = () => {
   return (
-    <section className="w-full py-5 bg-bgPrimary">
+    <section className="w-full py-5 bg-bgPrimary" id="avantages">
       <div className="w-full max-w-5xl mx-auto lg:px-4">
         <div className="w-full rounded-md p-5 md:p-16 flex flex-col md:flex-row justify-between">
           <div className="md:w-4/12 w-full flex items-center md: justify-center">
