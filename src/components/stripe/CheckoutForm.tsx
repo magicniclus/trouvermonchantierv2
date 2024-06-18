@@ -63,6 +63,14 @@ const CheckoutForm = ({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  const generateRandomPassword = (length = 12) => {
+    const charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~";
+    return Array.from(crypto.getRandomValues(new Uint8Array(length)))
+      .map((n) => charset[n % charset.length])
+      .join("");
+  };
+
   const handlePayment = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -124,7 +132,8 @@ const CheckoutForm = ({
 
   const handleSuccessfulPayment = async (oldUid: string, email: string) => {
     try {
-      const user = await createFirebaseUser(email, "defaultPassword");
+      const password = generateRandomPassword();
+      const user = await createFirebaseUser(email, password);
 
       await transferProspectToClient(oldUid, user.uid);
       console.log("Prospect transferred to client");
@@ -140,6 +149,23 @@ const CheckoutForm = ({
       });
 
       console.log("Client data saved");
+
+      // Send the generated password via email
+      const emailResponse = await fetch("/api/sendEmailIdentifiant", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password, // Use 'password' to match the API handler
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        throw new Error(`Email sending failed: ${emailResponse.status}`);
+      }
+
       // Redirect to client's profile page
       router.push(`/pricing/connexion`);
     } catch (error) {
