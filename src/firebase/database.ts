@@ -55,12 +55,23 @@ const updateProspect = (
   });
 };
 
-const transferProspectToClient = (uid: string): Promise<void> => {
+const transferProspectToClient = (
+  oldUid: string,
+  newUid: string
+): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const prospectData = await getProspect(uid);
-      const clientRef = ref(database, `clients/${uid}`);
-      await set(clientRef, prospectData);
+      const prospectData = await getProspect(oldUid);
+      const clientRef = ref(database, `clients/${newUid}`);
+      const date = new Date();
+      const formattedDate = date.toISOString(); // ISO 8601 format
+
+      const clientData = {
+        ...prospectData,
+        createdAt: formattedDate,
+      };
+
+      await set(clientRef, clientData);
       resolve();
     } catch (error) {
       console.error("Error transferring prospect to client: ", error);
