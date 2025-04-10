@@ -18,10 +18,10 @@ const Prospection = () => {
             <p className="text-white mt-3">
               Augmentez considérablement votre visibilité auprès des clients
               potentiels grâce à notre stratégie de présence sur les plateformes
-              les plus influentes du web, telles que Google et Facebook. En
-              apparaissant sur ces canaux et avec une page web dédiée munie
-              d&apos;un nom de domaine personnalisé, vous bénéficiez d&apos;un
-              trafic de qualité essentiel pour attirer des prospects qualifiés.
+              les plus influentes du web, telles que Google. En apparaissant sur
+              ces canaux et avec une page web dédiée munie d&apos;un nom de
+              domaine personnalisé, vous bénéficiez d&apos;un trafic de qualité
+              essentiel pour attirer des prospects qualifiés à prix coutant.
             </p>
             <h3 className="text-xl font-semibold mt-5">
               Impact de la Recherche en Ligne
