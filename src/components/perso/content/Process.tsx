@@ -27,7 +27,8 @@ const Process = () => {
         <div className="w-full">
           <div className="w-1/2 text-slate-700 flex justify-end transform -translate-x-10">
             <p className="w-1/2 mr-5">
-              Le client effectue une demande de devis sur un de nos sites
+              Le client effectue une demande de devis sur votre site
+              personnalisé et optimisé
             </p>
             <p className="text-3xl font-bold">1</p>
           </div>
