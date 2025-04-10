@@ -67,7 +67,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
       >
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">Trouver mon chantier</span>
             <img className="h-8 w-auto" src="/logo.png" alt="terabois" />
           </a>
         </div>
@@ -94,12 +94,6 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Avantages
-            </a>
-            <a
-              href="#price"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Tarifs
             </a>
           </PopoverGroup>
         )}
