@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import { addProspect } from "@/firebase/database"; // Assurez-vous que le chemin est correct
+import { sendProspectNotification } from "@/utils/sendgrid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -106,22 +107,49 @@ const Hero = () => {
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const uid = await addProspect(data).then((uid) => {
-        console.log(uid);
-        router.push(
-          `/pricing?uid=${uid}&email=${encodeURIComponent(
-            data.email
-          )}&metier=${encodeURIComponent(
-            data.metier
-          )}&telephone=${encodeURIComponent(
-            data.phone
-          )}&name=${encodeURIComponent(data.name)}&companyName=${encodeURIComponent(data.companyName)}`
-        );
+      // Afficher un toast de chargement
+      toast({
+        title: "Envoi en cours",
+        description: "Nous traitons votre demande...",
       });
+      
+      // Ajouter le prospect à la base de données Firebase
+      const uid = await addProspect(data);
+      console.log("Prospect ajouté avec l'ID:", uid);
+      
+      // Envoyer l'email de notification
+      const emailSent = await sendProspectNotification({
+        name: data.name,
+        companyName: data.companyName,
+        email: data.email,
+        phone: data.phone,
+        metier: data.metier
+      });
+      
+      if (emailSent) {
+        console.log("Email de notification envoyé avec succès");
+      } else {
+        console.warn("L'email de notification n'a pas pu être envoyé");
+      }
+      
+      // Rediriger vers la page secteur avec les paramètres
+      router.push(
+        `/secteur?uid=${uid}&email=${encodeURIComponent(
+          data.email
+        )}&metier=${encodeURIComponent(
+          data.metier
+        )}&telephone=${encodeURIComponent(
+          data.phone
+        )}&name=${encodeURIComponent(
+          data.name
+        )}&companyName=${encodeURIComponent(data.companyName)}`
+      );
     } catch (error) {
+      console.error("Erreur lors de la soumission du formulaire:", error);
       toast({
         title: "Erreur",
         description: "Une erreur s'est produite lors de l'ajout du prospect.",
+        variant: "destructive"
       });
     }
   };

@@ -122,7 +122,7 @@ const SearchWithCards: React.FC = () => {
       queryParams.set("address", input);
       queryParams.set("lat", coordinates[1].toString());
       queryParams.set("lng", coordinates[0].toString());
-      router.push(`/pricing/checkout?${queryParams.toString()}`);
+      router.push(`/secteur/rendez-vous?${queryParams.toString()}`);
     } catch (error) {
       console.error("Failed to update prospect: ", error);
     }
