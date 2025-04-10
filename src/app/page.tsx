@@ -58,7 +58,6 @@ export default function Home() {
             alt="ellipse"
             className="absolute top-[50%] -right-[20%] w-full object-cover h-auto -z-10 opacity-60"
           />
-          <Tarifs />
           <Process />
           <Comments />
           <Banner />
