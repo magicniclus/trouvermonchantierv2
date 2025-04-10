@@ -70,6 +70,13 @@ const FormSchema = z.object({
       /^[a-zA-Z\s]+$/,
       "Le nom ne doit contenir que des lettres et des espaces."
     ),
+  companyName: z
+    .string()
+    .min(1, "Veuillez entrer le nom de votre entreprise.")
+    .regex(
+      /^[a-zA-Z0-9\s\-\.\&]+$/,
+      "Le nom de l'entreprise ne doit contenir que des caractères valides."
+    ),
   email: z
     .string({
       required_error: "Veuillez entrer un email.",
@@ -108,7 +115,7 @@ const Hero = () => {
             data.metier
           )}&telephone=${encodeURIComponent(
             data.phone
-          )}&name=${encodeURIComponent(data.name)}`
+          )}&name=${encodeURIComponent(data.name)}&companyName=${encodeURIComponent(data.companyName)}`
         );
       });
     } catch (error) {
@@ -159,10 +166,10 @@ const Hero = () => {
             <span className="text-4xl font-semibold">400 000€</span>
           </h2>
           <p className="text-white mt-7">
-            Trouvez vos chantiers grâce à des prospects qualifiés et des projets
-            sur-mesure, clés en main, sans engagement ni frais de service.
-            Trouver-mon-chantier.fr est votre partenaire de confiance pour
-            développer votre activité dans le bâtiment.
+            Recevez des demandes de devis exclusives, grâce à un site
+            personnalisé et des campagnes Google Ads performantes, pensées pour
+            vous seul. Fini les leads partagés revendus à 5 artisans. Ici,
+            chaque prospect est pour vous, et uniquement vous.
           </p>
         </div>
         <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10">
@@ -184,6 +191,23 @@ const Hero = () => {
                       <Input
                         type="text"
                         placeholder="Nom, prénom"
+                        {...field}
+                        className="mt-2 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="companyName"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="w-full">
+                      <Input
+                        type="text"
+                        placeholder="Nom de votre entreprise"
                         {...field}
                         className="mt-2 w-full"
                       />
