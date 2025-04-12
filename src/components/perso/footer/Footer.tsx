@@ -49,7 +49,10 @@ const Footer = ({ className }: { className?: string }) => {
         <div className="flex sm:items-end justify-between flex-col sm:flex-row text-white mt-10">
           <div className="flex flex-col">
             <p className="">Un projet ?</p>
-            <a className="px-6 py-2 mt-3 rounded-xl bg-gradient-to-r from-yellow-500 to-[#BF522A] w-max">
+            <a
+              href="#hero"
+              className="px-6 py-2 mt-3 rounded-xl bg-gradient-to-r from-yellow-500 to-[#BF522A] w-max"
+            >
               FAIRE MA DEMANDE
             </a>
           </div>
