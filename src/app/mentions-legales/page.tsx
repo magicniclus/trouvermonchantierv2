@@ -24,7 +24,7 @@ const page = () => {
             <br />
             33100 Bordeaux
             <br />
-            Tel : 0631420045
+            Tel : 0972164963
           </p>
 
           <h3 className="text-lg mt-3 font-semibold">
