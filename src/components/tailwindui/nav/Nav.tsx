@@ -161,11 +161,11 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
               </div>{" "}
               <div className="py-6">
                 <a
-                  href="tel:0631420045"
+                  href="tel:0972164963"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 bg-yellow-500 p-3 w-max text-white rounded-lg hover:bg-yellow-400 flex items-center transition-all duration-200 ease-in-out"
                 >
                   <PhoneIcon className="h-5 w-5 mr-2" aria-hidden="true" />
-                  0924567733
+                  0972164963
                 </a>
               </div>
             </div>
