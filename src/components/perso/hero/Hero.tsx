@@ -112,29 +112,29 @@ const Hero = () => {
         title: "Envoi en cours",
         description: "Nous traitons votre demande...",
       });
-      
+
       // Ajouter le prospect à la base de données Firebase
       const uid = await addProspect(data);
       console.log("Prospect ajouté avec l'ID:", uid);
-      
+
       // Envoyer l'email de notification
       const emailSent = await sendProspectNotification({
         name: data.name,
         companyName: data.companyName,
         email: data.email,
         phone: data.phone,
-        metier: data.metier
+        metier: data.metier,
       });
-      
+
       if (emailSent) {
         console.log("Email de notification envoyé avec succès");
       } else {
         console.warn("L'email de notification n'a pas pu être envoyé");
       }
-      
+
       // Rediriger vers la page secteur avec les paramètres
       router.push(
-        `/secteur?uid=${uid}&email=${encodeURIComponent(
+        `/secteur/rendez-vous?uid=${uid}&email=${encodeURIComponent(
           data.email
         )}&metier=${encodeURIComponent(
           data.metier
@@ -149,7 +149,7 @@ const Hero = () => {
       toast({
         title: "Erreur",
         description: "Une erreur s'est produite lors de l'ajout du prospect.",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   };
