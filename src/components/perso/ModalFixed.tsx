@@ -28,7 +28,7 @@ const ModalFixed = () => {
       style={{ pointerEvents: "none" }}
     >
       <a
-        href="tel:0631420045"
+        href="tel:0972164963"
         className="p-3 rounded-lg shadow-md flex h-[70px] items-center justify-center w-max bg-white"
         style={{ pointerEvents: "auto" }}
       >
@@ -39,7 +39,7 @@ const ModalFixed = () => {
           </p>
         </div>
         <div className="ml-3 h-full flex flex-col justify-center">
-          <p className="text-slate-700 text-lg font-semibold">0924525966</p>
+          <p className="text-slate-700 text-lg font-semibold">0972164963</p>
           <p className="text-slate-700 text-[9px]">
             Service gratuit + prix d’un appel
           </p>
