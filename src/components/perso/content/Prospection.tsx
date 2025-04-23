@@ -30,7 +30,7 @@ const Prospection = () => {
               clients cherchent, avant vos concurrents.
             </p>
             <p className="text-white mt-3">
-              Et la bonne nouvelle ? On s&apos;occupe de tout pour vous.
+              Et la bonne nouvelle ? <b>On s&apos;occupe de tout pour vous.</b>
             </p>
             {/* <h3 className="text-xl font-semibold mt-5">
               Présence Stratégique et Conversion Optimale
