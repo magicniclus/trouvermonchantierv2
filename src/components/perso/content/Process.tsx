@@ -9,7 +9,7 @@ const Process = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[550px] border-r border-dashed border-yellow-500" />
         <div className="w-full max-w-5xl mx-auto lg:px-4 flex">
           <div className="w-1/2 md:block hidden"></div>
-          <div className="relative w-1/2 text-[#0B1424] max-w-[300px] flex flex-col items-end md:ml-14 ml-0">
+          <div className="relative w-1/2 text-slate-700 max-w-[300px] flex flex-col items-end md:ml-14 ml-0">
             <div className="absolute top-0 -left-[77px] w-10 h-10 rounded-full bg-yellow-500 flex justify-center items-center text-xl text-white">
               1
             </div>
@@ -25,7 +25,7 @@ const Process = () => {
         </div>
         <div className="w-full max-w-5xl mx-auto lg:px-4 flex mt-10">
           <div className="w-1/2 md:block hidden"></div>
-          <div className="relative w-1/2 text-[#0B1424] max-w-[300px] flex flex-col items-end md:ml-14 ml-0">
+          <div className="relative w-1/2 text-slate-700 max-w-[300px] flex flex-col items-end md:ml-14 ml-0">
             <div className="absolute top-0 -left-[77px] w-10 h-10 rounded-full bg-yellow-500 flex justify-center items-center text-xl text-white">
               2
             </div>
@@ -40,7 +40,7 @@ const Process = () => {
           <div className="w-1/2 md:hidden block"></div>
         </div>{" "}
         <div className="w-full max-w-5xl mx-auto lg:px-4 flex items-end mt-10">
-          <div className="relative w-1/2 flex flex-col items-end mr-20 text-[#0B1424]">
+          <div className="relative w-1/2 flex flex-col items-end mr-20 text-slate-700">
             <div className="absolute top-0 -right-[60px] w-10 h-10 rounded-full bg-yellow-500 flex justify-center items-center text-xl text-white">
               3
             </div>
@@ -56,7 +56,7 @@ const Process = () => {
         </div>
         <div className="w-full max-w-5xl mx-auto lg:px-4 flex mt-10">
           <div className="w-1/2 md:block hidden"></div>
-          <div className="relative w-1/2 text-[#0B1424] max-w-[300px] flex flex-col items-start md:ml-14 ml-0">
+          <div className="relative w-1/2 text-slate-700 max-w-[300px] flex flex-col items-start md:ml-14 ml-0">
             <div className="absolute top-0 -left-[95px] w-20 h-20 rounded-full bg-white border border-yellow-500 rounded-full flex justify-center items-center text-xl text-white">
               <FlagIcon className="w-10 h-10 text-yellow-500" />
             </div>
