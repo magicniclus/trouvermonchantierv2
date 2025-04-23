@@ -45,6 +45,14 @@ export interface Customization {
     ssl_status: string;
   };
 
+  contact: {
+    email: string;
+    phone: string;
+    address: string;
+    siret: string;
+    company_type: string;
+  };
+
   logo_url: string;
   has_logo: boolean;
 
@@ -54,8 +62,12 @@ export interface Customization {
   };
 
   images_uploaded: string[];
+  link_comment: string;
+
   certifications: string[];
 
   created_at: string;
   updated_at: string;
+  
+  siteIsOk: boolean;
 }
