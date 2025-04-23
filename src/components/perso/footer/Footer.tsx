@@ -58,19 +58,22 @@ const Footer = ({ className }: { className?: string }) => {
           </div>
           <ul className="flex text-white mt-10 md:mt-0">
             <li>
+              <a href="/auth">Mon espace</a>
+            </li>
+            <li className="ml-3">
               <a href="mentions-legales">Mentions légales</a>
             </li>
-            <li className="ml-3 ">
+            <li className="ml-3">
               <a href="/CGV">CGV</a>
             </li>
-            <li className="ml-3 ">
+            <li className="ml-3">
               <a href="mailto:support@trouver-mon-chantier.fr">Contact</a>
             </li>
           </ul>
         </div>
         <div className="mt-10 border-t border-white/10 pt-8 sm:mt-10 lg:mt-10">
           <p className="text-xs leading-5 text-white">
-            &copy; 2024 touver-mon-chantier.fr, Inc. All rights reserved.
+            &copy; 2024 trouver-mon-chantier.fr, Inc. Tous droits reservés.
           </p>
         </div>
       </div>
