@@ -32,27 +32,53 @@ export function PaymentForm() {
     setError(null);
 
     try {
-      const response = await fetch("/api/create-checkout-session", {
+      // Créer un PaymentMethod avec les détails de la carte
+      const { error: paymentMethodError, paymentMethod } =
+        await stripe.createPaymentMethod({
+          type: "card",
+          card: elements.getElement(CardNumberElement)!,
+          billing_details: {
+            email: email,
+          },
+        });
+
+      if (paymentMethodError) {
+        setError(paymentMethodError.message || "Une erreur est survenue.");
+        return;
+      }
+
+      // Créer le paiement unique et l'abonnement
+      const response = await fetch("/api/create-subscription", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          paymentMethodId: paymentMethod.id,
+          email: email,
+        }),
       });
 
-      const session = await response.json();
+      const data = await response.json();
 
-      if (session.error) {
-        setError(session.error);
+      if (data.error) {
+        setError(data.error);
         return;
       }
 
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (error) {
-        setError(error.message || "Une erreur est survenue.");
+      if (data.requiresAction) {
+        // Gérer l'authentification 3D Secure si nécessaire
+        const { error: confirmationError } = await stripe.confirmCardPayment(
+          data.clientSecret
+        );
+        if (confirmationError) {
+          setError(confirmationError.message || "Une erreur est survenue.");
+          return;
+        }
       }
+
+      // Rediriger vers le dashboard
+      window.location.href = "/dashboard";
     } catch (err) {
       setError("Une erreur est survenue lors du paiement.");
     } finally {
@@ -110,7 +136,7 @@ export function PaymentForm() {
                   />
                 </div>
                 <div className="border-t border-slate-200 mb-4" />
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <CardExpiryElement
                     onChange={(e) =>
                       setCardComplete((prev) => ({
@@ -135,10 +161,12 @@ export function PaymentForm() {
                       },
                     }}
                   />
-                  <div className="border-r border-slate-200 h-full" />
                   <CardCvcElement
                     onChange={(e) =>
-                      setCardComplete((prev) => ({ ...prev, cvc: e.complete }))
+                      setCardComplete((prev) => ({
+                        ...prev,
+                        cvc: e.complete,
+                      }))
                     }
                     options={{
                       style: {
@@ -160,7 +188,9 @@ export function PaymentForm() {
                 </div>
               </div>
             </div>
-            {error && <div className="text-red-500 text-sm">{error}</div>}
+
+            {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+
             <div className="flex items-start mb-4">
               <div className="flex items-center h-5">
                 <input
@@ -183,6 +213,7 @@ export function PaymentForm() {
                 </a>
               </label>
             </div>
+
             <button
               type="submit"
               disabled={
