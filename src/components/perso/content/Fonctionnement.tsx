@@ -13,32 +13,18 @@ const Fonctionnement = () => {
           </div>
           <div className="md:w-5/12 w-full text-slate-700 mt-10 md:mt-0">
             <h2 className="font-bold text-2xl">
-              Internet, votre meilleur apporteur d’affaires
+              Votre site travaille pour vous, même quand vous dormez.
             </h2>
             <div className="w-full max-w-[200px] bg-yellow-500 rounded-full mt-5 h-3" />
             <p className="text-slate-500 mt-5">
-              Avec notre service, vous recevrez des demandes de devis ciblées de
-              clients potentiels précisément au moment où ils expriment leur
-              besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7.
+              Grace à notre stratégie, vous recevez des demandes de devis
+              ciblées, 24h/24, dès que des clients cherchent vos services sur
+              Google. Votre site convertit les visiteurs en appels concrets,
+              sans engagement, ni leads partagés.
             </p>
             <p className="text-slate-500 mt-5">
-              Taux de conversion exceptionnel : Nous sommes fiers d&apos;offrir
-              l&apos;un des taux de conversion les plus élevés du marché.
-            </p>
-            <p className="text-slate-500 mt-5">
-              Flexibilité totale : Sans engagement, vous offrant la liberté de
-              l&apos;interrompre à tout moment.
-            </p>
-            <p className="text-slate-500 mt-5">
-              Résultats concrets : Préparez-vous à voir votre boîte mail se
-              remplir de demandes de devis détaillées et à recevoir des appels
-              quotidiens de prospects qualifiés désireux de collaborer avec
-              vous.
-            </p>
-            <p className="text-slate-500 mt-5">
-              Isolation, PLACO, carrelage, maçonnerie, piscine, électricité,
-              cuisine, ossature bois, charpente, couverture etc.. Nos différents
-              site vous offre les meilleurs clients.
+              Plomberie, toiture, électricité, carrelage… votre activité est
+              déjà couverte.
             </p>
           </div>
           <div className="md:w-6/12 w-full hidden md:flex items-center">
