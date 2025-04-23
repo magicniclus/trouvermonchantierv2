@@ -4,7 +4,7 @@ import ReactDOMServer from "react-dom/server"; // Assurez-vous d'avoir react-dom
 import { EmailTemplateIdentifiant } from "../../src/components/email/EmailTemplateIdentifiant";
 
 // Configurez SendGrid avec votre clé API
-sgMail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async (req, res) => {
   try {
@@ -16,7 +16,7 @@ export default async (req, res) => {
 
     const msg = {
       to: [email], // Assurez-vous que cette adresse est valide
-      from: "contact@info-autoentrepreneur.com",
+      from: "contact@maprimerenov-info.org",
       subject:
         "Important: Votre identifiant pour accéder à votre espace personnel",
       html: emailContent,
