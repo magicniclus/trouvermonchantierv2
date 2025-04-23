@@ -171,7 +171,7 @@ const Hero = () => {
             >
               100 000€
             </span>{" "}
-            de chantiers/mois.
+            de chantiers par mois.
           </h1>
           <h2 className="text-white mt-10 text-2xl">
             <span className=" font-semibold">
