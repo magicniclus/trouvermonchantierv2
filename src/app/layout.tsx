@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Trouver un chantier - Trouver Mon Chantier",
-  description:
-    "Trouvez facilement des chantiers près de chez vous avec Trouver Mon Chantier. Accédez à une large base de données de projets de construction et de rénovation.",
-  keywords:
-    "trouver chantier, chantiers, construction, rénovation, trouver des chantiers",
+  description: "Trouver un chantier - Trouver Mon Chantier",
   openGraph: {
     title: "Trouver un chantier - Trouver Mon Chantier",
     description:
@@ -38,7 +36,9 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
