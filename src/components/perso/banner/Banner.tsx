@@ -9,15 +9,15 @@ const Banner = () => {
             Vous êtes un professionnel du bâtiment ?
           </h2>
           <h3 className="text-bgPrimary font-semibold mt-1">
-            Devenez partenaire{" "}
+            Obtenez votre machine à chantier{" "}
             <span className="text-yellow-500">trouver-mon-chantier.fr</span>
           </h3>
         </div>
         <a
-          href="#hero"
+          href="#pricing"
           className="bg-bgPrimary text-white p-3 font-xl flex rounded-full w-max mt-5 md:mt-0"
         >
-          DEVENIR PARTENAIRE{" "}
+          OBTENIR MON MACHINE A CHANTIER{" "}
           <ArrowRightIcon className="h-6 w-6 text-white ml-3" />
         </a>
       </div>
