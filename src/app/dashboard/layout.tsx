@@ -10,8 +10,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { signOut } from "firebase/auth";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const defaultNavigation = [
   { name: "Tableau de bord", href: "/dashboard" },
@@ -43,7 +43,44 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
+  const [user, setUser] = useState(auth.currentUser);
   const pathname = usePathname();
+
+  useEffect(() => {
+    console.log("Dashboard layout: Setting up auth listener");
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log("Dashboard layout: Auth state changed:", user?.uid);
+      setUser(user);
+      setAuthChecked(true);
+
+      if (!user) {
+        console.log("Dashboard layout: No user, redirecting to login");
+        router.push("/auth");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  if (!authChecked) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg">
+          Vérification de l&apos;authentification...
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg">Redirection vers la page de connexion...</div>
+      </div>
+    );
+  }
 
   const navigation = defaultNavigation.map((item) => ({
     ...item,
