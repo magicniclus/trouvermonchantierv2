@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 const Prospection = () => {
   return (
-    <section className="w-full py-5 bg-[#334155]" id="avantages">
+    <section className="w-full py-5 bg-slate-700" id="avantages">
       <div className="w-full max-w-5xl mx-auto lg:px-4">
         <div className="w-full rounded-md p-5 md:p-16 flex flex-col md:flex-row justify-between">
           <div className="md:w-4/12 w-full flex items-center md: justify-center">
@@ -12,27 +12,25 @@ const Prospection = () => {
             />
           </div>
           <div className="md:w-5/12 w-full text-white mt-10 md:mt-0">
-            <h3 className="text-xl font-semibold mt-5">
-              Maximisez Votre Visibilité en Ligne
+            <h3 className="text-2xl font-semibold mt-5">
+              10 prospects qualifiés par jour grâce à Google.
             </h3>
-            <p className="text-white mt-3">
-              Augmentez considérablement votre visibilité auprès des clients
-              potentiels grâce à notre stratégie de présence sur les plateformes
-              les plus influentes du web, telles que Google. En apparaissant sur
-              ces canaux et avec une page web dédiée munie d&apos;un nom de
-              domaine personnalisé, vous bénéficiez d&apos;un trafic de qualité
-              essentiel pour attirer des prospects qualifiés à prix coutant.
+            <div className="w-full max-w-[200px] bg-yellow-500 rounded-full mt-5 h-3" />
+            <p className="text-white mt-5">
+              Être visible sur Google aujourd’hui, ce n’est plus un bonus :
+              c’est indispensable. Avec un site professionnel et une campagne
+              optimisée, vous recevez chaque semaine des demandes sérieuses de
+              clients dans votre ville — pendant que d&apos;autres attendent des
+              appels qui ne viendront jamais.
             </p>
-            <h3 className="text-xl font-semibold mt-5">
-              Impact de la Recherche en Ligne
-            </h3>
+
             <p className="text-white mt-3">
-              En France, 80% des consommateurs effectuent des recherches en
-              ligne avant de choisir un prestataire. Google domine plus de 90%
-              du marché des moteurs de recherche, ce qui signifie qu&apos;une
-              absence sur cette plateforme vous fait perdre un avantage crucial
-              face à vos concurrents. Une page web dédiée renforce votre
-              crédibilité et votre présence en ligne.
+              Pas de présence en ligne = pas de devis. Avec votre propre site +
+              publicité bien ciblée, vous apparaissez exactement là où vos
+              clients cherchent, avant vos concurrents.
+            </p>
+            <p className="text-white mt-3">
+              Et la bonne nouvelle ? On s&apos;occupe de tout pour vous.
             </p>
             {/* <h3 className="text-xl font-semibold mt-5">
               Présence Stratégique et Conversion Optimale
