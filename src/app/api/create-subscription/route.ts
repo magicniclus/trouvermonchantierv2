@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { auth } from "@/firebase/firebase.config";
+import { initializeClientData } from "@/services/client.service";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { generateSecurePassword } from "@/utils/passwordGenerator";
 import { sendCredentialsEmail } from "@/utils/sendEmail";
@@ -71,6 +72,17 @@ export async function POST(request: Request) {
 
     // Créer le compte Firebase
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    // Initialiser les données dans Firestore
+    try {
+      const result = await initializeClientData(userCredential.user.uid, email);
+      if (!result.success) {
+        console.error("Failed to initialize Firestore:", result.error);
+      }
+    } catch (error) {
+      console.error("Error initializing Firestore:", error);
+      // On continue même si Firestore échoue
+    }
 
     // Envoyer les identifiants par email
     try {
