@@ -13,28 +13,28 @@ const Stats = () => {
           <h2 className="font-semibold text-slate-700">
             Comment{" "}
             <span className="text-yellow-500">Trouver-Mon-Chantier.fr</span>{" "}
-            vous aide à obtenir plus de client ?
+            vous ramène des chantiers chaque semaine ?
           </h2>
           <ArrowRightIcon className="h-6 w-6 text-slate-700" />
         </div>
         <div className="w-full md:w-[16%] h-full rounded-2xl p-3 px-7 flex flex-col justify-between text-white bg-slate-700 md:mt-0 mt-5">
           <ArrowTrendingUpIcon className="h-8 w-8" />
           <div className="flex flex-col">
-            <h3 className="font-semibold">+ de 7000</h3>
-            <p className="text-xs">demande de devis par mois</p>
+            <h3 className="font-semibold">Google Ads</h3>
+            <p className="text-xs">Campagnes optimisées</p>
           </div>
         </div>
         <div className="w-full md:w-[16%] h-full rounded-2xl p-3 px-7 flex flex-col justify-between text-white bg-slate-700 md:mt-0 mt-5">
           <WrenchIcon className="h-8 w-8" />
           <div className="flex flex-col">
-            <h3 className="font-semibold">+ de 70 000</h3>
-            <p className="text-xs">artisans tout corps d&apos;état</p>
+            <h3 className="font-semibold">Site internet</h3>
+            <p className="text-xs">Personnalisé pour vous</p>
           </div>
         </div>{" "}
         <div className="w-full md:w-[16%] h-full rounded-2xl p-3 px-7 flex flex-col justify-between text-white bg-slate-700 md:mt-0 mt-5">
           <PhoneArrowUpRightIcon className="h-8 w-8" />
           <div className="flex flex-col">
-            <h3 className="font-semibold">Jusqu’à 15</h3>
+            <h3 className="font-semibold">Jusqu’à 10</h3>
             <p className="text-xs">demandes par jour</p>
           </div>
         </div>
