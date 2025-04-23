@@ -93,16 +93,22 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
               href="#avantages"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              Avantages
+              Ce que vous gagnez
+            </a>
+            <a
+              href="#price"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              F.A.Q
             </a>
           </PopoverGroup>
         )}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
             href="#"
-            className="text-sm font-semibold leading-6 text-gray-900 flex items-center"
+            className="block px-6 py-3 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Mon Espace <span aria-hidden="true">&rarr;</span>
+            Commander mon site
           </a>
         </div>
       </nav>
@@ -141,7 +147,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
                     href="#avantages"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Avantages
+                    Ce que vous gagnez
                   </a>
                   <a
                     href="#price"
@@ -156,18 +162,9 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
                   href="#"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Mon Espace
+                  Commander mon site
                 </a>
               </div>{" "}
-              <div className="py-6">
-                <a
-                  href="tel:0972164963"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 bg-yellow-500 p-3 w-max text-white rounded-lg hover:bg-yellow-400 flex items-center transition-all duration-200 ease-in-out"
-                >
-                  <PhoneIcon className="h-5 w-5 mr-2" aria-hidden="true" />
-                  0972164963
-                </a>
-              </div>
             </div>
           </div>
         </DialogPanel>
