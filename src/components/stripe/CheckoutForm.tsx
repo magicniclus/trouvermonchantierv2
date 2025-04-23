@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import {
   createFirebaseUser,
   transferProspectToClient,
-} from "@/firebase/database"; // Import the Firebase utilities
-import { database } from "@/firebase/firebase.config"; // Import the initialized Firebase services
+} from "@/firebase/database";
+import { database } from "@/firebase/firebase.config";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import {
   CardCvcElement,
@@ -138,6 +138,7 @@ const CheckoutForm = ({
       await transferProspectToClient(oldUid, user.uid);
       console.log("Prospect transferred to client");
 
+      // Initialiser les données dans Realtime Database
       await set(ref(database, `clients/${user.uid}`), {
         email,
         metier,
@@ -147,8 +148,9 @@ const CheckoutForm = ({
         telephone,
         name,
       });
+      console.log("Client data saved in Realtime Database");
 
-      console.log("Client data saved");
+
 
       // Send the generated password via email
       const emailResponse = await fetch("/api/sendEmailIdentifiant", {
