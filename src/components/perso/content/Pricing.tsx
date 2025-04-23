@@ -16,7 +16,7 @@ const Pricing = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full" id="pricing">
       <div className="max-w-6xl mx-auto px-4">
         <div className="bg-white p-8 md:p-12">
           <div className="text-center mb-10">
