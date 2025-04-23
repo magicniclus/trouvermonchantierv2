@@ -3,7 +3,8 @@
 
 import Stats from "@/components/perso/Stats";
 import Banner from "@/components/perso/banner/Banner";
-import Comments from "@/components/perso/content/Comments";
+import Commentaires from "@/components/perso/content/Commentaires";
+import FAQ from "@/components/perso/content/FAQ";
 import Fonctionnement from "@/components/perso/content/Fonctionnement";
 import Pricing from "@/components/perso/content/Pricing";
 import Process from "@/components/perso/content/Process";
@@ -58,7 +59,8 @@ export default function Home() {
           />
           <Pricing />
           <Process />
-          <Comments />
+          <FAQ />
+          <Commentaires />
           <Banner />
         </div>
       </main>
