@@ -1,22 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import { addProspect } from "@/firebase/database"; // Assurez-vous que le chemin est correct
 import { sendProspectNotification } from "@/utils/sendgrid";
@@ -165,9 +149,9 @@ const Hero = () => {
         className="w-full min-h-[650px] h-full object-cover absolute top-0 left-0 -z-10"
       />
       <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-5xl items-center justify-between p-6 lg:px-4 md:py-6 py-16 z-10">
-        <div className="w-full md:w-1/2 md:px-4 md:max-w-[400px]">
-          <h1 className="text-5xl text-white font-bold">
-            Trouvez{" "}
+        <div className="w-full md:w-8/12 md:px-4 md:max-w-[800px]">
+          <h1 className="text-5xl text-white font-bold mb-7">
+            Passez de <br />
             <span
               // style={{
               //   textDecoration: "underline",
@@ -175,9 +159,9 @@ const Hero = () => {
               // }}
               className="text-yellow-500"
             >
-              vos
-            </span>
-            <br />{" "}
+              0
+            </span>{" "}
+            {""}à{" "}
             <span
               // style={{
               //   textDecoration: "underline",
@@ -185,22 +169,39 @@ const Hero = () => {
               // }}
               className="text-yellow-500"
             >
-              chantiers
-            </span>
+              100 000€
+            </span>{" "}
+            de chantiers/mois.
           </h1>
-          <h2 className="text-white mt-7">
-            Augmentez votre CA mensuel de <br />{" "}
-            <span className="text-4xl font-semibold">30 000€</span> à{" "}
-            <span className="text-4xl font-semibold">400 000€</span>
+          <h2 className="text-white mt-10 text-2xl">
+            <span className=" font-semibold">
+              {" "}
+              Payez 99€ une seule fois, et recevez jusqu&apos;à 10 demandes par
+              jour toute l&apos;année — sans plateforme, sans leads partagés,
+              grâce à votre propre site livrés en 24h.
+            </span>
           </h2>
-          <p className="text-white mt-7">
-            Recevez des demandes de devis exclusives, grâce à un site
-            personnalisé et des campagnes Google Ads performantes, pensées pour
-            vous seul. Fini les leads partagés revendus à 5 artisans. Ici,
-            chaque prospect est pour vous, et uniquement vous.
-          </p>
+
+          <ul className="text-white mt-7 space-y-4 text-lg">
+            <li className="flex items-center gap-2">
+              <span className="text-xl">✅</span>
+              Déjà utilisé par 12 000 artisans en France
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-xl">✅</span>
+              400€ de pub Google offerts à l&apos;ouverture de votre compte
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-xl">✅</span>
+              Résiliable à tout moment
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-xl">✅</span>
+              Google Ads Partner
+            </li>
+          </ul>
         </div>
-        <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10">
+        {/* <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -319,13 +320,13 @@ const Hero = () => {
               </div>
               <Button
                 type="submit"
-                className="mt-6 w-full bg-yellow-500 hover:bg-yellow-400"
+                className="mt-6 w-full bg-yellow-500 hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-xl py-6 rounded-xl"
               >
-                Envoyer
+                Commander mon site maintenant !
               </Button>
             </form>
           </Form>
-        </div>
+        </div> */}
       </div>
     </section>
   );
