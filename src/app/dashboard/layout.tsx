@@ -1,20 +1,37 @@
 "use client";
 
-import { Disclosure, Menu } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from "@heroicons/react/24/outline";
+import { auth } from "@/firebase/firebase.config";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+  Bars3Icon,
+  BellIcon,
+  UserIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { signOut } from "firebase/auth";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import React from "react";
 
-const navigation = [
-  { name: "Tableau de bord", href: "/dashboard", current: true },
-  { name: "Mon site", href: "/dashboard/site", current: false },
-  { name: "Statistiques", href: "/dashboard/stats", current: false },
-  { name: "Paramètres", href: "/dashboard/settings", current: false },
+const defaultNavigation = [
+  { name: "Tableau de bord", href: "/dashboard" },
+  { name: "Mon site", href: "/dashboard/site" },
+  { name: "CRM", href: "/dashboard/crm" },
+  { name: "Contact", href: "/dashboard/contact" },
 ];
 
+const handleSignOut = async () => {
+  try {
+    await signOut(auth);
+    window.location.href = "/auth";
+  } catch (error) {
+    console.error("Erreur lors de la déconnexion:", error);
+  }
+};
+
 const userNavigation = [
-  { name: "Mon profil", href: "/dashboard/profile" },
   { name: "Paramètres", href: "/dashboard/settings" },
-  { name: "Déconnexion", href: "/api/auth/signout" },
+  { name: "Déconnexion", onClick: handleSignOut },
 ];
 
 function classNames(...classes: string[]) {
@@ -26,6 +43,19 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  const navigation = defaultNavigation.map((item) => ({
+    ...item,
+    current: pathname === item.href,
+  }));
+
+  const getCurrentPageTitle = () => {
+    const currentPage = navigation.find((item) => item.current);
+    if (pathname === "/dashboard/settings") return "Paramètres";
+    return currentPage ? currentPage.name : "Tableau de bord";
+  };
+
   return (
     <div className="min-h-full">
       <Disclosure as="nav" className="bg-gray-800">
@@ -82,27 +112,51 @@ export default function DashboardLayout({
                             Ouvrir le menu utilisateur
                           </span>
                           <div className="h-8 w-8 rounded-full bg-gray-600 flex items-center justify-center">
-                            <UserIcon className="h-5 w-5 text-gray-300" aria-hidden="true" />
+                            <UserIcon
+                              className="h-5 w-5 text-gray-300"
+                              aria-hidden="true"
+                            />
                           </div>
                         </Menu.Button>
                       </div>
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => (
-                          <Menu.Item key={item.name}>
-                            {({ active }) => (
-                              <a
-                                href={item.href}
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                {item.name}
-                              </a>
-                            )}
-                          </Menu.Item>
-                        ))}
-                      </Menu.Items>
+                      <Transition
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          {userNavigation.map((item) => (
+                            <Menu.Item key={item.name}>
+                              {({ active }) =>
+                                item.href ? (
+                                  <a
+                                    href={item.href}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                ) : (
+                                  <button
+                                    onClick={item.onClick}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block w-full text-left px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    {item.name}
+                                  </button>
+                                )
+                              }
+                            </Menu.Item>
+                          ))}
+                        </Menu.Items>
+                      </Transition>
                     </Menu>
                   </div>
                 </div>
@@ -120,63 +174,78 @@ export default function DashboardLayout({
               </div>
             </div>
 
-            <Disclosure.Panel className="md:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block rounded-md px-3 py-2 text-base font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-              <div className="border-t border-gray-700 pb-3 pt-4">
-                <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
-                    <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
-                      <UserIcon className="h-6 w-6 text-gray-300" aria-hidden="true" />
-                    </div>
-                  </div>
-                  <div className="ml-3">
-                    <div className="text-base font-medium text-white">
-                      Utilisateur
-                    </div>
-                    <div className="text-sm font-medium text-gray-400">
-                      user@example.com
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  >
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">Voir les notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </div>
-                <div className="mt-3 space-y-1 px-2">
-                  {userNavigation.map((item) => (
+            <Transition
+              enter="transition duration-150 ease-out"
+              enterFrom="transform scale-95 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-100 ease-in"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
+            >
+              <Disclosure.Panel className="md:hidden">
+                <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+                  {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      className={classNames(
+                        item.current
+                          ? "bg-gray-900 text-white"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "block rounded-md px-3 py-2 text-base font-medium"
+                      )}
+                      aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>
                   ))}
                 </div>
-              </div>
-            </Disclosure.Panel>
+                <div className="border-t border-gray-700 pb-3 pt-4">
+                  <div className="flex items-center px-5">
+                    <div className="flex-shrink-0">
+                      <div className="h-10 w-10 rounded-full bg-gray-600 flex items-center justify-center">
+                        <UserIcon
+                          className="h-6 w-6 text-gray-300"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-base font-medium text-white">
+                        Utilisateur
+                      </div>
+                      <div className="text-sm font-medium text-gray-400">
+                        user@example.com
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <span className="absolute -inset-1.5" />
+                      <span className="sr-only">Voir les notifications</span>
+                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </div>
+                  <div className="mt-3 space-y-1 px-2">
+                    {userNavigation.map((item) => (
+                      <Disclosure.Button
+                        key={item.name}
+                        as="button"
+                        onClick={
+                          item.onClick ||
+                          (() => (window.location.href = item.href || ""))
+                        }
+                        className="block w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    ))}
+                  </div>
+                </div>
+              </Disclosure.Panel>
+            </Transition>
           </>
         )}
       </Disclosure>
@@ -186,7 +255,7 @@ export default function DashboardLayout({
           <div className="bg-white shadow-sm">
             <div className="px-4 py-6 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                Tableau de bord
+                {getCurrentPageTitle()}
               </h1>
             </div>
           </div>
