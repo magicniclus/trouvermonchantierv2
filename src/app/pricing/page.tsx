@@ -9,7 +9,7 @@ import {
   XMarkIcon as XMarkIconMini,
 } from "@heroicons/react/20/solid";
 import { useRouter, useSearchParams } from "next/navigation"; // Importer useRouter de Next.js
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const pricing = {
   frequencies: [
@@ -220,11 +220,10 @@ type FeatureTiers = {
   Growth: boolean | string;
 };
 
-const Page = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [frequency, setFrequency] = useState(pricing.frequencies[0]);
-  const router = useRouter();
+const PricingPageContent = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const [frequency, setFrequency] = useState(pricing.frequencies[0]);
   const [uid, setUid] = useState<string | null>(null);
 
   useEffect(() => {
@@ -1139,6 +1138,16 @@ const Page = () => {
       </main>
       <Footer className="bg-slate-900" />
     </>
+  );
+};
+
+const Page = () => {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+    </div>}>
+      <PricingPageContent />
+    </Suspense>
   );
 };
 
