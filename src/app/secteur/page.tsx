@@ -2,6 +2,7 @@
 
 import SearchWithCards from "@/components/mapbox/SearchWithCards";
 import Nav from "@/components/tailwindui/nav/Nav";
+import { Suspense } from "react";
 
 const page = () => {
   return (
@@ -18,7 +19,11 @@ const page = () => {
             la zone définie en fonction de la demande.
           </h2>
         </div>
-        <SearchWithCards />
+        <Suspense fallback={<div className="flex justify-center items-center h-screen">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+        </div>}>
+          <SearchWithCards />
+        </Suspense>
       </main>
       {/* <Footer /> */}
     </>
