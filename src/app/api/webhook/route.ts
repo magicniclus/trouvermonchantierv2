@@ -26,15 +26,15 @@ export async function POST(req: Request) {
     const session = event.data.object as Stripe.Checkout.Session;
     
     try {
-      // Créer l'utilisateur dans Firebase
-      const { user, password, success, error } = await createFirebaseUser(session.customer_email!);
+      // Générer un mot de passe aléatoire
+      const tempPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).toUpperCase().slice(-4);
       
-      if (!success) {
-        throw new Error(error);
-      }
+      // Créer l'utilisateur dans Firebase
+      const userCredential = await createFirebaseUser(session.customer_email!, tempPassword);
+      const user = userCredential.user;
 
       // Créer les données du client dans la base de données
-      const dbResult = await createClientInDatabase(user!.uid, session.customer_email!);
+      const dbResult = await createClientInDatabase(user.uid, session.customer_email!);
       
       if (!dbResult.success) {
         throw new Error(dbResult.error);
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
         html: generateCredentialsEmail({
           name: session.customer_details?.name || "",
           email: session.customer_email!,
-          password: password!,
+          password: tempPassword,
         }),
       });
 
