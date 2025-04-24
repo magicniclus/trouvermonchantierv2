@@ -37,9 +37,15 @@ export const initializeClientData = async (userId: string, email: string) => {
         radius_km: 0
       },
 
-      domain: {
-        custom_domain: "",
-        ssl_status: ""
+      custom_domain: "",
+      ssl_status: "",
+
+      contact: {
+        email: "",
+        phone: "",
+        address: "",
+        siret: "",
+        company_type: ""
       },
 
       logo_url: "",
@@ -50,9 +56,11 @@ export const initializeClientData = async (userId: string, email: string) => {
         secondary: ""
       },
       images_uploaded: [],
+      link_comment: "",
       certifications: [],
       created_at: now,
       updated_at: now,
+      siteIsOk: false,
     };
 
     console.log("Client data prepared:", clientData);
