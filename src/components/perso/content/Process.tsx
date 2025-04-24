@@ -1,11 +1,16 @@
 "use client";
 
 import { FlagIcon } from "@heroicons/react/20/solid";
+import ProcessMobile from "./ProcessMobile";
 
 const Process = () => {
   return (
-    <section className=" py-24">
-      <div className="w-full flex flex-col relative">
+    <section className="py-24">
+      {/* Version Mobile */}
+      <ProcessMobile />
+      
+      {/* Version Desktop */}
+      <div className="w-full flex flex-col relative hidden md:block">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[550px] border-r border-dashed border-yellow-500" />
         <div className="w-full max-w-5xl mx-auto lg:px-4 flex">
           <div className="w-1/2 md:block hidden"></div>
