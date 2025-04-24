@@ -27,6 +27,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "firebase": "^10.12.2",
+    "firebase-admin": "^13.3.0",
     "firebase-tools": "^14.2.1",
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
