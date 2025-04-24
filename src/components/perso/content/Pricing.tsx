@@ -18,13 +18,13 @@ const Pricing = () => {
   return (
     <section className="w-full" id="pricing">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="bg-white p-8 md:p-12">
+        <div className="bg-white p-2 py-8 md:p-12">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-slate-800 mb-4">
               Finaliser votre commande
             </h2>
             <p className="text-slate-600 text-lg">
-              Plus qu&apos;une étape pour lancer votre site web professionnel
+              Plus qu&apos;une étape pour obtenir un maximum de chantier
             </p>
           </div>
 
