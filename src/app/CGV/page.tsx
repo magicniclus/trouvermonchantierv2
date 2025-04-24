@@ -7,8 +7,8 @@ const page = () => {
       <Nav />
       <main>
         <section className="py-24">
-          <div className="mx-auto max-w-6xl px-6 lg:px-8 text-slate-700 flex flex-col items-center">
-            <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl max-w-[70%qd]">
+          <div className="mx-auto max-w-5xl px-6 lg:px-8 text-slate-700 flex flex-col items-center">
+            <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl max-w-[70%]">
               Conditions générales de vente
             </h1>
             <div className="w-full mt-16 text-sm">
@@ -51,10 +51,109 @@ const page = () => {
                 Nicolas Catera, propriétaire de l&apos;entreprise XYZ.
               </p>
               <h3 className="text-lg font-semibold mt-7">
-                2. Inscription et Accès aux Services
+                2. Description des Services et Tarification
+              </h3>
+              <p className="mt-3">2.1. Pack de Base à 149€ HT</p>
+              <p className="mt-3">Le pack de base comprend :</p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>
+                  Un site web monopage (landing page) personnalisé au nom du
+                  client
+                </li>
+                <li>
+                  Une campagne Google Ads ciblée sur la prestation proposée par
+                  le client (ex : couvreur, menuisier)
+                </li>
+                <li>Un nom de domaine pour la durée de l&apos;engagement</li>
+                <li>
+                  Des images et logos optimisés, libres de droit, selon les
+                  besoins
+                </li>
+                <li>
+                  L&apos;accès à nos outils : dashboard, interface Google Ads,
+                  et CRM
+                </li>
+              </ul>
+              <p className="mt-3">2.2. Conditions Spécifiques</p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>
+                  Le délai de livraison de 24h s&apos;applique à partir du
+                  moment où toutes les informations requises dans le dashboard
+                  du client sont reçues et validées. Ce délai s&apos;entend en
+                  jours ouvrés, hors weekends, jours fériés et périodes de
+                  vacances.
+                </li>
+                <li>
+                  L&apos;offre de 400€ de publicité Google Ads est soumise aux
+                  conditions de Google. Cette offre est accordée par Google
+                  après que le client ait dépensé 400€ en publicité sur la
+                  plateforme Google Ads. Cette offre promotionnelle est gérée
+                  exclusivement par Google et peut être modifiée ou arrêtée à
+                  tout moment par Google, sans que notre responsabilité ne
+                  puisse être engagée.
+                </li>
+                <li>
+                  Le site fourni ne propose qu&apos;une seule prestation
+                  principale
+                </li>
+                <li>
+                  Le client s&apos;engage à fournir un accès à son compte Google
+                  Ads pour la création des campagnes
+                </li>
+                <li>
+                  Le client peut donner son avis sur le résultat du site fourni
+                  mais n&apos;est pas décisionnaire du design final
+                </li>
+                <li>
+                  En cas de désabonnement, l&apos;accès au site sera suspendu et
+                  les données seront conservées pendant 6 mois maximum
+                </li>
+              </ul>
+              <p className="mt-3">
+                2.3. Limitation de Responsabilité sur les Performances
+              </p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>
+                  Nous nous engageons à fournir la meilleure prestation possible
+                  selon les services décrits ci-dessus
+                </li>
+                <li>
+                  Nous ne pouvons garantir un nombre minimum de demandes de
+                  devis
+                </li>
+                <li>
+                  Les résultats des campagnes publicitaires dépendent de
+                  nombreux facteurs externes
+                </li>
+                <li>
+                  L&apos;efficacité des campagnes peut varier selon les secteurs
+                  et les zones géographiques
+                </li>
+                <li>
+                  Les performances ne sont pas garanties et peuvent fluctuer
+                  dans le temps
+                </li>
+              </ul>
+              <p className="mt-3">2.4. Outils et Services Annexes</p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>
+                  L&apos;accès aux outils (dashboard, interface Google Ads, CRM)
+                  est inclus dans le service
+                </li>
+                <li>
+                  Ces outils peuvent être soumis à des évolutions ou des
+                  maintenances périodiques
+                </li>
+                <li>
+                  Le support technique est accessible via
+                  contact@trouver-mon-chantier.fr
+                </li>
+              </ul>
+              <h3 className="text-lg font-semibold mt-7">
+                3. Inscription et Accès aux Services
               </h3>
               <p className="mt-3">
-                2.1 L’inscription aux Services offerts par
+                3.1 L’inscription aux Services offerts par
                 trouver-mon-chantier.fr s’effectue exclusivement en ligne et en
                 langue française. Aucune inscription réalisée par courrier, fax,
                 ou téléphone ne sera considérée comme valide. Seule
