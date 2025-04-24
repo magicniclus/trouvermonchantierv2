@@ -1,7 +1,7 @@
+import { AuthProvider } from "@/context/AuthContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        <link rel="icon" href="/favicon.png" sizes="any" />
+        <meta charSet="utf-8" />
+        <link rel="icon" href="logo/favicon.png" sizes="any" />
+        <link rel="shortcut icon" href="logo/favicon.png" />
       </head>
       <body className={inter.className}>
         <AuthProvider>{children}</AuthProvider>

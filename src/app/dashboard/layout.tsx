@@ -96,7 +96,9 @@ export default function DashboardLayout({
   return (
     <html lang="fr">
       <head>
-        <link rel="icon" href="/favicon.png" sizes="any" />
+        <meta charSet="utf-8" />
+        <link rel="icon" href="logo/favicon.png" sizes="any" />
+        <link rel="shortcut icon" href="logo/favicon.png" />
       </head>
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
