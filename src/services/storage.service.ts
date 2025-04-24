@@ -1,5 +1,5 @@
 import { storage, auth } from "@/firebase/firebase.config";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -79,19 +79,17 @@ export const uploadImage = async (
 
 export const deleteImage = async (imageUrl: string): Promise<void> => {
   try {
-    const token = await auth.currentUser?.getIdToken();
-    if (!token) throw new Error("Non authentifié");
+    if (!auth.currentUser) throw new Error("Non authentifié");
 
-    const response = await fetch(imageUrl, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      }
-    });
+    // Extraire le chemin du fichier de l'URL
+    const url = new URL(imageUrl);
+    const pathFromUrl = decodeURIComponent(url.pathname.split('/o/')[1].split('?')[0]);
 
-    if (!response.ok) {
-      throw new Error(`Erreur de suppression: ${response.status} ${response.statusText}`);
-    }
+    // Créer une référence au fichier
+    const fileRef = ref(storage, pathFromUrl);
+
+    // Supprimer le fichier
+    await deleteObject(fileRef);
   } catch (error) {
     console.error('Erreur lors de la suppression:', error);
     throw error;
