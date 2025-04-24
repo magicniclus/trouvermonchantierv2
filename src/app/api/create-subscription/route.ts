@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
-import Stripe from "stripe";
 import { auth } from "@/firebase/firebase.config";
 import { initializeClientData } from "@/services/client.service";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { generateSecurePassword } from "@/utils/passwordGenerator";
 import { sendCredentialsEmail } from "@/utils/sendEmail";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
@@ -70,7 +70,7 @@ export async function POST(request: Request) {
     // Créer l'abonnement avec 30 jours d'essai
     const subscription = await stripe.subscriptions.create({
       customer: customer.id,
-      items: [{ price: "price_1RH43wGSRUSi3pCUgwepYiJ9" }],
+      items: [{ price: "price_1RHTiUGSRUSi3pCUHv9wHOGH" }],
       trial_period_days: 30,
       default_payment_method: paymentMethodId,
       payment_settings: {
@@ -87,7 +87,11 @@ export async function POST(request: Request) {
     const password = generateSecurePassword();
 
     // Créer le compte Firebase
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
     // Initialiser les données dans Firestore
     try {
@@ -104,7 +108,7 @@ export async function POST(request: Request) {
     try {
       await sendCredentialsEmail(email, password);
     } catch (error) {
-      console.error('Erreur lors de l\'envoi de l\'email:', error);
+      console.error("Erreur lors de l'envoi de l'email:", error);
       // On continue même si l'email échoue
     }
 
@@ -120,8 +124,8 @@ export async function POST(request: Request) {
       credentials: {
         email,
         password,
-        uid: userCredential.user.uid
-      }
+        uid: userCredential.user.uid,
+      },
     });
   } catch (error: any) {
     console.error("Erreur lors de la création de l'abonnement:", error);
