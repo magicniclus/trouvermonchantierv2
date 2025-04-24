@@ -109,7 +109,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
               href="#pricing"
               className="block px-6 py-3 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
-              Commander mon site
+              Obtenir mes chantiers
             </a>
           </div>
         )}
@@ -169,7 +169,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
                     href="#pricing"
                     className="block w-full text-center px-6 py-4 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mx-auto"
                   >
-                    Commander mon site
+                    Obtenir mes chantiers
                   </a>
                 </div>
               )}
