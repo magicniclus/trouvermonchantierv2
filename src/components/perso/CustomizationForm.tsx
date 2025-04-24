@@ -9,22 +9,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { ImageUpload } from "@/components/ui/image-upload";
 import { auth } from "@/firebase/firebase.config";
 import {
   getCustomization,
   subscribeToCustomization,
   updateCustomization,
 } from "@/services/customization.service";
+import { deleteImage, uploadImage } from "@/services/storage.service";
 import { Customization } from "@/types/client";
 import { REGEX } from "@/utils/regex";
-import { debounce } from "lodash";
-import { useCallback, useEffect, useState } from "react";
-import { useAuth } from "@/context/AuthContext";
-import { uploadImage, deleteImage } from "@/services/storage.service";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { debounce } from "lodash";
 import Image from "next/image";
+import ImageUploadZone from "../ui/ImageUploadZone";
+import { useCallback, useEffect, useState } from "react";
 
 export default function CustomizationForm() {
   const [customization, setCustomization] = useState<Customization | null>(
@@ -154,18 +152,24 @@ export default function CustomizationForm() {
     setError(error);
   };
 
-  const handleImagesChange = async (urls: string[], type: "logo" | "company") => {
+  const handleImagesChange = async (
+    urls: string[],
+    type: "logo" | "company"
+  ) => {
     if (!customization || !user) return;
 
     // Trouver les images qui ont été supprimées
-    const currentImages = type === "logo" 
-      ? [customization.logo_url].filter(Boolean)
-      : customization.images_uploaded || [];
-    const deletedImages = currentImages.filter(url => !urls.includes(url));
+    const currentImages =
+      type === "logo"
+        ? [customization.logo_url].filter(Boolean)
+        : customization.images_uploaded || [];
+    const deletedImages = currentImages.filter(
+      (url) => !urls.includes(url as string)
+    );
 
     // Supprimer les images du storage
     try {
-      await Promise.all(deletedImages.map(url => deleteImage(url)));
+      await Promise.all(deletedImages.map((url) => deleteImage(url as string)));
     } catch (error) {
       console.error("Erreur lors de la suppression des images:", error);
     }
@@ -174,13 +178,12 @@ export default function CustomizationForm() {
     const updatedData = {
       ...customization,
       updated_at: new Date().toISOString(),
-      ...(type === "logo" 
-        ? { 
+      ...(type === "logo"
+        ? {
             logo_url: urls[0] || "",
-            has_logo: urls.length > 0
+            has_logo: urls.length > 0,
           }
-        : { images_uploaded: urls }
-      )
+        : { images_uploaded: urls }),
     };
 
     setCustomization(updatedData);
@@ -266,19 +269,8 @@ export default function CustomizationForm() {
 
       const save = async () => {
         try {
-          const isFormComplete = Boolean(
-            data.company_name &&
-              data.legal_name &&
-              data.activity_sector &&
-              data.description &&
-              data.zone_intervention?.postal_code &&
-              data.contact?.email &&
-              data.contact?.phone
-          );
-
           const updatedData = {
             ...data,
-            siteIsOk: isFormComplete,
             updated_at: new Date().toISOString(),
           };
 
@@ -519,171 +511,32 @@ export default function CustomizationForm() {
               </div>
             </div>
 
-            <div className="col-span-full">
-              <label htmlFor="logo" className="block text-sm/6 font-medium text-gray-900">
-                Logo de l&apos;entreprise
-              </label>
-              <div className="mt-2">
-                {customization?.logo_url ? (
-                  <div className="flex items-center gap-x-4">
-                    <Image
-                      src={customization.logo_url}
-                      alt="Logo de l'entreprise"
-                      width={48}
-                      height={48}
-                      className="size-12 object-contain"
-                    />
-                    <button
-                      type="button"
-                      className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                      onClick={async () => {
-                        try {
-                          if (!user) return;
-                          await deleteImage(customization.logo_url);
-                          console.log("Logo supprimé avec succès");
-                          handleChange("logo_url", "");
-                          handleChange("has_logo", false);
-                        } catch (error) {
-                          console.error("Erreur lors de la suppression du logo:", error);
-                          setError("Erreur lors de la suppression du logo");
-                        }
-                      }}
-                    >
-                      Supprimer
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                    <div className="text-center">
-                      <PhotoIcon
-                        className="mx-auto h-12 w-12 text-gray-300"
-                        aria-hidden="true"
-                      />
-                      <div className="mt-4 flex text-sm/6 text-gray-600">
-                        <label
-                          htmlFor="logo-upload"
-                          className="relative cursor-pointer rounded-md bg-white font-semibold text-slate-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-slate-500"
-                        >
-                          <span>Ajouter un logo</span>
-                          <input
-                            id="logo-upload"
-                            name="logo-upload"
-                            type="file"
-                            accept="image/*"
-                            className="sr-only"
-                            onChange={async (e) => {
-                              try {
-                                const file = e.target.files?.[0];
-                                if (!file || !user) return;
+            <ImageUploadZone
+              uploadType="single"
+              storageFolder="logo"
+              label="Logo de l'entreprise"
+              currentImages={customization.logo_url ? [customization.logo_url] : []}
+              userId={user.uid}
+              onImagesChange={(urls) => handleImagesChange(urls, "logo")}
+              onError={handleImageError}
+            />
 
-                                console.log("Début de l'upload du logo...");
-                                const logoUrl = await uploadImage(user.uid, file, "logo");
-                                console.log("Logo uploadé avec succès:", logoUrl);
-
-                                handleChange("logo_url", logoUrl);
-                                handleChange("has_logo", true);
-                              } catch (error) {
-                                console.error("Erreur lors de l'upload du logo:", error);
-                                setError("Erreur lors de l'upload du logo. Vérifiez le format et la taille du fichier.");
-                              }
-                            }}
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
+            <ImageUploadZone
+              uploadType="multiple"
+              storageFolder="company"
+              label="Images de l'entreprise"
+              description="Suivant la qualité, les images fournies ne seront pas forcément affichées"
+              currentImages={customization.images_uploaded || []}
+              userId={user.uid}
+              onImagesChange={(urls) => handleImagesChange(urls, "company")}
+              onError={handleImageError}
+            />
 
             <div className="col-span-full">
-              <label htmlFor="images" className="block text-sm/6 font-medium text-gray-900">
-                Images de l&apos;entreprise{" "}
-                <span className="text-gray-600 text-xs">
-                  (Suivant la qualité, les images fournis ne seront pas forcément affichées)
-                </span>
-              </label>
-              <div className="mt-2">
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  {customization?.images_uploaded?.map((imageUrl, index) => (
-                    <div key={index} className="relative group">
-                      <Image
-                        src={imageUrl}
-                        alt={`Image ${index + 1}`}
-                        width={200}
-                        height={200}
-                        className="w-full h-40 object-cover rounded-lg"
-                      />
-                      <button
-                        type="button"
-                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={async () => {
-                          try {
-                            if (!user) return;
-                            await deleteImage(imageUrl);
-                            console.log(`Image ${index + 1} supprimée avec succès`);
-                            const updatedImages = customization.images_uploaded.filter(url => url !== imageUrl);
-                            handleChange("images_uploaded", updatedImages);
-                          } catch (error) {
-                            console.error("Erreur lors de la suppression de l'image:", error);
-                            setError("Erreur lors de la suppression de l'image");
-                          }
-                        }}
-                      >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                  <div className="text-center">
-                    <PhotoIcon
-                      className="mx-auto h-12 w-12 text-gray-300"
-                      aria-hidden="true"
-                    />
-                    <div className="mt-4 flex text-sm/6 text-gray-600">
-                      <label
-                        htmlFor="images-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-slate-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-slate-500"
-                      >
-                        <span>Ajouter des images</span>
-                        <input
-                          id="images-upload"
-                          name="images-upload"
-                          type="file"
-                          multiple
-                          accept="image/*"
-                          className="sr-only"
-                          onChange={async (e) => {
-                            try {
-                              const files = Array.from(e.target.files || []);
-                              if (files.length === 0 || !user) return;
-
-                              console.log(`Début de l'upload de ${files.length} images...`);
-                              const uploadPromises = files.map(file => uploadImage(user.uid, file, "company"));
-                              const imageUrls = await Promise.all(uploadPromises);
-                              console.log("Images uploadées avec succès:", imageUrls);
-
-                              const existingImages = customization?.images_uploaded || [];
-                              handleChange("images_uploaded", [...existingImages, ...imageUrls]);
-                            } catch (error) {
-                              console.error("Erreur lors de l'upload des images:", error);
-                              setError("Erreur lors de l'upload des images. Vérifiez le format et la taille des fichiers.");
-                            }
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-span-full">
-              <label htmlFor="custom_domain" className="block text-sm/6 font-medium text-gray-900">
+              <label
+                htmlFor="custom_domain"
+                className="block text-sm/6 font-medium text-gray-900"
+              >
                 Nom de domaine personnalisé
               </label>
               <div className="mt-2">
@@ -692,7 +545,9 @@ export default function CustomizationForm() {
                   name="custom_domain"
                   type="text"
                   value={customization?.custom_domain || ""}
-                  onChange={(e) => handleChange("custom_domain", e.target.value)}
+                  onChange={(e) =>
+                    handleChange("custom_domain", e.target.value)
+                  }
                   className="block w-full border border-input rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-slate-900 sm:text-sm/6"
                 />
               </div>
@@ -1132,47 +987,7 @@ export default function CustomizationForm() {
               : "Soumettre mes informations"}
           </button>
         </div>
-
-        {error && (
-          <div className="rounded-md bg-red-50 p-4">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg
-                  className="h-5 w-5 text-red-400"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="flex items-center justify-end gap-x-6">
-          <button
-            type="submit"
-            disabled={!isFormValid()}
-            className={`rounded-md px-3 py-2 text-sm font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600 ${
-              isFormValid()
-                ? "bg-yellow-500 hover:bg-yellow-400"
-                : "bg-gray-400 cursor-not-allowed"
-            }`}
-          >
-            {customization?.siteIsOk
-              ? "Informations validées"
-              : "Soumettre mes informations"}
-          </button>
-        </div>
       </div>
     </form>
   );
 }
-
