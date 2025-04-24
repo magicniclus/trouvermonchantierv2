@@ -51,22 +51,22 @@ const Footer = ({ className }: { className?: string }) => {
             <p className="">Obtenir des chantiers ?</p>
             <a
               href="#pricing"
-              className="px-6 py-2 mt-3 rounded-xl bg-gradient-to-r from-yellow-500 to-[#BF522A] w-max"
+              className="px-6 py-2 mt-3 rounded-xl bg-gradient-to-r from-yellow-500 to-[#BF522A] "
             >
-              OBTENIR MON MACHINE A CHANTIER
+              OBTENIR DES CHANTIERS
             </a>
           </div>
-          <ul className="flex text-white mt-10 md:mt-0">
+          <ul className="text-white md:gap-3 sm:gap-2 gap-1  mt-10 md:mt-0">
             <li>
               <a href="/auth">Mon espace</a>
             </li>
-            <li className="ml-3">
+            <li className="">
               <a href="mentions-legales">Mentions légales</a>
             </li>
-            <li className="ml-3">
+            <li className="">
               <a href="/CGV">CGV</a>
             </li>
-            <li className="ml-3">
+            <li className="">
               <a href="mailto:support@trouver-mon-chantier.fr">Contact</a>
             </li>
           </ul>
