@@ -6,7 +6,7 @@ import Nav from "@/components/tailwindui/nav/Nav";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ""
@@ -58,7 +58,7 @@ const priceIds = {
 type TierKey = keyof typeof pricing.tiers;
 type FrequencyKey = keyof (typeof pricing.tiers)[TierKey];
 
-const CheckoutPage = () => {
+const CheckoutPageContent = () => {
   const searchParams = useSearchParams();
   const [tier, setTier] = useState<TierKey | null>(null);
   const [frequency, setFrequency] = useState<FrequencyKey | null>(null);
@@ -276,6 +276,16 @@ const CheckoutPage = () => {
         </section>
       </main>
     </>
+  );
+};
+
+const CheckoutPage = () => {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+    </div>}>
+      <CheckoutPageContent />
+    </Suspense>
   );
 };
 
