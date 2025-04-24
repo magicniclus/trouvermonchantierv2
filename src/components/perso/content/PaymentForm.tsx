@@ -25,6 +25,43 @@ export function PaymentForm() {
     expiry: false,
     cvc: false,
   });
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState<{
+    percentage: number;
+    amount: number;
+  } | null>(null);
+  const basePrice = 99;
+
+  const calculateDiscount = (code: string) => {
+    switch (code.toUpperCase()) {
+      case "CHANTIER99":
+        const discount99Amount = Number((basePrice * 0.99).toFixed(2)); // Calculer 99% du prix
+        setDiscount({
+          percentage: 99,
+          amount: discount99Amount, // C'est le montant à réduire
+        });
+        break;
+      case "CHANTIER20":
+        const discount20 = 20;
+        setDiscount({
+          percentage: Math.round((discount20 / basePrice) * 100),
+          amount: Number(discount20.toFixed(2)),
+        });
+        break;
+      default:
+        setDiscount(null);
+    }
+  };
+
+  const handlePromoCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const code = e.target.value;
+    setPromoCode(code);
+    calculateDiscount(code);
+  };
+
+  const finalPrice = Number(
+    (discount ? basePrice - discount.amount : basePrice).toFixed(2)
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +95,14 @@ export function PaymentForm() {
         body: JSON.stringify({
           paymentMethodId: paymentMethod.id,
           email: email,
+          amount: finalPrice,
+          promoCode: promoCode,
+          discount: discount
+            ? {
+                percentage: discount.percentage,
+                amount: discount.amount,
+              }
+            : null,
         }),
       });
 
@@ -104,8 +149,22 @@ export function PaymentForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+        </div>{" "}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Code promo</h3>
+          <input
+            type="text"
+            placeholder="Code promo"
+            className="w-full p-3 border border-slate-200 rounded-lg"
+            value={promoCode}
+            onChange={handlePromoCodeChange}
+          />
+          {discount && (
+            <p className="mt-2 text-green-600 font-medium">
+              Réduction appliquée : {discount.percentage}% (-{discount.amount}€)
+            </p>
+          )}
         </div>
-
         <div>
           <h3 className="text-lg font-semibold mb-4">Détails du paiement</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -268,9 +327,9 @@ export function PaymentForm() {
             <span className="font-medium">99€</span>
           </div>
 
-          <div className="flex justify-between items-start pb-4 border-b border-slate-200">
+          <div className="flex justify-between items-start border-slate-200">
             <div>
-              <h4 className="font-medium">Maintenance mensuelle</h4>
+              <h4 className="font-medium">Hébergement mensuelle</h4>
               <p className="text-sm text-slate-600">
                 Premier mois offert, puis 29€/mois{" "}
                 <span className="text-slate-400 text-xs">
@@ -286,38 +345,51 @@ export function PaymentForm() {
             </div>
           </div>
 
-          <div className="flex justify-between items-center pt-4">
-            <span className="font-semibold">Total initial</span>
-            <span className="font-semibold">99€</span>
+          <div className="mt-6 space-y-2">
+            {discount && (
+              <p className="text-xl font-semibold flex justify-between border-t pt-2">
+                <span>Prix initial :</span>
+                <span>{basePrice}€</span>
+              </p>
+            )}
+            {discount && (
+              <p className="text-green-600 font-medium flex justify-between">
+                <span>Réduction ({discount.percentage}%) :</span>
+                <span>-{discount.amount}€</span>
+              </p>
+            )}
+            <p className="text-xl font-bold flex justify-between border-t pt-2">
+              <span>Total :</span>
+              <span>{finalPrice}€</span>
+            </p>
+            <div className="text-sm text-slate-600 mt-2">
+              <p>Puis 29€/mois pour la maintenance à partir du 2ème mois</p>
+            </div>
           </div>
 
-          <div className="text-sm text-slate-600">
-            <p>Puis 29€/mois pour la maintenance à partir du 2ème mois</p>
+          <div className="mt-8">
+            <h4 className="font-medium mb-4">Avantages</h4>
+            <ul className="space-y-4 text-sm">
+              <li className="flex items-center gap-2">
+                <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
+                Livraison sous 24h
+                <span className="text-xs text-gray-600">*</span>
+              </li>
+              <li className="flex items-center text-sm gap-2">
+                <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
+                400€ de pub Google offerts à l&apos;ouverture de votre compte
+                <span className="text-xs text-gray-600">*</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
+                Résiliable à tout moment
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
+                Jusqu&apos;à 10 demandes de devis par jour
+              </li>
+            </ul>
           </div>
-        </div>
-
-        <div className="">
-          <h4 className="font-medium mb-2">Avantages</h4>
-          <ul className=" mt-4 space-y-4 text-sm text-lg">
-            <li className="flex items-center gap-2">
-              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
-              Livraison sous 24h
-              <span className="text-xs text-gray-600">*</span>
-            </li>
-            <li className="flex items-center text-sm gap-2">
-              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
-              400€ de pub Google offerts à l&apos;ouverture de votre compte
-              <span className="text-xs text-gray-600">*</span>
-            </li>
-            <li className="flex items-cente text-sm gap-2">
-              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
-              Résiliable à tout moment
-            </li>
-            <li className="flex items-center text-sm gap-2">
-              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
-              Jusqu&apos;à 10 demandes de devis par jour
-            </li>
-          </ul>
         </div>
       </div>
     </div>
