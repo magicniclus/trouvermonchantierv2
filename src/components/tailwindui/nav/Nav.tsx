@@ -98,7 +98,8 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
               Ce que vous gagnez
             </a>
             <a
-              href=""
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               F.A.Q
