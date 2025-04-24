@@ -8,18 +8,15 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 
 import { SiMastercard, SiVisa } from "react-icons/si";
-
 
 export function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [email, setEmail] = useState("");
@@ -265,7 +262,7 @@ export function PaymentForm() {
         <div className="space-y-4">
           <div className="flex justify-between items-start pb-4 border-b border-slate-200">
             <div>
-              <h4 className="font-medium">Création du site web</h4>
+              <h4 className="font-medium">Generateur de chantier</h4>
               <p className="text-sm text-slate-600">Paiement unique</p>
             </div>
             <span className="font-medium">99€</span>
@@ -303,21 +300,21 @@ export function PaymentForm() {
           <h4 className="font-medium mb-2">Avantages</h4>
           <ul className=" mt-4 space-y-4 text-sm text-lg">
             <li className="flex items-center gap-2">
-              <CheckBadgeIcon className="w-6 h-6 text-yellow-500" />
+              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
               Livraison sous 24h
               <span className="text-xs text-gray-600">*</span>
             </li>
             <li className="flex items-center text-sm gap-2">
-              <CheckBadgeIcon className="w-6 h-6 text-yellow-500" />
+              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
               400€ de pub Google offerts à l&apos;ouverture de votre compte
               <span className="text-xs text-gray-600">*</span>
             </li>
             <li className="flex items-cente text-sm gap-2">
-              <CheckBadgeIcon className="w-6 h-6 text-yellow-500" />
+              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
               Résiliable à tout moment
             </li>
             <li className="flex items-center text-sm gap-2">
-              <CheckBadgeIcon className="w-6 h-6 text-yellow-500" />
+              <CheckBadgeIcon className="min-w-6 h-6 w-6 min-h-6 h-6 w-6 text-yellow-500" />
               Jusqu&apos;à 10 demandes de devis par jour
             </li>
           </ul>
