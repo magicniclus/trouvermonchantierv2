@@ -10,9 +10,21 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
 });
 
+interface RequestBody {
+  paymentMethodId: string;
+  email: string;
+  amount?: number;
+  promoCode?: string;
+  discount?: {
+    percentage: number;
+    amount: number;
+  } | null;
+}
+
 export async function POST(request: Request) {
   try {
-    const { paymentMethodId, email } = await request.json();
+    const body: RequestBody = await request.json();
+    const { paymentMethodId, email } = body;
 
     // Créer ou récupérer le client
     const customers = await stripe.customers.list({ email });
@@ -40,9 +52,13 @@ export async function POST(request: Request) {
       },
     });
 
-    // Créer un paiement unique de 99€
+    // Récupérer le montant avec la promo si applicable
+    const { amount } = body;
+    const finalAmount = Math.round((amount || 99) * 100); // Convertir en centimes
+
+    // Créer un paiement unique
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 9900,
+      amount: finalAmount,
       currency: "eur",
       customer: customer.id,
       payment_method: paymentMethodId,
