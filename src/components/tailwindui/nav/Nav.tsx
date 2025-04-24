@@ -141,7 +141,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
-              {withMenu && (
+              {withMenu !== false && (
                 <div className="space-y-2 py-6">
                   <a
                     href="#why"
@@ -163,16 +163,16 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
                   </a>
                 </div>
               )}
-              {withMenu && (
-                <div className="py-6">
+              {withMenu !== false && (
+                <div className="py-6 px-4">
                   <a
                     href="#pricing"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="block w-full text-center px-6 py-4 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mx-auto"
                   >
                     Commander mon site
                   </a>
                 </div>
-              )}{" "}
+              )}
             </div>
           </div>
         </DialogPanel>
