@@ -39,26 +39,23 @@ export const uploadImage = async (
   type: "logo" | "company"
 ): Promise<string> => {
   try {
-    console.log('Début de la validation...', { userId, fileName: file.name, type });
+    // Validation
     validateImage(file);
-    console.log('Validation OK');
 
+    // Préparer le nom du fichier
     const timestamp = Date.now();
     const cleanedFileName = cleanFileName(file.name);
     const fileName = `${timestamp}-${cleanedFileName}`;
-    const path = `users/${userId}/${type}/${fileName}`;
 
-    // Vérifier l'authentification
-    if (!auth.currentUser) {
-      throw new Error('Utilisateur non authentifié');
-    }
-    console.log('Utilisateur authentifié:', auth.currentUser.uid);
+    // Créer le chemin de stockage
+    const storagePath = `users/${userId}/${type}/${fileName}`;
+    const storageRef = ref(storage, storagePath);
 
-    // Créer la référence de stockage
-    const storageRef = ref(storage, path);
-    console.log('Chemin du fichier:', path);
+    // Convertir le File en ArrayBuffer
+    const arrayBuffer = await file.arrayBuffer();
+    const fileBuffer = new Uint8Array(arrayBuffer);
 
-    // Créer les métadonnées
+    // Upload vers Storage
     const metadata = {
       contentType: file.type,
       customMetadata: {
@@ -67,14 +64,13 @@ export const uploadImage = async (
       }
     };
 
-    console.log('Début de l\'upload...');
-    const snapshot = await uploadBytes(storageRef, file, metadata);
-    console.log('Upload terminé, récupération de l\'URL...');
-
-    const downloadUrl = await getDownloadURL(snapshot.ref);
-    console.log('URL de téléchargement obtenue');
-
-    return downloadUrl;
+    // Upload le fichier
+    const uploadResult = await uploadBytes(storageRef, fileBuffer, metadata);
+    
+    // Récupérer l'URL
+    const url = await getDownloadURL(uploadResult.ref);
+    
+    return url;
   } catch (error) {
     console.error('Erreur lors de l\'upload:', error);
     throw error;
