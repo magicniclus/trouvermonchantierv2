@@ -12,19 +12,14 @@ const faqs = [
       "Notre solution est conçue pour tous les professionnels du bâtiment souhaitant générer des demandes de devis locales via Google. Voici quelques exemples de métiers compatibles : Isolation (intérieure, extérieure, combles), Toiture et couverture, Plomberie et chauffage (PAC, chaudière, plomberie générale), Électricité générale, Maçonnerie, carrelage, gros œuvre, Rénovation de salle de bain et cuisine, Ossature bois, charpente, menuiserie, Piscines, pergolas, clôtures, terrasses, Ravalement de façade, peinture extérieure. \n\nEn résumé : si vous réalisez des travaux chez des particuliers, vous êtes éligible. Et si vous avez un doute, notre équipe vous répond sous 24h.",
   },
   {
-    question: "C’est quoi une landing page ?",
-    answer:
-      "C’est une page web unique, pensée pour transformer les visiteurs en prospects. Elle va droit au but, sans distraction, et pousse à l’action : vous contacter pour un devis.",
-  },
-  {
     question: "Que comprend l’offre à 99€ ?",
     answer:
       "L’offre inclut une landing page ultra-optimisée clé en main, un nom de domaine personnalisé, des images professionnelles optimisées, et un logo premium si vous n’en avez pas déjà un.",
   },
   {
-    question: "Que comprend l’abonnement à 29€/mois ?",
+    question: "À qui s’adresse votre service ?",
     answer:
-      "L’abonnement couvre l’hébergement de votre site, les serveurs, les APIs et le renouvellement de votre nom de domaine.",
+      "Notre solution s’adresse à toutes les entreprises du bâtiment : auto-entrepreneurs, SAS, SARL, EURL ou artisans en nom propre. Si vous souhaitez développer une vraie stratégie d’acquisition pour générer des demandes de devis régulièrement, sans dépendre des plateformes ou du bouche-à-oreille, ce service est fait pour vous.",
   },
   {
     question: "Comment fonctionne l’offre Google Ads de 400€ offerts ?",
@@ -35,6 +30,16 @@ const faqs = [
     question: "Puis-je arrêter mon abonnement quand je veux ?",
     answer:
       "Oui, vous êtes libre de stopper à tout moment. Votre site sera simplement mis hors ligne tant que l’abonnement est suspendu (jusqu’à 6 mois maximum). Nous avons des frais techniques à couvrir, d’où la nécessité de maintenir l’abonnement actif.",
+  },
+  {
+    question: "C’est quoi une landing page ?",
+    answer:
+      "C’est une page web unique, pensée pour transformer les visiteurs en prospects. Elle va droit au but, sans distraction, et pousse à l’action : vous contacter pour un devis.",
+  },
+  {
+    question: "Que comprend l’abonnement à 29€/mois ?",
+    answer:
+      "L’abonnement couvre l’hébergement de votre site, les serveurs, les APIs et le renouvellement de votre nom de domaine.",
   },
   {
     question: "Pourquoi le site est-il aussi peu cher ?",
