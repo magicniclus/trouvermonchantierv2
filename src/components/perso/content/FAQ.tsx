@@ -17,7 +17,7 @@ const faqs = [
       "C’est une page web unique, pensée pour transformer les visiteurs en prospects. Elle va droit au but, sans distraction, et pousse à l’action : vous contacter pour un devis.",
   },
   {
-    question: "Que comprend l’offre à 149€ ?",
+    question: "Que comprend l’offre à 99€ ?",
     answer:
       "L’offre inclut une landing page ultra-optimisée clé en main, un nom de domaine personnalisé, des images professionnelles optimisées, et un logo premium si vous n’en avez pas déjà un.",
   },
