@@ -6,6 +6,11 @@
 .pnp.js
 .yarn/install-state.gz
 
+google-cloud-sdk/
+.config/
+.gcloud/
+gcloud/
+
 # testing
 /coverage
 
