@@ -85,12 +85,14 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
           <PopoverGroup className="hidden lg:flex lg:gap-x-12">
             <a
               href="#why"
+              onClick={() => setMobileMenuOpen(false)}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Comment ça marche ?
             </a>
             <a
               href="#avantages"
+              onClick={() => setMobileMenuOpen(false)}
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Ce que vous gagnez
@@ -107,6 +109,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
               href="#pricing"
+              onClick={() => setMobileMenuOpen(false)}
               className="block px-6 py-3 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Obtenir mes chantiers
@@ -167,6 +170,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
                 <div className="py-6 px-4">
                   <a
                     href="#pricing"
+                    onClick={() => setMobileMenuOpen(false)}
                     className="block w-full text-center px-6 py-4 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl mx-auto"
                   >
                     Obtenir mes chantiers
