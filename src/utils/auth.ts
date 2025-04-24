@@ -13,24 +13,15 @@ export function generateSecurePassword(length = 12) {
 }
 
 // Fonction pour créer un nouvel utilisateur dans Firebase
-export async function createFirebaseUser(email: string) {
+export async function createFirebaseUser(email: string, password: string) {
   try {
-    const password = generateSecurePassword();
+    console.log('Creating user with email:', email);
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('User created successfully:', userCredential.user.uid);
     
-    // Envoyer un email de réinitialisation de mot de passe
-    await sendPasswordResetEmail(auth, email);
-    
-    return {
-      user: userCredential.user,
-      password,
-      success: true
-    };
+    return userCredential;
   } catch (error: any) {
     console.error("Erreur lors de la création de l'utilisateur:", error);
-    return {
-      error: error.message,
-      success: false
-    };
+    throw error;
   }
 }

@@ -1,11 +1,12 @@
 "use client";
 
-import { sendPasswordResetEmail } from "firebase/auth";
-import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useState } from "react";
+import { Loader } from "@/components/ui/loader";
 import { auth } from "@/firebase/firebase.config";
 import { useAuth } from "@/hooks/useAuth";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { sendPasswordResetEmail } from "firebase/auth";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ export default function ForgotPasswordPage() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+        <Loader size="lg" />
       </div>
     );
   }

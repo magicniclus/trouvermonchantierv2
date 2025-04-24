@@ -8,14 +8,19 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
+
 import { SiMastercard, SiVisa } from "react-icons/si";
+
 
 export function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [email, setEmail] = useState("");
   const [cardComplete, setCardComplete] = useState({
@@ -29,7 +34,7 @@ export function PaymentForm() {
     if (!stripe || !elements) return;
 
     setLoading(true);
-    setError(null);
+    setError("");
 
     try {
       // Créer un PaymentMethod avec les détails de la carte
@@ -77,8 +82,8 @@ export function PaymentForm() {
         }
       }
 
-      // Rediriger vers le dashboard
-      window.location.href = "/dashboard";
+      // Rediriger avec le paramètre de message
+      window.location.href = "/auth?message=email_sent";
     } catch (err) {
       setError("Une erreur est survenue lors du paiement.");
     } finally {

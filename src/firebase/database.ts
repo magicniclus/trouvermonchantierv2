@@ -80,15 +80,14 @@ const transferProspectToClient = (
   });
 };
 
-const createFirebaseUser = (email: string, password: string): Promise<any> => {
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      return userCredential.user;
-    })
-    .catch((error) => {
-      console.error("Error creating Firebase user: ", error);
-      throw new Error("Failed to create Firebase user");
-    });
+const createFirebaseUser = async (email: string, password: string) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    return userCredential; // Retourner tout le userCredential, pas seulement user
+  } catch (error) {
+    console.error("Error creating Firebase user: ", error);
+    throw new Error("Failed to create Firebase user");
+  }
 };
 
 export {

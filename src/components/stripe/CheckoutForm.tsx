@@ -5,7 +5,8 @@ import {
   createFirebaseUser,
   transferProspectToClient,
 } from "@/firebase/database";
-import { database } from "@/firebase/firebase.config";
+import { auth, database } from "@/firebase/firebase.config";
+
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import {
   CardCvcElement,
@@ -17,6 +18,7 @@ import {
 import { ref, set } from "firebase/database";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+
 
 const priceIds = {
   "tier-starter": {
@@ -60,8 +62,8 @@ const CheckoutForm = ({
   const stripe = useStripe();
   const elements = useElements();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
+
 
   const generateRandomPassword = (length = 12) => {
     const charset =
@@ -133,13 +135,33 @@ const CheckoutForm = ({
   const handleSuccessfulPayment = async (oldUid: string, email: string) => {
     try {
       const password = generateRandomPassword();
-      const user = await createFirebaseUser(email, password);
+      console.log('Creating user account...');
+      
+      // Créer l'utilisateur
+      const userCredential = await createFirebaseUser(email, password);
+      console.log('User account created successfully:', userCredential.user.uid);
 
-      await transferProspectToClient(oldUid, user.uid);
-      console.log("Prospect transferred to client");
+      if (!userCredential?.user) {
+        throw new Error('Failed to create user account');
+      }
+
+      // Transférer les données du prospect
+      console.log('Transferring prospect data...');
+      await transferProspectToClient(oldUid, userCredential.user.uid);
+      console.log('Prospect data transferred successfully');
+
+      // Stocker les informations de connexion
+      const userRef = ref(database, `users/${userCredential.user.uid}/credentials`);
+      await set(userRef, {
+        email,
+        password,
+        createdAt: new Date().toISOString()
+      });
+      console.log('User credentials stored successfully');
 
       // Initialiser les données dans Realtime Database
-      await set(ref(database, `clients/${user.uid}`), {
+      console.log('Saving client data...');
+      await set(ref(database, `clients/${userCredential.user.uid}`), {
         email,
         metier,
         address,
@@ -147,31 +169,34 @@ const CheckoutForm = ({
         frequency,
         telephone,
         name,
+        createdAt: new Date().toISOString(),
       });
-      console.log("Client data saved in Realtime Database");
+      console.log('Client data saved successfully');
 
-
-
-      // Send the generated password via email
-      const emailResponse = await fetch("/api/sendEmailIdentifiant", {
-        method: "POST",
+      // Envoyer les identifiants par email
+      console.log('Sending credentials email...');
+      const emailResponse = await fetch('/api/sendEmailIdentifiant', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          password, // Use 'password' to match the API handler
+          password,
         }),
       });
 
       if (!emailResponse.ok) {
-        throw new Error(`Email sending failed: ${emailResponse.status}`);
+        console.error('Failed to send credentials email');
+        throw new Error('Failed to send credentials email');
       }
-
-      // Redirect to client's profile page
-      router.push(`/pricing/connexion`);
+      
+      console.log('Credentials email sent successfully');
+      console.log('Setting email sent message and redirecting...');
+      window.location.href = '/auth?message=email_sent';
     } catch (error) {
-      console.error("Error handling successful payment: ", error);
+      console.error('Error in handleSuccessfulPayment:', error);
+      window.location.href = '/auth';
     }
   };
 

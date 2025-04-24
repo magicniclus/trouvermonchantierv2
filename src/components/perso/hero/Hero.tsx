@@ -159,7 +159,7 @@ const Hero = () => {
               // }}
               className="text-yellow-500"
             >
-              0
+              2000€
             </span>{" "}
             {""}à{" "}
             <span
@@ -171,6 +171,7 @@ const Hero = () => {
             >
               100 000€
             </span>{" "}
+            <br />
             de chantiers par mois.
           </h1>
           <h2 className="text-white mt-10 text-2xl">

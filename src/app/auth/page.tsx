@@ -1,11 +1,12 @@
 "use client";
 
+import { auth } from "@/firebase/firebase.config";
+import { useAuthPage } from "@/hooks/useAuthPage";
+import { useSearchParams } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { auth } from "@/firebase/firebase.config";
-import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,9 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { isLoading } = useAuth();
+  const { isLoading } = useAuthPage();
+  const searchParams = useSearchParams();
+  const showEmailSentMessage = searchParams?.get('message') === 'email_sent';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +46,18 @@ export default function LoginPage() {
   }
 
   return (
-    <>
+    <div className="max-w-md mx-auto mt-8 p-6">
+      <h2 className="text-2xl font-bold text-center mb-6">Connexion</h2>
+      {showEmailSentMessage && (
+        <div className="mb-6 text-center p-4 bg-green-50 rounded-lg">
+          <p className="text-green-800 font-medium">
+            Un email contenant vos identifiants de connexion vous a été envoyé.
+          </p>
+          <p className="text-green-700 text-sm mt-1">
+            Veuillez vérifier votre boîte de réception pour vous connecter.
+          </p>
+        </div>
+      )}
       <form className="space-y-6" onSubmit={handleSubmit}>
         {error && (
           <div className="rounded-md bg-red-50 p-4">
@@ -154,6 +168,6 @@ export default function LoginPage() {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

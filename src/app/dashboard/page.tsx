@@ -1,5 +1,6 @@
 "use client";
 
+import { SiteCreationStatus } from "@/components/ui/SiteCreationStatus";
 import { auth } from "@/firebase/firebase.config";
 import { getCustomization } from "@/services/customization.service";
 import Link from "next/link";
@@ -8,18 +9,35 @@ import { useEffect, useState } from "react";
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [isProfileComplete, setIsProfileComplete] = useState(true);
+  const [user, setUser] = useState(auth.currentUser);
+  const [customDomain, setCustomDomain] = useState<string>();
 
   useEffect(() => {
-    const checkCustomization = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      console.log("Auth state changed:", user ? user.uid : "no user");
+      setUser(user);
 
-      const customization = await getCustomization(user.uid);
-      setIsProfileComplete(Boolean(customization?.siteIsOk));
+      if (user) {
+        try {
+          const customization = await getCustomization(user.uid);
+          console.log("Customization:", JSON.stringify(customization, null, 2));
+          console.log("Custom domain:", customization?.custom_domain);
+          console.log("siteIsOk:", customization?.siteIsOk);
+          setIsProfileComplete(Boolean(customization?.siteIsOk));
+          if (customization?.custom_domain) {
+            console.log("Setting custom domain to:", customization.custom_domain);
+            setCustomDomain(customization.custom_domain);
+          }
+        } catch (error) {
+          console.error("Error getting customization:", error);
+          setIsProfileComplete(false);
+        }
+      }
+
       setLoading(false);
-    };
+    });
 
-    checkCustomization();
+    return () => unsubscribe();
   }, []);
 
   if (loading) {
@@ -77,8 +95,7 @@ export default function DashboardPage() {
   return (
     <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Tableau de bord</h1>
-        {/* Contenu du dashboard ici */}
+        <SiteCreationStatus customDomain={customDomain} siteIsOk={isProfileComplete} />
       </div>
     </div>
   );

@@ -2,10 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Modal from "@/components/modals/modal";
 import { submitContactForm } from "@/services/contact.service";
+import { auth } from "@/firebase/firebase.config";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function ContactForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,6 +22,16 @@ export default function ContactForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
+  const isFormValid = () => {
+    return (
+      formData.name.trim() !== "" &&
+      formData.email.trim() !== "" &&
+      formData.phone.trim() !== "" &&
+      formData.subject.trim() !== "" &&
+      formData.content.trim() !== ""
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -25,6 +39,11 @@ export default function ContactForm() {
     setSuccess(false);
 
     try {
+      if (!auth.currentUser) {
+        router.push("/auth");
+        return;
+      }
+
       const success = await submitContactForm(formData);
       if (success) {
         setSuccess(true);
@@ -39,7 +58,11 @@ export default function ContactForm() {
         setError("Une erreur est survenue lors de l'envoi du message.");
       }
     } catch (error) {
-      setError("Une erreur est survenue lors de l'envoi du message.");
+      if (error instanceof Error && error.message === "User must be authenticated to submit a message") {
+        router.push("/auth");
+      } else {
+        setError("Une erreur est survenue lors de l'envoi du message.");
+      }
     } finally {
       setLoading(false);
     }
@@ -128,16 +151,21 @@ export default function ContactForm() {
 
       {error && <div className="text-red-600 text-sm">{error}</div>}
 
-      {success && (
-        <div className="text-green-600 text-sm">
-          Votre message a été envoyé avec succès !
-        </div>
-      )}
+      <Modal
+        isOpen={success}
+        onClose={() => setSuccess(false)}
+        title="Message envoyé"
+        message="Votre message a été envoyé avec succès !"
+        autoClose={true}
+        autoCloseDelay={4000}
+      />
 
       <Button
         type="submit"
-        disabled={loading}
-        className="w-full bg-yellow-500 hover:bg-yellow-400"
+        className="w-full mt-4"
+        variant="default"
+        size="lg"
+        disabled={!isFormValid()}
       >
         {loading ? "Envoi en cours..." : "Envoyer le message"}
       </Button>

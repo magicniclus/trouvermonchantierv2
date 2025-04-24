@@ -32,6 +32,7 @@ export interface Customization {
   company_name: string;
   legal_name: string;
   activity_sector: string;
+  other_activity_sector?: string;
   description: string;
 
   zone_intervention: {
@@ -40,10 +41,8 @@ export interface Customization {
     radius_km: number;
   };
 
-  domain: {
-    custom_domain: string;
-    ssl_status: string;
-  };
+  custom_domain: string;
+  ssl_status: string;
 
   contact: {
     email: string;
@@ -68,6 +67,7 @@ export interface Customization {
 
   created_at: string;
   updated_at: string;
-  
+
   siteIsOk: boolean;
+  google_ads_tag?: string;
 }
