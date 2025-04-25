@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import sgMail from '@sendgrid/mail';
+import sgMail from "@sendgrid/mail";
+import { NextRequest, NextResponse } from "next/server";
 
 // Initialiser l'API SendGrid avec la clé API
-const apiKey = process.env.NEXT_PUBLIC_SENDGRID_API_KEY || '';
+const apiKey = process.env.SENDGRID_API_KEY || "";
 sgMail.setApiKey(apiKey);
 
 export async function POST(request: NextRequest) {
@@ -13,25 +13,25 @@ export async function POST(request: NextRequest) {
     // Validation des données
     if (!name || !companyName || !email || !phone || !metier) {
       return NextResponse.json(
-        { error: 'Tous les champs sont requis' },
+        { error: "Tous les champs sont requis" },
         { status: 400 }
       );
     }
 
     // Enregistrer les informations dans les logs pour s'assurer que les données sont capturées
-    console.log('Informations du prospect:', {
+    console.log("Informations du prospect:", {
       timestamp: new Date().toISOString(),
       name,
       companyName,
       email,
       phone,
-      metier
+      metier,
     });
 
     // Définir les adresses email
-    const fromEmail = 'contact@maprimerenov-info.org';
-    const toEmails = ['casteranicolas.contact@gmail.com', 'kj.systeme@gmail.com'];
-    
+    const fromEmail = "contact@maprimerenov-info.org";
+    const toEmails = ["casteranicolas.contact@gmail.com"];
+
     // Créer le contenu de l'email
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
@@ -46,7 +46,9 @@ export async function POST(request: NextRequest) {
         </div>
         
         <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 20px;">
-          <p style="margin: 0; color: #666;">Ce prospect a été enregistré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}.</p>
+          <p style="margin: 0; color: #666;">Ce prospect a été enregistré le ${new Date().toLocaleDateString(
+            "fr-FR"
+          )} à ${new Date().toLocaleTimeString("fr-FR")}.</p>
         </div>
       </div>
     `;
@@ -62,31 +64,43 @@ export async function POST(request: NextRequest) {
       };
 
       await sgMail.send(msg);
-      console.log('Email envoyé avec succès depuis', fromEmail, 'vers', toEmails);
-      
+      console.log(
+        "Email envoyé avec succès depuis",
+        fromEmail,
+        "vers",
+        toEmails
+      );
+
       return NextResponse.json(
-        { success: true, message: 'Email envoyé avec succès' },
+        { success: true, message: "Email envoyé avec succès" },
         { status: 200 }
       );
     } catch (sendError: any) {
-      console.error('Erreur SendGrid:', sendError?.response?.body || sendError);
-      
-        // Afficher les détails complets de l'erreur pour le débogage
+      console.error("Erreur SendGrid:", sendError?.response?.body || sendError);
+
+      // Afficher les détails complets de l'erreur pour le débogage
       if (sendError?.response?.body) {
-        console.error('Détails de l\'erreur SendGrid:', JSON.stringify(sendError.response.body, null, 2));
+        console.error(
+          "Détails de l'erreur SendGrid:",
+          JSON.stringify(sendError.response.body, null, 2)
+        );
       }
-      
+
       // Même en cas d'erreur, retourner un succès pour ne pas bloquer l'utilisateur
       // Les données sont déjà enregistrées dans les logs
       return NextResponse.json(
-        { success: true, message: 'Informations enregistrées avec succès' },
+        { success: true, message: "Informations enregistrées avec succès" },
         { status: 200 }
       );
     }
   } catch (error: any) {
-    console.error('Erreur lors du traitement de la requête:', error);
+    console.error("Erreur lors du traitement de la requête:", error);
     return NextResponse.json(
-      { success: false, error: 'Erreur lors du traitement de la requête', details: error?.message },
+      {
+        success: false,
+        error: "Erreur lors du traitement de la requête",
+        details: error?.message,
+      },
       { status: 500 }
     );
   }
