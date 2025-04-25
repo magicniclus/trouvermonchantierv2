@@ -8,11 +8,12 @@ import { getStorage } from "firebase/storage";
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: "trouvermonchantier.firebaseapp.com",
-  databaseURL: "https://trouvermonchantier-default-rtdb.europe-west1.firebasedatabase.app",
+  databaseURL:
+    "https://trouvermonchantier-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "trouvermonchantier",
   storageBucket: "trouvermonchantier.firebasestorage.app",
   messagingSenderId: "637542921551",
-  appId: "1:637542921551:web:8c9b360a3fa5764993c13a"
+  appId: "1:637542921551:web:8c9b360a3fa5764993c13a",
 };
 
 // Initialize Firebase
