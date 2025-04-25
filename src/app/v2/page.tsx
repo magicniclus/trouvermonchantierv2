@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import ModalFixed from "@/components/perso/ModalFixed";
 import Stats from "@/components/perso/Stats";
 import Banner from "@/components/perso/banner/Banner";
 import Commentaires from "@/components/perso/content/Commentaires";
@@ -41,6 +42,7 @@ export default function Home() {
         <Nav />
       </header>
       <main className="relative">
+        <ModalFixed />
         <HeroV2 />
         <Stats />
         <Fonctionnement />
