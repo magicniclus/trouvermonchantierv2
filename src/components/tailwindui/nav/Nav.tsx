@@ -68,7 +68,7 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Trouver mon chantier</span>
-            <img className="h-8 w-auto" src="/logo.png" alt="terabois" />
+            <img className="h-14 w-auto" src="/logo.png" alt="terabois" />
           </a>
         </div>
         <div className="flex lg:hidden">
