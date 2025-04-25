@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { addProspect } from "@/firebase/database"; // Assurez-vous que le chemin est correct
+
 import { sendProspectNotification } from "@/utils/sendgrid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -113,9 +113,26 @@ const Hero = () => {
         description: "Nous traitons votre demande...",
       });
 
-      // Ajouter le prospect à la base de données Firebase
-      const uid = await addProspect(data);
-      console.log("Prospect ajouté avec l'ID:", uid);
+      console.log('Envoi des données du formulaire:', data);
+
+      // Ajouter le lead à la base de données Firebase via l'API
+      const leadResponse = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      console.log('Réponse de l\'API leads:', leadResponse.status);
+      const leadResult = await leadResponse.json();
+      console.log('Résultat de l\'API leads:', leadResult);
+
+      if (!leadResult.success) {
+        throw new Error(leadResult.error || 'Erreur lors de l\'enregistrement du lead');
+      }
+      const uid = leadResult.leadId;
+      console.log('Lead enregistré avec l\'ID:', uid);
 
       // Envoyer l'email de notification
       const emailSent = await sendProspectNotification({
@@ -134,7 +151,7 @@ const Hero = () => {
 
       // Rediriger vers la page secteur avec les paramètres
       router.push(
-        `/secteur/rendez-vous?uid=${uid}&email=${encodeURIComponent(
+        `/merci?uid=${uid}&email=${encodeURIComponent(
           data.email
         )}&metier=${encodeURIComponent(
           data.metier
