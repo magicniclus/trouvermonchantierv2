@@ -214,8 +214,8 @@ const Hero = () => {
               {" "}
               Payez 99€ une seule fois puis 29€ par mois, et recevez
               jusqu&apos;à 10 demandes par jour toute l&apos;année — sans
-              plateforme, sans leads partagés, grâce à votre propre site livrés
-              en 24h.
+              plateforme, sans leads partagés, grâce à votre propre site et des
+              campagnes Google ultra-optimisées livrées en 24h.
             </span>
           </h2>
 
@@ -223,10 +223,6 @@ const Hero = () => {
             <li className="flex items-center gap-2">
               <span className="text-xl">✅</span>
               Déjà utilisé par 12 000 artisans en France
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-xl">✅</span>
-              Moins de 1€ par jour
             </li>
             <li className="flex items-center gap-2">
               <span className="text-xl">✅</span>
