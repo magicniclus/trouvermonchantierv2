@@ -65,12 +65,12 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
         className="mx-auto flex max-w-5xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <a href="/" className="flex lg:flex-1">
           <div className="-m-1.5 p-1.5">
             <span className="sr-only">Trouver mon chantier</span>
             <img className="h-14 w-auto" src="/logo.png" alt="terabois" />
           </div>
-        </div>
+        </a>
         <div className="flex lg:hidden">
           <button
             type="button"

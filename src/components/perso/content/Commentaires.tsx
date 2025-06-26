@@ -1,6 +1,7 @@
 import { StarIcon } from "@heroicons/react/20/solid";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import Link from "next/link";
 
 const reviews = {
   average: 5,
@@ -155,10 +156,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function Commentaires() {
-  const [showAll, setShowAll] = useState(false);
-  const displayedReviews = showAll
-    ? reviews.featured
-    : reviews.featured.slice(0, 3);
+  // Toujours afficher seulement 3 avis sur la page d'accueil
+  const displayedReviews = reviews.featured.slice(0, 3);
   return (
     <div className="bg-slate-50">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-5xl lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-32">
@@ -283,26 +282,26 @@ export default function Commentaires() {
                 </div>
               ))}
             </div>
-            {reviews.featured.length > 5 && (
-              <div className="mt-8 flex justify-center">
-                <button
-                  onClick={() => setShowAll(!showAll)}
-                  className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-all duration-200 ease-in-out"
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/avis"
+                className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-all duration-200 ease-in-out"
+              >
+                Voir tous nos avis
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
                 >
-                  {showAll ? (
-                    <>
-                      Voir moins d&apos;avis
-                      <ChevronUpIcon className="h-5 w-5" />
-                    </>
-                  ) : (
-                    <>
-                      Voir plus d&apos;avis
-                      <ChevronDownIcon className="h-5 w-5" />
-                    </>
-                  )}
-                </button>
-              </div>
-            )}
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

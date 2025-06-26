@@ -1,18 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import ModalFixed from "@/components/perso/ModalFixed";
 import Stats from "@/components/perso/Stats";
 import Banner from "@/components/perso/banner/Banner";
 import Commentaires from "@/components/perso/content/Commentaires";
 import FAQ from "@/components/perso/content/FAQ";
 import Fonctionnement from "@/components/perso/content/Fonctionnement";
+import Pricing from "@/components/perso/content/Pricing";
 import Process from "@/components/perso/content/Process";
 import Prospection from "@/components/perso/content/Prospection";
 import Footer from "@/components/perso/footer/Footer";
-import HeroV2 from "@/components/perso/hero/HeroV2";
-import Nav from "@/components/tailwindui/nav/Nav";
+import Hero from "@/components/perso/hero/Hero";
 import { useEffect } from "react";
+import Nav from "../components/tailwindui/nav/Nav";
 
 export default function Home() {
   useEffect(() => {
@@ -42,8 +42,7 @@ export default function Home() {
         <Nav />
       </header>
       <main className="relative">
-        <ModalFixed />
-        <HeroV2 />
+        <Hero />
         <Stats />
         <Fonctionnement />
         <Prospection />
@@ -58,7 +57,7 @@ export default function Home() {
             alt="ellipse"
             className="absolute top-[50%] -right-[20%] w-full object-cover h-auto -z-10 opacity-60"
           />
-          {/* <Pricing /> */}
+          <Pricing />
           <Process />
           <FAQ />
           <Commentaires />
