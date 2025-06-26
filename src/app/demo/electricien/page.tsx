@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function ElectricienDemo() {
   return (
     <>
-      <header>
+      <header>          
         <Nav />
       </header>
       <main className="relative">
