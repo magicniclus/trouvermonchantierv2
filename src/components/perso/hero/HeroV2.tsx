@@ -342,7 +342,7 @@ const Hero = () => {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <SelectTrigger className="mt-2 w-full">
+                        <SelectTrigger className="mt-2 w-full bg-white">
                           <SelectValue placeholder="Sélectionnez votre métier" />
                         </SelectTrigger>
                         <SelectContent className="w-full">
