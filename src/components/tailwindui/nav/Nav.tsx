@@ -3,7 +3,7 @@
 "use client";
 
 import { Dialog, DialogPanel, PopoverGroup } from "@headlessui/react";
-import { PhoneIcon, PlayCircleIcon } from "@heroicons/react/20/solid";
+import { PhoneIcon, PlayCircleIcon, UserIcon } from "@heroicons/react/20/solid";
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -13,6 +13,7 @@ import {
   SquaresPlusIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import { useState } from "react";
 
 const products = [
@@ -83,35 +84,39 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
         </div>
         {withMenu !== false && (
           <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-            <a
-              href="#why"
-              onClick={() => setMobileMenuOpen(false)}
+            <Link
+              href="/"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              Comment ça marche ?
-            </a>
-            <a
-              href="#avantages"
-              onClick={() => setMobileMenuOpen(false)}
+              Services
+            </Link>
+            <Link
+              href="/demo"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              Ce que vous gagnez
-            </a>
-            <a
-              href="#faq"
-              onClick={() => setMobileMenuOpen(false)}
+              Démo
+            </Link>
+            <Link
+              href="/contact"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              F.A.Q
-            </a>
+              Contact
+            </Link>
           </PopoverGroup>
         )}
         {withMenu !== false && (
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4">
+            <Link
+              href="/auth"
+              className="flex items-center px-2 py-2 text-base font-semibold text-gray-900 rounded-lg transition-all duration-300"
+            >
+              <UserIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+              Mon espace
+            </Link>
             <a
               href="#pricing"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-6 py-3 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="block px-4 py-3 text-base font-semibold bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Obtenir mes chantiers
             </a>
@@ -147,28 +152,39 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
             <div className="-my-6 divide-y divide-gray-500/10">
               {withMenu !== false && (
                 <div className="space-y-2 py-6">
-                  <a
-                    href="#why"
+                  <Link
+                    href="/"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    Comment ça marche ?
-                  </a>
-                  <a
-                    href="#avantages"
+                    Services
+                  </Link>
+                  <Link
+                    href="/demo"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    Ce que vous gagnez
-                  </a>
-                  <a
-                    href="#faq"
+                    Démo
+                  </Link>
+                  <Link
+                    href="/contact"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    F.A.Q
-                  </a>
+                    Contact
+                  </Link>
                 </div>
               )}
               {withMenu !== false && (
-                <div className="py-6 px-4">
+                <div className="py-6 px-4 space-y-4">
+                  <Link
+                    href="/espace-client"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center w-full px-6 py-3 text-base font-semibold border border-gray-300 rounded-lg hover:bg-gray-100 transition-all duration-300"
+                  >
+                    <UserIcon className="h-5 w-5 mr-2" aria-hidden="true" />
+                    Mon espace
+                  </Link>
                   <a
                     href="#pricing"
                     onClick={() => setMobileMenuOpen(false)}
