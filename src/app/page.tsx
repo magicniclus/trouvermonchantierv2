@@ -4,9 +4,11 @@
 import ModalFixed from "@/components/perso/ModalFixed";
 import Stats from "@/components/perso/Stats";
 import Banner from "@/components/perso/banner/Banner";
+import PromoBanner from "@/components/common/PromoBanner";
 import ArticlesALaUne from "@/components/perso/content/ArticlesALaUne";
 import Commentaires from "@/components/perso/content/Commentaires";
 import FAQ from "@/components/perso/content/FAQ";
+import ToolsFeatures from "@/components/perso/content/ToolsFeatures";
 import Fonctionnement from "@/components/perso/content/Fonctionnement";
 import Process from "@/components/perso/content/Process";
 import Pricing from "@/components/perso/content/Pricing";
@@ -40,6 +42,9 @@ export default function Home() {
   }, []);
   return (
     <>
+      <PromoBanner message="99€/mois seulement - 2ème mois offert si vous recevez moins de 5 demandes !" />
+      {/* Espace pour compenser la hauteur de la bannière fixe */}
+      <div style={{ height: 'var(--banner-height, 32px)' }}></div>
       <header>
         <Nav />
       </header>
@@ -62,6 +67,7 @@ export default function Home() {
           />
           {/* <Pricing /> */}
           <Process />
+          {/* <ToolsFeatures /> */}
           <FAQ />
           <ArticlesALaUne />
           <Commentaires />

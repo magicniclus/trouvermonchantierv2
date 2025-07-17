@@ -1,72 +1,49 @@
-import Nav from "@/components/tailwindui/nav/Nav";
 import Footer from "@/components/perso/footer/Footer";
 import Banner from "@/components/perso/banner/Banner";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Header from "@/components/common/Header";
+import Hero from "@/components/common/Hero";
+import Experience from "@/components/common/Experience";
 
 export default function ElectricienDemo() {
   return (
     <>
-      <header>          
-        <Nav />
-      </header>
+      <Header 
+        title="monelectricien" 
+        navLinks={[
+          { label: "qui sommes nous ?", href: "#about" },
+          { label: "préstations", href: "#services" },
+          { label: "réalisation", href: "#portfolio" },
+        ]}
+        ctaText="Prendre rendez-vous"
+        ctaHref="#contact"
+      />
       <main className="relative">
         {/* Hero Section */}
-        <section className="relative bg-slate-900 py-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <img
-              src="/images/demo/electricien-hero.jpg"
-              alt="Installation électrique"
-              className="w-full h-full object-cover opacity-30"
-            />
-          </div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Électricien professionnel à <span className="text-yellow-500">Marseille</span>
-            </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto mb-10">
-              Installation, rénovation et dépannage électrique par des experts certifiés
-            </p>
-            <div className="flex justify-center space-x-4">
-              <a
-                href="#contact"
-                className="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                Demander un devis gratuit
-              </a>
-              <a
-                href="#services"
-                className="bg-white hover:bg-gray-100 text-slate-900 font-semibold px-8 py-4 rounded-lg transition-all duration-300"
-              >
-                Nos services
-              </a>
-            </div>
-            <div className="mt-8 flex items-center justify-center">
-              <div className="flex items-center">
-                {[0, 1, 2, 3, 4].map((rating) => (
-                  <StarIcon
-                    key={rating}
-                    className="h-5 w-5 text-yellow-400"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <span className="ml-3 text-white">
-                Plus de 500 interventions réussies
-              </span>
-            </div>
-          </div>
-        </section>
+        <Hero 
+          profession="électricien"
+          professionColor="#EAB308" // text-yellow-500
+          region="Marseille"
+          backgroundImage="/images/demo/electricien-hero.jpg"
+          services={[
+            { label: "Installation électrique" },
+            { label: "Mise aux normes" },
+            { label: "Dépannage d'urgence" },
+            { label: "Domotique" }
+          ]}
+          formTitle="Besoin d'un électricien qualifié ?"
+        />
 
         {/* Services Section */}
         <section id="services" className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Nos services électriques
+                Nos services d'électricité
               </h2>
               <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
-                Des solutions complètes pour tous vos besoins en électricité
+                Des solutions complètes pour tous vos besoins électriques
               </p>
             </div>
 
@@ -74,18 +51,18 @@ export default function ElectricienDemo() {
               {[
                 {
                   title: "Installation électrique",
-                  description: "Installation complète pour constructions neuves ou rénovations.",
+                  description: "Installation complète ou partielle pour votre maison ou appartement.",
                   icon: "⚡"
                 },
                 {
-                  title: "Mise aux normes",
-                  description: "Mise en conformité de votre installation selon les normes NF C 15-100.",
-                  icon: "✓"
+                  title: "Dépannage d'urgence",
+                  description: "Intervention rapide pour tous problèmes électriques 7j/7.",
+                  icon: "🔧"
                 },
                 {
-                  title: "Dépannage d'urgence",
-                  description: "Intervention rapide pour tout problème électrique 7j/7.",
-                  icon: "🔧"
+                  title: "Mise aux normes",
+                  description: "Mise en conformité de votre installation selon les normes en vigueur.",
+                  icon: "📋"
                 },
                 {
                   title: "Domotique",
@@ -94,7 +71,7 @@ export default function ElectricienDemo() {
                 },
                 {
                   title: "Éclairage",
-                  description: "Installation et optimisation de solutions d'éclairage intérieur et extérieur.",
+                  description: "Installation et optimisation de vos systèmes d'éclairage intérieur et extérieur.",
                   icon: "💡"
                 },
                 {
@@ -103,8 +80,8 @@ export default function ElectricienDemo() {
                   icon: "🔌"
                 }
               ].map((service, index) => (
-                <div key={index} className="bg-slate-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <div className="text-4xl mb-4">{service.icon}</div>
+                <div key={index} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="text-3xl mb-4">{service.icon}</div>
                   <h3 className="text-xl font-semibold text-slate-900 mb-2">{service.title}</h3>
                   <p className="text-slate-600">{service.description}</p>
                 </div>
@@ -112,6 +89,19 @@ export default function ElectricienDemo() {
             </div>
           </div>
         </section>
+        
+        {/* Experience Section */}
+        <Experience 
+          title="l'expérience"
+          subtitle="Mon Électricien"
+          description="Avec notre service, vous recevrez des demandes de devis ciblées de clients potentiels précisément au moment où ils expriment leur besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7. Avec notre service, vous recevrez des demandes de devis ciblées de clients potentiels précisément au moment où ils expriment leur besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7."
+          buttonText="Prendre Rendez-vous"
+          buttonHref="#contact"
+          mediaType="video"
+          mediaUrl="/videos/electricien-experience.mp4"
+          mediaPlaceholder="/images/demo/electricien-video.jpg"
+          accentColor="#EAB308" // Jaune pour électricien
+        />
 
         {/* Certifications Section */}
         <section className="py-16 bg-slate-50">

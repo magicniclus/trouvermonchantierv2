@@ -1,62 +1,39 @@
-import Nav from "@/components/tailwindui/nav/Nav";
 import Footer from "@/components/perso/footer/Footer";
 import Banner from "@/components/perso/banner/Banner";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Header from "@/components/common/Header";
+import Hero from "@/components/common/Hero";
+import Experience from "@/components/common/Experience";
 
 export default function MaconDemo() {
   return (
     <>
-      <header>
-        <Nav />
-      </header>
+      <Header 
+        title="monmacon" 
+        navLinks={[
+          { label: "qui sommes nous ?", href: "#about" },
+          { label: "préstations", href: "#services" },
+          { label: "réalisation", href: "#portfolio" },
+        ]}
+        ctaText="Prendre rendez-vous"
+        ctaHref="#contact"
+      />
       <main className="relative">
         {/* Hero Section */}
-        <section className="relative bg-slate-900 py-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <img
-              src="/images/demo/macon-hero.jpg"
-              alt="Travaux de maçonnerie"
-              className="w-full h-full object-cover opacity-30"
-            />
-          </div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Maçon professionnel à <span className="text-yellow-500">Lyon</span>
-            </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto mb-10">
-              Construction, rénovation et aménagement par des artisans qualifiés
-            </p>
-            <div className="flex justify-center space-x-4">
-              <a
-                href="#contact"
-                className="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                Demander un devis gratuit
-              </a>
-              <a
-                href="#services"
-                className="bg-white hover:bg-gray-100 text-slate-900 font-semibold px-8 py-4 rounded-lg transition-all duration-300"
-              >
-                Nos services
-              </a>
-            </div>
-            <div className="mt-8 flex items-center justify-center">
-              <div className="flex items-center">
-                {[0, 1, 2, 3, 4].map((rating) => (
-                  <StarIcon
-                    key={rating}
-                    className="h-5 w-5 text-yellow-400"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <span className="ml-3 text-white">
-                Plus de 200 projets réalisés
-              </span>
-            </div>
-          </div>
-        </section>
+        <Hero 
+          profession="maçon"
+          professionColor="#F59E0B" // text-amber-500
+          region="Lyon"
+          backgroundImage="/images/demo/macon-hero.jpg"
+          services={[
+            { label: "Construction neuve" },
+            { label: "Rénovation" },
+            { label: "Maçonnerie générale" },
+            { label: "Aménagement extérieur" }
+          ]}
+          formTitle="Besoin d'un devis pour vos travaux ?"
+        />
 
         {/* Services Section */}
         <section id="services" className="py-16 bg-white">
@@ -112,6 +89,19 @@ export default function MaconDemo() {
             </div>
           </div>
         </section>
+        
+        {/* Experience Section */}
+        <Experience 
+          title="l'expérience"
+          subtitle="Mon Maçon"
+          description="Avec notre service, vous recevrez des demandes de devis ciblées de clients potentiels précisément au moment où ils expriment leur besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7. Avec notre service, vous recevrez des demandes de devis ciblées de clients potentiels précisément au moment où ils expriment leur besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7."
+          buttonText="Prendre Rendez-vous"
+          buttonHref="#contact"
+          mediaType="video"
+          mediaUrl="/videos/macon-experience.mp4"
+          mediaPlaceholder="/images/demo/macon-video.jpg"
+          accentColor="#F59E0B" // Ambre pour maçon
+        />
 
         {/* Projects Section */}
         <section className="py-16 bg-slate-50">

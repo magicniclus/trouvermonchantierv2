@@ -1,38 +1,163 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
 const Fonctionnement = () => {
+  const metiers = [
+    "Plomberie",
+    "Toiture",
+    "Électricité",
+    "Carrelage",
+    "Peinture",
+    "Maçonnerie"
+  ];
+  
+  // État pour les compteurs animés
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  
+  // Référence pour détecter quand la section est visible
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  
+  // Étapes du fonctionnement
+  const etapes = [
+    {
+      numero: 1,
+      titre: "On crée votre site",
+      description: "Nous développons un site optimisé pour convertir les visiteurs en clients",
+      valeurFinale: 24,
+      unite: "h/24",
+      couleur: "bg-blue-500"
+    },
+    {
+      numero: 2,
+      titre: "On attire des clients",
+      description: "Votre site apparaît en tête des résultats Google dans votre zone",
+      valeurFinale: 7,
+      unite: "j/7",
+      couleur: "bg-green-500"
+    },
+    {
+      numero: 3,
+      titre: "Vous recevez des appels",
+      description: "Des prospects qualifiés vous contactent directement",
+      valeurFinale: 365,
+      unite: "j/an",
+      couleur: "bg-yellow-500"
+    }
+  ];
+  
+  // Détecter quand la section est visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+  
+  // Animation des compteurs
+  useEffect(() => {
+    if (isVisible) {
+      // Animation du premier compteur
+      let startCount1 = 0;
+      const interval1 = setInterval(() => {
+        if (startCount1 < etapes[0].valeurFinale) {
+          startCount1 += 1;
+          setCount1(startCount1);
+        } else {
+          clearInterval(interval1);
+        }
+      }, 50);
+      
+      // Animation du deuxième compteur avec délai
+      setTimeout(() => {
+        let startCount2 = 0;
+        const interval2 = setInterval(() => {
+          if (startCount2 < etapes[1].valeurFinale) {
+            startCount2 += 1;
+            setCount2(startCount2);
+          } else {
+            clearInterval(interval2);
+          }
+        }, 100);
+      }, 500);
+      
+      // Animation du troisième compteur avec délai
+      setTimeout(() => {
+        let startCount3 = 0;
+        const interval3 = setInterval(() => {
+          if (startCount3 < etapes[2].valeurFinale) {
+            startCount3 += Math.ceil(etapes[2].valeurFinale / 20); // Plus rapide pour les grands nombres
+            if (startCount3 > etapes[2].valeurFinale) startCount3 = etapes[2].valeurFinale;
+            setCount3(startCount3);
+          } else {
+            clearInterval(interval3);
+          }
+        }, 50);
+      }, 1000);
+      
+      return () => {
+        clearInterval(interval1);
+      };
+    }
+  }, [isVisible]);
+
   return (
-    <section className="w-full md:pb-20" id="why">
+    <section className="w-full md:pb-20" id="why" ref={sectionRef}>
       <div className="w-full max-w-5xl mx-auto lg:px-4">
-        <div className="w-full bg-slate-100 rounded-md p-5 md:p-16 flex justify-between flex-col md:flex-row py-10">
-          <div className="md:w-6/12 w-full flex md:hidden items-center">
-            <img
-              src="/images/desktop.png"
-              alt="chantier"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-          <div className="md:w-5/12 w-full text-slate-700 mt-10 md:mt-0">
-            <h2 className="font-bold text-2xl">
-              Votre site travaille pour vous, même quand vous dormez.
-            </h2>
-            <div className="w-full max-w-[200px] bg-yellow-500 rounded-full mt-5 h-3" />
-            <p className="text-slate-500 mt-5">
-              Grace à notre stratégie, vous recevez des demandes de devis
-              ciblées, 24h/24, dès que des clients cherchent vos services sur
-              Google. Votre site convertit les visiteurs en appels concrets,
-              sans engagement, ni leads partagés.
-            </p>
-            <p className="text-slate-500 mt-5">
-              Plomberie, toiture, électricité, carrelage… votre activité est
-              déjà couverte.
-            </p>
-          </div>
-          <div className="md:w-6/12 w-full hidden md:flex items-center">
-            <img
-              src="/images/desktop.png"
-              alt="chantier"
-              className="w-full h-auto object-cover"
-            />
+        <div className="w-full bg-slate-50/80 rounded-3xl p-8 md:p-14 shadow-sm">
+          <div className="grid gap-8 md:grid-cols-2 items-center">
+            <div className="text-slate-700">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800">
+                Votre site travaille pour vous,
+                même quand vous dormez.
+              </h2>
+              <div className="h-1 w-14 bg-yellow-500 rounded mt-4" />
+              
+              <p className="leading-7 text-lg text-slate-700 mt-6">
+                Grace à notre stratégie, vous recevez des demandes de devis
+                ciblées, 24h/24, dès que des clients cherchent vos services sur
+                Google.
+              </p>
+              
+              <p className="leading-7 text-lg text-slate-700 mt-4">
+                Votre site convertit les visiteurs en appels concrets,
+                sans engagement, ni leads partagés.
+              </p>
+              
+              <div className="mt-6">
+                <p className="font-medium text-slate-800 mb-2">Pour tous les secteurs de la construction et du bâtiment</p>
+              </div>
+            </div>
+            
+              
+              {/* Image */}
+              <div className="flex itens-center aspect-[16/10] w-full md:w-[420px] mx-auto mt-10">
+                <img
+                  src="/images/desktop.png"
+                  alt="Landing page optimisée pour la conversion"
+                  className="w-full h-auto object-cover rounded-lg"
+                />
+              </div>
+              
           </div>
         </div>
       </div>

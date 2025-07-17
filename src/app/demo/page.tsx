@@ -1,6 +1,6 @@
-import Nav from "@/components/tailwindui/nav/Nav";
 import Footer from "@/components/perso/footer/Footer";
 import Link from "next/link";
+import Header from "@/components/common/Header";
 
 export default function DemoPage() {
   const demos = [
@@ -29,9 +29,16 @@ export default function DemoPage() {
 
   return (
     <>
-      <header>
-        <Nav />
-      </header>
+      <Header 
+        title="trouvermonchantier" 
+        navLinks={[
+          { label: "qui sommes nous ?", href: "/qui-sommes-nous" },
+          { label: "préstations", href: "/prestations" },
+          { label: "réalisation", href: "/realisation" },
+        ]}
+        ctaText="Prendre rendez-vous"
+        ctaHref="/contact"
+      />
       <main className="relative">
         {/* Hero Section */}
         <section className="relative bg-slate-900 py-20">

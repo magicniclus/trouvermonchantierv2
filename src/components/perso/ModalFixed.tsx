@@ -23,7 +23,7 @@ const ModalFixed = () => {
   return (
     <div
       className={`w-full mx-auto max-w-5xl hidden md:flex ${
-        isFixed ? "fixed top-5" : "absolute top-1"
+        isFixed ? "fixed top-12" : "absolute top-1"
       } left-1/2 transform -translate-x-1/2 justify-end px-6 z-50`}
       style={{ pointerEvents: "none" }}
     >

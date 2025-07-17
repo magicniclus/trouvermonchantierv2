@@ -124,8 +124,35 @@ export function PaymentForm() {
         }
       }
 
-      // Rediriger avec le paramètre de message
-      window.location.href = "/auth?message=email_sent";
+      // Générer un token d'onboarding après le paiement réussi
+      try {
+        const tokenResponse = await fetch("/api/generate-onboarding-token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: data.userId || data.customerId, // Selon ce que renvoie l'API create-subscription
+            email: email,
+          }),
+        });
+
+        const tokenData = await tokenResponse.json();
+
+        if (tokenData.error) {
+          console.error("Erreur lors de la génération du token:", tokenData.error);
+          // Fallback en cas d'erreur
+          window.location.href = "/auth?message=email_sent";
+          return;
+        }
+
+        // Rediriger vers la page d'onboarding avec le token
+        window.location.href = tokenData.onboardingUrl;
+      } catch (tokenError) {
+        console.error("Erreur lors de la génération du token:", tokenError);
+        // Fallback en cas d'erreur
+        window.location.href = "/auth?message=email_sent";
+      }
     } catch (err) {
       setError("Une erreur est survenue lors du paiement.");
     } finally {

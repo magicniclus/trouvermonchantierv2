@@ -1,117 +1,58 @@
-import Nav from "@/components/tailwindui/nav/Nav";
 import Footer from "@/components/perso/footer/Footer";
 import Banner from "@/components/perso/banner/Banner";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Header from "@/components/common/Header";
+import Hero from "@/components/common/Hero";
+import Experience from "@/components/common/Experience";
+import PromoBanner from "@/components/common/PromoBanner";
 
 export default function CouvreurDemo() {
   return (
     <>
-      <header>
-        <Nav />
-      </header>
+      <PromoBanner message="99€/mois seulement - 2ème mois offert si vous recevez moins de 5 demandes !" />
+      {/* Espace pour compenser la hauteur de la bannière fixe */}
+      <div style={{ height: 'var(--banner-height, 32px)' }}></div>
+      <Header 
+        title="moncouvreur" 
+        navLinks={[
+          { label: "qui sommes nous ?", href: "#about" },
+          { label: "préstations", href: "#services" },
+          { label: "réalisation", href: "#portfolio" },
+        ]}
+        ctaText="Prendre rendez-vous"
+        ctaHref="#contact"
+      />
+      {/* Spacer div pour compenser le header fixe */}
+      <div id="header-spacer" className="h-0 transition-all duration-300 ease-in-out"></div>
       <main className="relative">
         {/* Hero Section */}
-        <section className="relative bg-slate-900 py-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <img
-              src="/images/demo/couvreur-hero.jpg"
-              alt="Toiture en rénovation"
-              className="w-full h-full object-cover opacity-30"
-            />
-          </div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Couvreur professionnel à <span className="text-yellow-500">Paris</span>
-            </h1>
-            <p className="text-xl text-white max-w-3xl mx-auto mb-10">
-              Rénovation, réparation et entretien de toiture par des experts qualifiés
-            </p>
-            <div className="flex justify-center space-x-4">
-              <a
-                href="#contact"
-                className="bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                Demander un devis gratuit
-              </a>
-              <a
-                href="#services"
-                className="bg-white hover:bg-gray-100 text-slate-900 font-semibold px-8 py-4 rounded-lg transition-all duration-300"
-              >
-                Nos services
-              </a>
-            </div>
-            <div className="mt-8 flex items-center justify-center">
-              <div className="flex items-center">
-                {[0, 1, 2, 3, 4].map((rating) => (
-                  <StarIcon
-                    key={rating}
-                    className="h-5 w-5 text-yellow-400"
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
-              <span className="ml-3 text-white">
-                Plus de 150 clients satisfaits
-              </span>
-            </div>
-          </div>
-        </section>
+        <Hero 
+          profession="couvreur"
+          professionColor="#F97316" // text-orange-500
+          region="Paris"
+          backgroundImage="/images/demo/couvreur.png"
+          services={[
+            { label: "Couverture" },
+            { label: "Zinguerie" },
+            { label: "Charpente" },
+            { label: "Entretien et nettoyage" }
+          ]}
+          formTitle="Vous souhaitez obtenir un devis ?"
+        />
 
-        {/* Services Section */}
-        <section id="services" className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Nos services de couverture
-              </h2>
-              <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
-                Des solutions complètes pour tous vos besoins en toiture
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Rénovation de toiture",
-                  description: "Rénovation complète ou partielle de votre toiture avec des matériaux de qualité.",
-                  icon: "🏠"
-                },
-                {
-                  title: "Réparation de fuites",
-                  description: "Détection et réparation rapide des fuites et infiltrations d'eau.",
-                  icon: "💧"
-                },
-                {
-                  title: "Installation de gouttières",
-                  description: "Installation et remplacement de systèmes de gouttières adaptés à votre toiture.",
-                  icon: "🔧"
-                },
-                {
-                  title: "Isolation de combles",
-                  description: "Amélioration de l'isolation thermique de votre maison pour des économies d'énergie.",
-                  icon: "❄️"
-                },
-                {
-                  title: "Nettoyage de toiture",
-                  description: "Élimination de la mousse, des lichens et des débris pour prolonger la durée de vie de votre toit.",
-                  icon: "🧹"
-                },
-                {
-                  title: "Pose de velux",
-                  description: "Installation de fenêtres de toit pour apporter plus de lumière naturelle.",
-                  icon: "🪟"
-                }
-              ].map((service, index) => (
-                <div key={index} className="bg-slate-50 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-2">{service.title}</h3>
-                  <p className="text-slate-600">{service.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Experience Section */}
+        <Experience 
+          title="l'expérience"
+          subtitle="Mon Couvreur"
+          description="Avec notre service, vous recevrez des demandes de devis ciblées de clients potentiels précisément au moment où ils expriment leur besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7. Avec notre service, vous recevrez des demandes de devis ciblées de clients potentiels précisément au moment où ils expriment leur besoin de vos services, et ce, 24 heures sur 24, 7 jours sur 7."
+          buttonText="Prendre Rendez-vous"
+          buttonHref="#contact"
+          mediaType="video"
+          mediaUrl="/videos/couvreur-experience.mp4"
+          mediaPlaceholder="/images/demo/couvreur-video.jpg"
+          accentColor="#F97316"
+        />
 
         {/* Why Choose Us Section */}
         <section className="py-16 bg-slate-50">
