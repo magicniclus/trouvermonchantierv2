@@ -6,6 +6,7 @@ export type ProspectData = {
   companyName: string;
   email: string;
   phone: string;
+  postalCode: string;
   metier: string;
 };
 
