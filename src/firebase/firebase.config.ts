@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
@@ -16,11 +16,19 @@ const firebaseConfig = {
   appId: "1:637542921551:web:8c9b360a3fa5764993c13a",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const database = getDatabase(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
+// Initialize Firebase - Pattern Singleton
+let firebaseApp: FirebaseApp;
 
-export { auth, database, db, storage };
+if (typeof window !== 'undefined') { // Vérifier si nous sommes côté client
+  firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0] as FirebaseApp;
+} else {
+  // Côté serveur, vérifier si l'app existe déjà
+  firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0] as FirebaseApp;
+}
+
+const auth = getAuth(firebaseApp);
+const database = getDatabase(firebaseApp);
+const db = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
+
+export { firebaseApp, auth, database, db, storage };

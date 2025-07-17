@@ -8,7 +8,7 @@ interface PromoBannerProps {
 }
 
 export default function PromoBanner({ 
-  message = "99€/mois seulement - 2ème mois offert si vous recevez moins de 5 demandes !" 
+  message = "En ce moment 3 mois à 29€/mois offerts ( sans angagement ) !" 
 }: PromoBannerProps) {
   const bannerRef = useRef<HTMLDivElement>(null);
   

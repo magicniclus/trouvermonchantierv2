@@ -75,6 +75,11 @@ const FormSchema = z.object({
       /^[0-9\s\-\+\(\)]+$/,
       "Le numéro de téléphone ne doit contenir que des chiffres et des caractères spéciaux autorisés."
     ),
+  postalCode: z
+    .string()
+    .min(5, "Veuillez entrer un code postal valide.")
+    .max(5, "Le code postal doit contenir 5 chiffres.")
+    .regex(/^[0-9]+$/, "Le code postal ne doit contenir que des chiffres."),
   metier: z.string().min(1, "Veuillez sélectionner un métier."),
   acceptTerms: z.literal(true, {
     errorMap: () => ({
@@ -108,6 +113,7 @@ const Hero = () => {
         email: data.email,
         phone: data.phone,
         metier: data.metier,
+        postalCode: data.postalCode,
       });
 
       if (emailSent) {

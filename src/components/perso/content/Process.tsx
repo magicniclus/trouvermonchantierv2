@@ -2,8 +2,15 @@
 
 import { FlagIcon } from "@heroicons/react/20/solid";
 import ProcessMobile from "./ProcessMobile";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 const Process = () => {
+  const scrollToVideo = () => {
+    const videoSection = document.getElementById('pricing');
+    if (videoSection) {
+      videoSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <section className="py-24">
       {/* Version Mobile */}
@@ -71,6 +78,12 @@ const Process = () => {
               Simple, efficace, direct. <br />
               C’est vous qui avez la main.
             </p>
+            <button 
+                onClick={scrollToVideo}
+                className="text-yellow-500 font-bold duration-300 ml-8 flex items-center mt-3"
+              >
+                On y va ! <ArrowRightIcon className="w-5 h-5 ml-2" />
+              </button>
           </div>
           <div className="w-1/2 md:hidden block"></div>
         </div>{" "}

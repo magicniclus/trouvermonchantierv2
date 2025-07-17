@@ -42,7 +42,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <PromoBanner message="99€/mois seulement - 2ème mois offert si vous recevez moins de 5 demandes !" />
+      <PromoBanner />
       {/* Espace pour compenser la hauteur de la bannière fixe */}
       <div style={{ height: 'var(--banner-height, 32px)' }}></div>
       <header>
@@ -69,7 +69,7 @@ export default function Home() {
           <Process />
           {/* <ToolsFeatures /> */}
           <FAQ />
-          <ArticlesALaUne />
+          {/* <ArticlesALaUne /> */}
           <Commentaires />
           <Banner />
         </div>

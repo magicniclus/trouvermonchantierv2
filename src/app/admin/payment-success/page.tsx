@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PaymentSuccess() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const email = searchParams?.get("email") || "";
   const [countdown, setCountdown] = useState(10);
@@ -102,5 +102,27 @@ export default function PaymentSuccess() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Composant de chargement pour Suspense
+function Loading() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <p className="text-lg font-medium text-gray-900">Chargement...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Composant principal avec Suspense
+export default function PaymentSuccess() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }

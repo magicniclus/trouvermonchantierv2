@@ -26,6 +26,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import { CheckIcon } from "lucide-react";
 
 const metiersBatiment = [
   "Architecte",
@@ -63,6 +64,7 @@ const metiersBatiment = [
   "Serrurier",
   "Terrassier",
   "Vitrerie - Miroitier",
+  "Autre"
 ];
 
 const FormSchema = z.object({
@@ -289,22 +291,31 @@ const Hero = () => {
         alt="hero"
         className="w-full min-h-[650px] h-full object-cover absolute top-0 left-0 -z-10"
       />
-      <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-5xl items-center justify-between p-6 lg:px-4 md:py-20 py-16 z-10">
+      <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-6xl items-center justify-between p-6 lg:px-4 md:py-20 py-16 z-10">
         <div className="w-full md:w-8/12 md:px-4 md:max-w-[800px]">
-          <h1 className="text-5xl text-white font-bold mb-7 leading-tight">
-            Recevez jusqu’à <span className="text-yellow-500">5 nouveaux chantiers</span> par jour 
+          <h1 className="md:text-6xl text-5xl text-white font-bold mb-7 leading-tight">
+          Passez de <br/>
+          <span className="text-yellow-500"> 2000€ </span> à <span className="text-yellow-500"> 30 000€</span><br/>
+          par mois.
           </h1>
 
           <h2 className="text-white mt-7 text-2xl font-semibold leading-snug">
-            Nous créons votre site pro et lançons vos annonces Google locales
-            en&nbsp;24 h. Aucun lead partagé, aucune commission&nbsp;: chaque appel
-            client est pour&nbsp;vous, et vous arrêtez quand vous voulez.
+          Recevez jusqu'à 10 demandes par jour toute l'année. Sans plateforme, sans leads partagés, grâce à votre propre site livrés en 24h.
           </h2>
 
           <ul className="text-white mt-7 space-y-6 text-lg">
+          <li className="flex items-center gap-3">
+              <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
+               <CheckIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <div className="font-bold">Déjà utilisé par 12 000 artisans en France</div>
+                <div className="text-white/90 text-base">Résiliable à tout moment</div>
+              </div>
+            </li>
             <li className="flex items-center gap-3">
-              <div className="flex items-center justify-center bg-white rounded-full p-2 w-10 h-10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                   <line x1="8" y1="21" x2="16" y2="21"></line>
                   <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -316,8 +327,8 @@ const Hero = () => {
               </div>
             </li>
             <li className="flex items-center gap-3">
-              <div className="flex items-center justify-center bg-white rounded-full p-2 w-10 h-10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
                   <circle cx="12" cy="12" r="10"></circle>
                   <circle cx="12" cy="12" r="6"></circle>
                   <circle cx="12" cy="12" r="2"></circle>
@@ -329,8 +340,8 @@ const Hero = () => {
               </div>
             </li>
             <li className="flex items-center gap-3">
-              <div className="flex items-center justify-center bg-white rounded-full p-2 w-10 h-10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+              <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -344,20 +355,7 @@ const Hero = () => {
             </li>
           </ul>
           
-          <div className="mt-8 flex items-center">
-            <div className="flex items-center">
-              {[0, 1, 2, 3, 4].map((rating) => (
-                <StarIcon
-                  key={rating}
-                  className="h-5 w-5 text-yellow-400"
-                  aria-hidden="true"
-                />
-              ))}
-            </div>
-            <Link href="/avis" className="ml-3 text-white underline transition-colors">
-              Nos clients nous notent 4,8/5
-            </Link>
-          </div>
+          
         </div>
         <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10">
           <Form {...form}>
@@ -365,7 +363,21 @@ const Hero = () => {
               onSubmit={form.handleSubmit(onSubmit)}
               className="p-5 md:p-12 md:bg-white/70 bg-white/80 rounded-md flex flex-col items-center shadow-lg w-full"
             >
-              <h2 className="text-slate-700 font-semibold text-center">
+              <div className="flex items-center flex-col">
+                <div className="flex items-center">
+                  {[0, 1, 2, 3, 4].map((rating) => (
+                    <StarIcon
+                      key={rating}
+                      className="h-5 w-5 text-yellow-400"
+                      aria-hidden="true"
+                    />
+                  ))}
+                </div>
+                <Link href="#avis" className="ml-3 text-slate-600 text-xs underline transition-colors">
+                  Nos clients nous notent 4,8/5
+                </Link>
+              </div>
+              <h2 className="text-slate-700 font-semibold text-center mt-4">
                 Vous êtes professionnel du bâtiment et vous recherchez de
                 nouveaux chantiers ?
               </h2>
@@ -502,6 +514,8 @@ const Hero = () => {
               >
                 Recevoir mes chantiers 
               </Button>
+
+              <p className="text-xs text-slate-500 mt-2">Sans engagement. Début immédiat.</p>
             </form>
           </Form>
         </div>

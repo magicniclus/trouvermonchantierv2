@@ -12,7 +12,7 @@ import Prospection from "@/components/perso/content/Prospection";
 import Footer from "@/components/perso/footer/Footer";
 import Hero from "@/components/perso/hero/Hero";
 import { useEffect } from "react";
-import Nav from "../components/tailwindui/nav/Nav";
+import Nav from "@/components/tailwindui/nav/Nav";
 
 export default function Home() {
   useEffect(() => {

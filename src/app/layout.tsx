@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Trouver un chantier - Trouver Mon Chantier",
   description: "Trouver un chantier - Trouver Mon Chantier",
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     title: "Trouver un chantier - Trouver Mon Chantier",
     description:
@@ -36,9 +39,7 @@ export default function RootLayout({
     <html lang="fr">
       <head>
         <meta charSet="utf-8" />
-        <link rel="icon" href="logo/favicon.png" sizes="any" />
-        <link rel="shortcut icon" href="logo/favicon.png" />
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) - Ancien tag */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=AW-11128083735" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -46,6 +47,16 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'AW-11128083735');
+          `}
+        </Script>
+        {/* Google tag (gtag.js) - Nouveau tag */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=AW-17338472202" strategy="afterInteractive" />
+        <Script id="google-analytics-new" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17338472202');
           `}
         </Script>
       </head>

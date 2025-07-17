@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -28,7 +28,8 @@ const pricing = {
   },
 };
 
-export default function ClientPayment() {
+// Composant qui utilise useSearchParams
+function ClientPaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -246,5 +247,27 @@ export default function ClientPayment() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Composant de chargement pour Suspense
+function Loading() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <p className="text-lg font-medium text-gray-900">Chargement du formulaire de paiement...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Composant principal avec Suspense
+export default function ClientPayment() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ClientPaymentContent />
+    </Suspense>
   );
 }

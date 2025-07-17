@@ -57,18 +57,20 @@ const Fonctionnement = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
     
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -118,7 +120,14 @@ const Fonctionnement = () => {
         clearInterval(interval1);
       };
     }
-  }, [isVisible]);
+  }, [isVisible, etapes]);
+
+  const scrollToVideo = () => {
+    const videoSection = document.getElementById('pricing');
+    if (videoSection) {
+      videoSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="w-full md:pb-20" id="why" ref={sectionRef}>
@@ -146,6 +155,12 @@ const Fonctionnement = () => {
               <div className="mt-6">
                 <p className="font-medium text-slate-800 mb-2">Pour tous les secteurs de la construction et du bâtiment</p>
               </div>
+              <button 
+                onClick={scrollToVideo}
+                className="bg-yellow-500 mt-4 hover:bg-yellow-400 text-white font-bold py-3 px-6 rounded-md transition-colors duration-300 shadow-lg"
+              >
+Obtenir mes clients
+              </button>
             </div>
             
               

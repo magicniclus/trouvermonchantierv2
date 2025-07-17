@@ -161,6 +161,7 @@ const Hero: React.FC<HeroProps> = ({
               >
                 Demander un devis gratuit
               </button>
+              <p className="text-xs text-slate-500 mt-2">Sans engagement. Début immédiat.</p>
             </form>
             
             <div className="flex items-center justify-center mt-6 text-xs text-slate-500">

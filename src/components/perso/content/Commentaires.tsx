@@ -159,7 +159,7 @@ export default function Commentaires() {
   // Toujours afficher seulement 3 avis sur la page d'accueil
   const displayedReviews = reviews.featured.slice(0, 3);
   return (
-    <div className="bg-slate-50">
+    <div className="bg-slate-50" id="avis">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-5xl lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-32">
         <div className="lg:col-span-4">
           <h2 className="text-2xl font-bold tracking-tight text-slate-700">

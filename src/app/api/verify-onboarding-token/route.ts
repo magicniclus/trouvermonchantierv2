@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
+// Marquer cette route comme dynamique pour éviter l'erreur de prérendu statique
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);

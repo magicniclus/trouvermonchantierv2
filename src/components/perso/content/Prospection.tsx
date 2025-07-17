@@ -70,7 +70,7 @@ const Prospection = () => {
     }, 3000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [leads.length]);
 
   const scrollToVideo = () => {
     const videoSection = document.getElementById('pricing');
@@ -129,7 +129,7 @@ const Prospection = () => {
               {/* Témoignage en overlay */}
               <div className="absolute -bottom-12 -left-4 bg-white bg-opacity-90 p-3 rounded-lg shadow-md max-w-[200px] transform -rotate-3">
                 <div className="flex items-center gap-2 mb-1">
-                  <img src="/images/avatar-artisan.jpg" alt="Jean, Plombier" className="w-8 h-8 rounded-full object-cover" />
+                  <img src="/images/homme.jpg" alt="Jean, Plombier" className="w-8 h-8 rounded-full object-cover" />
                   <span className="text-xs font-bold">Jean, Plombier</span>
                 </div>
                 <p className="text-xs italic">"J'ai eu 8 devis le premier mois!"</p>

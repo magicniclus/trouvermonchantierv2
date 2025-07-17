@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
-export default function OnboardingAltPage() {
+// Composant qui utilise useSearchParams
+function OnboardingAltContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [tokenValid, setTokenValid] = useState<boolean | null>(null);
@@ -101,5 +102,23 @@ export default function OnboardingAltPage() {
         </Button>
       </div>
     </div>
+  );
+}
+
+// Composant de chargement pour Suspense
+function Loading() {
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-slate-50">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
+    </div>
+  );
+}
+
+// Composant principal avec Suspense
+export default function OnboardingAltPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <OnboardingAltContent />
+    </Suspense>
   );
 }

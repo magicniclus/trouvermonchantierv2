@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "Que comprend l’offre à 99€ ?",
     answer:
-      "L’offre inclut une landing page ultra-optimisée clé en main, un nom de domaine personnalisé, des images professionnelles optimisées, et un logo premium si vous n’en avez pas déjà un.",
+      "L’offre inclut une landing page ultra-optimisée clé en main, un nom de domaine personnalisé, des images professionnelles optimisées, et un logo premium si vous n’en avez pas déjà un, une campagne Google Ads optimisé et un espace personnel pour recvoir vos contacts. ",
   },
   {
     question: "À qui s’adresse votre service ?",

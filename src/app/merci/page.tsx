@@ -72,7 +72,7 @@ const MerciPage = () => {
           </div>
 
           {/* CTA Button */}
-          <Link href="/v2" className="inline-block">
+          <Link href="/" className="inline-block">
             <button className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 px-6 rounded-md transition-colors">
               <HomeIcon className="w-5 h-5" />
               Retour à l&apos;accueil

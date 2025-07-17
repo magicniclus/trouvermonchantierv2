@@ -58,7 +58,7 @@ const Footer = ({ className }: { className?: string }) => {
           </div>
           <ul className="text-white md:gap-3 sm:gap-2 gap-1  mt-10 md:mt-0">
             <li>
-              <a href="/auth">Mon espace</a>
+              <a href="https://app.trouver-mon-chantier.fr/">Mon espace</a>
             </li>
             <li className="">
               <a href="mentions-legales">Mentions légales</a>
