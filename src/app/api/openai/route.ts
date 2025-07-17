@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-// Initialiser l'API OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialiser l'API OpenAI seulement si la clé est disponible
+let openai: OpenAI | null = null;
+
+if (process.env.OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+}
 
 export async function POST(request: Request) {
   try {
@@ -14,6 +18,14 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: 'Le texte est requis' },
         { status: 400 }
+      );
+    }
+
+    // Vérifier si l'API OpenAI est disponible
+    if (!openai || !process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: 'Service OpenAI non disponible' },
+        { status: 503 }
       );
     }
 

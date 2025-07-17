@@ -2,7 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 
 const Fonctionnement = () => {
   const metiers = [
@@ -23,8 +23,8 @@ const Fonctionnement = () => {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   
-  // Étapes du fonctionnement
-  const etapes = [
+  // Étapes du fonctionnement mémorisées pour éviter les re-rendus inutiles
+  const etapes = useMemo(() => [
     {
       numero: 1,
       titre: "On crée votre site",
@@ -49,7 +49,7 @@ const Fonctionnement = () => {
       unite: "j/an",
       couleur: "bg-yellow-500"
     }
-  ];
+  ], []);
   
   // Détecter quand la section est visible
   useEffect(() => {
