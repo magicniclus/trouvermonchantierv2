@@ -93,6 +93,11 @@ const FormSchema = z.object({
       /^[0-9\s\-\+\(\)]+$/,
       "Le numéro de téléphone ne doit contenir que des chiffres et des caractères spéciaux autorisés."
     ),
+  postalCode: z
+    .string()
+    .min(5, "Veuillez entrer un code postal valide.")
+    .max(5, "Le code postal doit contenir 5 chiffres.")
+    .regex(/^[0-9]+$/, "Le code postal ne doit contenir que des chiffres."),
   metier: z.string().min(1, "Veuillez sélectionner un métier."),
   acceptTerms: z.literal(true, {
     errorMap: () => ({
@@ -105,6 +110,9 @@ const Hero = () => {
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      metier: '',
+    },
   });
 
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
@@ -117,57 +125,155 @@ const Hero = () => {
 
       console.log('Envoi des données du formulaire:', data);
 
-      // Ajouter le lead à la base de données Firebase via l'API
-      const leadResponse = await fetch('/api/leads', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      // Créer l'objet de données pour GHL
+      const ghlData = {
+        // first_name: data.name.split(' ')[0],
+        // last_name: data.name.split(' ').slice(1).join(' ') || '',
+        // company_name: data.companyName,
+        // phone: data.phone,
+        // email: data.email,
+        // postal_code: data.postalCode,
+        // metier: data.metier
 
-      console.log('Réponse de l\'API leads:', leadResponse.status);
-      const leadResult = await leadResponse.json();
-      console.log('Résultat de l\'API leads:', leadResult);
 
-      if (!leadResult.success) {
-        throw new Error(leadResult.error || 'Erreur lors de l\'enregistrement du lead');
+          first_name: data.name.split(' ')[0],
+          last_name: data.name.split(' ').slice(1).join(' ') || '',
+          company_name: data.companyName,
+          email: data.email,
+          phone: data.phone,
+          postal_code: data.postalCode
+
+      };
+      
+      console.log('Données à envoyer à GoHighLevel:', JSON.stringify(ghlData, null, 2));
+      
+      let success = false;
+      
+      // Premier essai avec la première URL
+      try {
+        console.log('Tentative d\'envoi à la première URL GoHighLevel...');
+        
+        const ghlResponse = await fetch('https://services.leadconnectorhq.com/hooks/U5obEVuiFs4vtSfA8g6n/webhook-trigger/1e9b410e-1e17-4779-ba84-f1b729c44596', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(ghlData),
+        });
+
+        console.log('Status de la réponse GoHighLevel (1ère URL):', ghlResponse.status);
+        console.log('Headers de la réponse:', Object.fromEntries(ghlResponse.headers.entries()));
+        
+        const textResponse = await ghlResponse.text();
+        console.log('Réponse texte de GoHighLevel (1ère URL):', textResponse);
+        
+        if (ghlResponse.ok) {
+          console.log('Contact créé avec succès dans GoHighLevel via la 1ère URL');
+          success = true;
+        } else {
+          console.warn('Échec de l\'envoi à la 1ère URL GoHighLevel:', ghlResponse.status);
+        }
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi à la 1ère URL GoHighLevel:', error);
       }
-      const uid = leadResult.leadId;
-      console.log('Lead enregistré avec l\'ID:', uid);
+      
+      // Si la première tentative échoue, essayer avec la deuxième URL
+      if (!success) {
+        try {
+          console.log('Tentative d\'envoi à la deuxième URL GoHighLevel...');
+          
+          const secondAttempt = await fetch('https://services.leadconnectorhq.com/hooks/U5obEVuiFs4vtSfA8g6n/webhook-trigger/xh8gbNJKrq7rXE5CDYlM', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(ghlData),
+          });
+          
+          console.log('Status de la réponse GoHighLevel (2ème URL):', secondAttempt.status);
+          console.log('Headers de la réponse (2ème URL):', Object.fromEntries(secondAttempt.headers.entries()));
+          
+          const secondTextResponse = await secondAttempt.text();
+          console.log('Réponse texte de GoHighLevel (2ème URL):', secondTextResponse);
+          
+          if (secondAttempt.ok) {
+            console.log('Contact créé avec succès dans GoHighLevel via la 2ème URL');
+            success = true;
+          } else {
+            console.warn('Échec de l\'envoi à la 2ème URL GoHighLevel:', secondAttempt.status);
+          }
+        } catch (error) {
+          console.error('Erreur lors de l\'envoi à la 2ème URL GoHighLevel:', error);
+        }
+      }
+      
+      // Essai avec une structure de données alternative si les deux premières tentatives échouent
+      if (!success) {
+        try {
+          console.log('Tentative avec une structure de données alternative...');
+          
+          // Structure alternative avec contact comme objet parent
+          const alternativeData = { contact: ghlData };
+          
+          console.log('Données alternatives:', JSON.stringify(alternativeData, null, 2));
+          
+          const altResponse = await fetch('https://services.leadconnectorhq.com/hooks/U5obEVuiFs4vtSfA8g6n/webhook-trigger/dad1e1f5-a872-40f6-9280-d0d4e0515795', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(alternativeData),
+          });
+          
+          console.log('Status de la réponse alternative:', altResponse.status);
+          
+          const altTextResponse = await altResponse.text();
+          console.log('Réponse texte alternative:', altTextResponse);
+          
+          if (altResponse.ok) {
+            console.log('Contact créé avec succès avec la structure alternative');
+            success = true;
+          } else {
+            console.warn('Échec de l\'envoi avec la structure alternative:', altResponse.status);
+          }
+        } catch (error) {
+          console.error('Erreur lors de l\'envoi avec la structure alternative:', error);
+        }
+      }
+      
+      // Afficher le toast approprié en fonction du résultat
+      if (success) {
+        toast({
+          title: "Succès",
+          description: "Votre demande a été envoyée avec succès.",
+        });
+      } else {
+        toast({
+          title: "Avertissement",
+          description: "Votre formulaire a été soumis, mais nous avons rencontré des difficultés lors de l'enregistrement de vos données. Notre équipe vous contactera sous peu.",
+          variant: "destructive",
+        });
+      }
 
-      // Envoyer l'email de notification
-      const emailSent = await sendProspectNotification({
+      // Rediriger vers la page de remerciement après les tentatives d'envoi
+      const queryParams = new URLSearchParams({
+        email: data.email,
+        metier: data.metier,
+        telephone: data.phone,
         name: data.name,
         companyName: data.companyName,
-        email: data.email,
-        phone: data.phone,
-        metier: data.metier,
+        postalCode: data.postalCode
       });
-
-      if (emailSent) {
-        console.log("Email de notification envoyé avec succès");
-      } else {
-        console.warn("L'email de notification n'a pas pu être envoyé");
-      }
-
-      // Rediriger vers la page secteur avec les paramètres
-      router.push(
-        `/merci?uid=${uid}&email=${encodeURIComponent(
-          data.email
-        )}&metier=${encodeURIComponent(
-          data.metier
-        )}&telephone=${encodeURIComponent(
-          data.phone
-        )}&name=${encodeURIComponent(
-          data.name
-        )}&companyName=${encodeURIComponent(data.companyName)}`
-      );
+      
+      router.push(`/merci?${queryParams.toString()}`);
     } catch (error) {
       console.error("Erreur lors de la soumission du formulaire:", error);
       toast({
         title: "Erreur",
-        description: "Une erreur s'est produite lors de l'ajout du prospect.",
+        description: "Une erreur s'est produite lors de l'envoi de votre demande.",
         variant: "destructive",
       });
     }
@@ -186,8 +292,7 @@ const Hero = () => {
       <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-5xl items-center justify-between p-6 lg:px-4 md:py-20 py-16 z-10">
         <div className="w-full md:w-8/12 md:px-4 md:max-w-[800px]">
           <h1 className="text-5xl text-white font-bold mb-7 leading-tight">
-            Recevez jusqu’à 5 nouveaux chantiers par jour – {" "}
-            <span className="text-yellow-500">99€/mois</span>
+            Recevez jusqu’à <span className="text-yellow-500">5 nouveaux chantiers</span> par jour 
           </h1>
 
           <h2 className="text-white mt-7 text-2xl font-semibold leading-snug">
@@ -334,13 +439,33 @@ const Hero = () => {
               />
               <FormField
                 control={form.control}
+                name="postalCode"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl className="w-full">
+                      <Input
+                        type="text"
+                        placeholder="Code postal"
+                        {...field}
+                        className="mt-2 w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="metier"
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl className="w-full">
                       <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          console.log('Métier sélectionné:', value);
+                        }}
+                        value={field.value || ''}
                       >
                         <SelectTrigger className="mt-2 w-full bg-white">
                           <SelectValue placeholder="Sélectionnez votre métier" />
