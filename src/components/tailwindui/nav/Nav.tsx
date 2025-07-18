@@ -15,6 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useState } from "react";
+import { useMobileMenu } from "@/context/MobileMenuContext";
 
 const products = [
   {
@@ -58,7 +59,8 @@ function classNames(...classes: string[]) {
 }
 
 const Nav = ({ withMenu }: { withMenu?: boolean }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Utiliser le contexte partagé au lieu d'un état local
+  const { mobileMenuOpen, setMobileMenuOpen } = useMobileMenu();
 
   return (
     <header className="bg-white">
@@ -134,18 +136,18 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
             <div className="-m-1.5 p-1.5">
               <span className="sr-only">Trouver mon chantier</span>
               <img
-                className="h-8 w-auto"
-                src="/favicon.png"
+                className="h-14 w-auto"
+                src="/logo.png"
                 alt="Trouver mon chantier"
               />
             </div>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-900 bg-gray-100 hover:bg-gray-200 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              <span className="sr-only">Fermer le menu</span>
+              <XMarkIcon className="h-7 w-7" aria-hidden="true" />
             </button>
           </div>
           <div className="mt-6 flow-root">
