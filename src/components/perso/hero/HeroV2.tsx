@@ -511,7 +511,7 @@ const Hero = () => {
                 type="submit"
                 className="mt-6 w-full bg-yellow-500 hover:bg-yellow-400 transform hover:scale-105 transition-all duration-300 text-lg font-semibold shadow-lg hover:shadow-xl py-6 rounded-xl"
               >
-                Recevoir mes chantiers 
+                Oui, je veux recevoir des chantiers
               </Button>
 
               <p className="text-xs text-slate-500 mt-2">Sans engagement. Début immédiat.</p>
