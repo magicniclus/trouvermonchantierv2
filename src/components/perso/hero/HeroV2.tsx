@@ -283,7 +283,6 @@ const Hero = () => {
 
   return (
     <section
-      id="pricing"
       className="w-full relative flex items-center min-h-[680px] h-full"
     >
       <img
@@ -357,7 +356,7 @@ const Hero = () => {
           
           
         </div>
-        <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10">
+        <div className="w-full md:w-1/2 md:px-4 md:mt-0 mt-10" id="pricing">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
