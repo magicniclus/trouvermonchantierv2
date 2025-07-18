@@ -18,6 +18,8 @@ import HeroV2 from "@/components/perso/hero/HeroV2";
 import Nav from "@/components/tailwindui/nav/Nav";
 import { useEffect } from "react";
 
+import { MobileMenuProvider } from "@/context/MobileMenuContext";
+
 export default function Home() {
   useEffect(() => {
     const handleSmoothScroll = (event: MouseEvent) => {
@@ -41,7 +43,7 @@ export default function Home() {
     };
   }, []);
   return (
-    <>
+    <MobileMenuProvider>
       <PromoBanner />
       {/* Espace pour compenser la hauteur de la bannière fixe */}
       <div style={{ height: 'var(--banner-height, 32px)' }}></div>
@@ -75,6 +77,6 @@ export default function Home() {
         </div>
       </main>
       <Footer className="bg-slate-900" />
-    </>
+    </MobileMenuProvider>
   );
 }
