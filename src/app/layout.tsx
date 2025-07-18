@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/context/AuthContext";
+import { MobileMenuProvider } from "@/context/MobileMenuContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
@@ -52,8 +53,10 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <AuthProvider>
-          {children}
-          <ChatWidget />
+          <MobileMenuProvider>
+            {children}
+            <ChatWidget />
+          </MobileMenuProvider>
         </AuthProvider>
       </body>
     </html>
