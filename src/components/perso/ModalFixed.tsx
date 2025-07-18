@@ -32,20 +32,21 @@ const ModalFixed = () => {
       >
         <a
           href="tel:0972164963"
-          className="p-3 rounded-lg shadow-md flex h-[70px] items-center justify-center w-max bg-white"
+          className="p-4 rounded-xl shadow-lg hover:shadow-xl flex h-[75px] items-center justify-center w-max bg-white border border-gray-100 transition-all duration-300 hover:scale-105"
           style={{ pointerEvents: "auto" }}
         >
-          <div className="text-sm h-full flex flex-col justify-center mt-1">
-            <p className="text-green-500">Appelez-nous !</p>
-            <p className="text-slate-700 text-[9px]">
+          <div className="bg-yellow-500 rounded-full p-3 mr-3 flex items-center justify-center">
+            <PhoneIcon className="h-6 w-6 text-white animate-pulse" />
+          </div>
+          <div className="flex flex-col">
+            <div className="flex items-center">
+              <p className="text-blue-600 font-bold text-base">Appelez-nous !</p>
+              <span className="ml-2 bg-green-100 text-green-700 text-[9px] px-2 py-0.5 rounded-full font-medium">Gratuit</span>
+            </div>
+            <p className="text-slate-700 text-[10px]">
               Du lundi au samedi - 8h à 19h
             </p>
-          </div>
-          <div className="ml-3 h-full flex flex-col justify-center">
-            <p className="text-slate-700 text-lg font-semibold">0972164963</p>
-            <p className="text-slate-700 text-[9px]">
-              Service gratuit + prix d'un appel
-            </p>
+            <p className="text-slate-800 text-lg font-bold">09 72 16 49 63</p>
           </div>
         </a>
       </div>
