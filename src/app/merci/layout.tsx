@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,17 @@ export default function RootLayout({
     <html lang="fr">
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
+        
+        {/* Event snippet for 2 conversion page */}
+        <Script id="google-conversion-tracking" strategy="afterInteractive">
+          {`
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17338472202/SReFCKbM5PUaEIqu0MtA',
+                'value': 45.0,
+                'currency': 'EUR'
+            });
+          `}
+        </Script>
         <meta name="robots" content="noindex" />
       </head>
       <body className={inter.className}>{children}</body>
