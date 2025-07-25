@@ -136,24 +136,22 @@ const Fonctionnement = () => {
           <div className="grid gap-8 md:grid-cols-2 items-center">
             <div className="text-slate-700">
               <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800">
-                Votre site travaille pour vous,
-                même quand vous dormez.
+              Votre site et vos pubs Google travaillent pour vous, même quand vous dormez.
               </h2>
               <div className="h-1 w-14 bg-yellow-500 rounded mt-4" />
               
               <p className="leading-7 text-lg text-slate-700 mt-6">
-                Grace à notre stratégie, vous recevez des demandes de devis
-                ciblées, 24h/24, dès que des clients cherchent vos services sur
-                Google.
+              Grâce à notre système, vos clients vous trouvent sur Google quand ils recherchent votre métier dans votre ville.
               </p>
               
               <p className="leading-7 text-lg text-slate-700 mt-4">
-                Votre site convertit les visiteurs en appels concrets,
-                sans engagement, ni leads partagés.
+              Votre site et vos campagnes Google Ads sont prêts en 24h, et vous commencez à recevoir des appels dès demain.
               </p>
               
               <div className="mt-6">
-                <p className="font-medium text-slate-800 mb-2">Pour tous les secteurs de la construction et du bâtiment</p>
+                <p className="font-medium text-slate-800 mb-2">Pour tous les secteurs de la construction et du bâtiment.</p>
+                <p className="font-medium text-slate-800 mb-2">Zéro plateforme. Zéro lead partagé.</p>
+                <p className="font-medium text-slate-800 mb-2">Les demandes vous arrivent en direct, sans intermédiaire.</p>
               </div>
               <button 
                 onClick={scrollToVideo}
