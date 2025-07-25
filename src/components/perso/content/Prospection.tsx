@@ -148,7 +148,7 @@ const Prospection = () => {
                   0
                 </span>
                 <h3 className="text-2xl md:text-3xl font-bold">
-                  prospects qualifiés par jour
+                  prospects qualifiés par mois
                 </h3>
               </div>
               <h4 className="text-lg text-yellow-300 font-medium mb-6">garanti ou 2<sup>ème</sup> mois offert</h4>
@@ -164,22 +164,22 @@ const Prospection = () => {
                 <li className="flex items-start gap-3">
                   <span className="text-green-400 text-xl">✅</span>
                   <div>
-                    <span className="font-semibold block">Visibilité garantie</span>
-                    <p className="text-gray-300">Être visible sur Google aujourd'hui, ce n'est plus un bonus : c'est indispensable.</p>
+                    <span className="font-semibold block">Visible en 1ʳᵉ position sur Google</span>
+                    <p className="text-gray-300">Vous apparaissez exactement quand un client cherche votre métier dans votre ville.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-400 text-xl">✅</span>
                   <div>
                     <span className="font-semibold block">Clients ciblés par zone</span>
-                    <p className="text-gray-300">Vous apparaissez exactement là où vos clients cherchent, avant vos concurrents.</p>
+                    <p className="text-gray-300">Aucun prospect hors secteur. Uniquement des appels ou demandes proches de chez vous.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-green-400 text-xl">✅</span>
                   <div>
                     <span className="font-semibold block">Zéro effort de votre part</span>
-                    <p className="text-gray-300">On s'occupe de tout pour vous - création, optimisation et suivi.</p>
+                    <p className="text-gray-300">On crée, on lance, on gère les pubs et le site pour vous. Vous recevez les appels.</p>
                   </div>
                 </li>
               </ul>
