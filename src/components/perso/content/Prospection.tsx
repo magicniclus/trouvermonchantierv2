@@ -155,7 +155,7 @@ const Prospection = () => {
               
               {/* Logo Google + texte */}
               <div className="flex items-center gap-3 mb-6">
-                <img src="/logos/google.jpeg" alt="Google" className="w-8 h-8" />
+                <img src="/logos/google.png" alt="Google" className="w-8 h-8" />
                 <span className="text-sm text-gray-300">Campagne gérée pour vous</span>
               </div>
 

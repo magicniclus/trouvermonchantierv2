@@ -167,7 +167,7 @@ Obtenir mes clients
                 <img
                   src="/images/desktop.png"
                   alt="Landing page optimisée pour la conversion"
-                  className="w-full h-auto object-cover rounded-lg"
+                  className="w-full h-auto object-contain rounded-lg"
                 />
               </div>
               
