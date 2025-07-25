@@ -293,13 +293,11 @@ const Hero = () => {
       <div className="mx-auto w-full h-full flex flex-col md:flex-row max-w-6xl items-center justify-between p-6 lg:px-4 md:py-20 py-16 z-10">
         <div className="w-full md:w-8/12 md:px-4 md:max-w-[800px]">
           <h1 className="md:text-6xl text-5xl text-white font-bold mb-7 leading-tight">
-          Passez de <br/>
-          <span className="text-yellow-500"> 2000€ </span> à <span className="text-yellow-500"> 30 000€</span><br/>
-          par mois.
+          Recevez jusqu’à <span className="text-yellow-500">10 chantiers par mois </span>grâce à Google Ads
           </h1>
 
           <h2 className="text-white mt-7 text-2xl font-semibold leading-snug">
-          Recevez jusqu'à 10 demandes par jour toute l'année. Sans plateforme, sans leads partagés, grâce à votre propre site livrés en 24h.
+          Votre site et vos campagnes Google Ads sont prêts en 24h. Les appels démarrent immédiatement.
           </h2>
 
           <ul className="text-white mt-7 space-y-6 text-lg">
@@ -309,7 +307,7 @@ const Hero = () => {
               </div>
               <div>
                 <div className="font-bold">Déjà utilisé par 12 000 artisans en France</div>
-                <div className="text-white/90 text-base">Résiliable à tout moment</div>
+                <div className="text-white/90 text-base">Testé et approuvé partout en France. Résiliable à tout moment.</div>
               </div>
             </li>
             <li className="flex items-center gap-3">
@@ -321,8 +319,8 @@ const Hero = () => {
                 </svg>
               </div>
               <div>
-                <div className="font-bold">Site pro personnalisé à votre métier</div>
-                <div className="text-white/90 text-base">On vous crée un site performant</div>
+                <div className="font-bold">Un site pro livré en 24h</div>
+                <div className="text-white/90 text-base">Conçu pour vous, optimisé pour apparaître tout en haut sur Google.</div>
               </div>
             </li>
             <li className="flex items-center gap-3">
@@ -334,8 +332,8 @@ const Hero = () => {
                 </svg>
               </div>
               <div>
-                <div className="font-bold">Publicité locale ciblée</div>
-                <div className="text-white/90 text-base">Annonces Google Ads optimisées <b>400€ offert</b></div>
+                <div className="font-bold">Vous apparaissez en 1er sur Google</div>
+                <div className="text-white/90 text-base">Campagne Google Ads locale incluse. 400€ de budget offert pour démarrer.</div>
               </div>
             </li>
             <li className="flex items-center gap-3">
@@ -348,8 +346,8 @@ const Hero = () => {
                 </svg>
               </div>
               <div>
-                <div className="font-bold">Vous recevez des clients</div>
-                <div className="text-white/90 text-base">Vous recevez des prospects qualifiés</div>
+                <div className="font-bold">Des clients vous contactent directement</div>
+                <div className="text-white/90 text-base">Pas de plateforme. Pas d’intermédiaire. Vous êtes seul à recevoir les demandes.</div>
               </div>
             </li>
           </ul>
