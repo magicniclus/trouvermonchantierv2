@@ -310,7 +310,7 @@ const Hero = () => {
                 <div className="text-white/90 text-base">Testé et approuvé partout en France. Résiliable à tout moment.</div>
               </div>
             </li>
-            <li className="flex items-center gap-3">
+            {/* <li className="flex items-center gap-3">
               <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -322,7 +322,7 @@ const Hero = () => {
                 <div className="font-bold">Un site pro livré en 24h</div>
                 <div className="text-white/90 text-base">Conçu pour vous, optimisé pour apparaître tout en haut sur Google.</div>
               </div>
-            </li>
+            </li> */}
             <li className="flex items-center gap-3">
               <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
