@@ -26,11 +26,10 @@ const Process = () => {
               1
             </div>
             <h2 className="font-bold text-2xl">
-              Vous recevez des demandes de devis
+            Le prospect vous appelle ou vous écrit directement.
             </h2>
             <p>
-              Les demandes sont générées automatiquement depuis votre site, via
-              des campagnes Google Ads optimisées pour vous.
+            Pas de plateforme, pas de concurrence, pas de frais cachés : c’est votre client, votre prix.
             </p>
           </div>
           <div className="w-1/2 md:hidden block"></div>
@@ -45,8 +44,7 @@ const Process = () => {
               Vous effectuez et validez le devis
             </h2>
             <p>
-              Les prospects vous contactent directement. Aucune plateforme,
-              aucune mise en concurrence : le client, c’est le vôtre.
+            Le devis est validé et envoyé directement au prospect.
             </p>
           </div>
           <div className="w-1/2 md:hidden block"></div>
@@ -57,11 +55,11 @@ const Process = () => {
               3
             </div>
             <h2 className="font-bold max-w-[300px] text-2xl text-start mr-8">
-              Vous réalisez le chantier
+            Vous réalisez le chantier, et vous encaissez.
             </h2>
-            <p className=" max-w-[290px] text-start mr-8">
-              Sans commission, sans intermédiaire. <br /> Juste vous, et le
-              résultat d’un système qui travaille pour vous.
+            <p className=" max-w-[290px] text-start mr-10">
+            Pas de commission, pas d’intermédiaire. <br/>
+            Vous récoltez 100% du fruit de votre travail.
             </p>
           </div>
           <div className="w-1/2"></div>
@@ -72,11 +70,11 @@ const Process = () => {
             <div className="absolute top-0 -left-[95px] w-20 h-20 rounded-full bg-white border border-yellow-500 rounded-full flex justify-center items-center text-xl text-white">
               <FlagIcon className="w-10 h-10 text-yellow-500" />
             </div>
-            <h2 className="font-bold text-2xl ml-8">Final</h2>
+            <h2 className="font-bold text-2xl ml-8">🎯 Objectif atteint : vous avez un client, un chantier, un revenu.</h2>
             <p className=" ml-8">
               Vous encaissez. <br />
               Simple, efficace, direct. <br />
-              C’est vous qui avez la main.
+              Vous gardez le contrôle, nous gérons le reste.
             </p>
             <button 
                 onClick={scrollToVideo}
