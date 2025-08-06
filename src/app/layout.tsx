@@ -42,15 +42,16 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.png" />
         
         {/* Google tag (gtag.js) - New */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=AW-17338472202" strategy="afterInteractive" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=AW-11128083735" strategy="afterInteractive" />
         <Script id="google-analytics-new" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-17338472202');
+            gtag('config', 'AW-11128083735');
           `}
         </Script>
+
       </head>
       <body className={inter.className}>
         <AuthProvider>
