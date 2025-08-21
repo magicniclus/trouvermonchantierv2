@@ -27,6 +27,7 @@ import { z } from "zod";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { CheckIcon } from "lucide-react";
+import { addProspect } from "@/firebase/database";
 
 const metiersBatiment = [
   "Architecte",
@@ -127,123 +128,44 @@ const Hero = () => {
 
       console.log('Envoi des données du formulaire:', data);
 
-      // Créer l'objet de données pour GHL
-      const ghlData = {
-        // first_name: data.name.split(' ')[0],
-        // last_name: data.name.split(' ').slice(1).join(' ') || '',
-        // company_name: data.companyName,
-        // phone: data.phone,
-        // email: data.email,
-        // postal_code: data.postalCode,
-        // metier: data.metier
-
-
-          first_name: data.name.split(' ')[0],
-          last_name: data.name.split(' ').slice(1).join(' ') || '',
-          company_name: data.companyName,
-          email: data.email,
-          phone: data.phone,
-          postal_code: data.postalCode
-
+      // Créer l'objet de données pour Firebase
+      const nameParts = data.name.split(' ');
+      const prospectData = {
+        "Nom": nameParts.slice(1).join(' ') || nameParts[0],
+        "Prenom": nameParts[0],
+        "Email": data.email,
+        "Téléphone": data.phone,
+        "Entreprise": data.companyName,
+        "Metier": data.metier,
+        "Code postal": data.postalCode,
+        "Etape": "A contacter",
+        "Date": new Date(),
+        "RGPD": true,
+        "Commentaire": "Prospect depuis formulaire Hero V2"
       };
       
-      console.log('Données à envoyer à GoHighLevel:', JSON.stringify(ghlData, null, 2));
+      console.log('Données à envoyer à Firebase:', JSON.stringify(prospectData, null, 2));
       
       let success = false;
       
-      // Premier essai avec la première URL
+      // Test de connexion Firebase
+      console.log('🔥 [HeroV2] Test de connexion Firebase...');
+      
+      // Envoyer les données à Firebase
       try {
-        console.log('Tentative d\'envoi à la première URL GoHighLevel...');
+        console.log('🔥 [HeroV2] Tentative d\'envoi à Firebase...');
+        console.log('🔥 [HeroV2] Configuration Firebase disponible:', typeof window !== 'undefined' ? 'Client' : 'Server');
+        console.log('🔥 [HeroV2] Données à envoyer:', prospectData);
         
-        const ghlResponse = await fetch('https://services.leadconnectorhq.com/hooks/U5obEVuiFs4vtSfA8g6n/webhook-trigger/1e9b410e-1e17-4779-ba84-f1b729c44596', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(ghlData),
-        });
-
-        console.log('Status de la réponse GoHighLevel (1ère URL):', ghlResponse.status);
-        console.log('Headers de la réponse:', Object.fromEntries(ghlResponse.headers.entries()));
-        
-        const textResponse = await ghlResponse.text();
-        console.log('Réponse texte de GoHighLevel (1ère URL):', textResponse);
-        
-        if (ghlResponse.ok) {
-          console.log('Contact créé avec succès dans GoHighLevel via la 1ère URL');
-          success = true;
-        } else {
-          console.warn('Échec de l\'envoi à la 1ère URL GoHighLevel:', ghlResponse.status);
-        }
+        const prospectId = await addProspect(prospectData);
+        console.log('🔥 [HeroV2] Prospect créé avec succès dans Firebase avec l\'ID:', prospectId);
+        console.log('🔥 [HeroV2] Chemin Firebase:', `prospects/${new Date().toISOString().split('T')[0]}/${prospectId}`);
+        success = true;
       } catch (error) {
-        console.error('Erreur lors de l\'envoi à la 1ère URL GoHighLevel:', error);
-      }
-      
-      // Si la première tentative échoue, essayer avec la deuxième URL
-      if (!success) {
-        try {
-          console.log('Tentative d\'envoi à la deuxième URL GoHighLevel...');
-          
-          const secondAttempt = await fetch('https://services.leadconnectorhq.com/hooks/U5obEVuiFs4vtSfA8g6n/webhook-trigger/xh8gbNJKrq7rXE5CDYlM', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(ghlData),
-          });
-          
-          console.log('Status de la réponse GoHighLevel (2ème URL):', secondAttempt.status);
-          console.log('Headers de la réponse (2ème URL):', Object.fromEntries(secondAttempt.headers.entries()));
-          
-          const secondTextResponse = await secondAttempt.text();
-          console.log('Réponse texte de GoHighLevel (2ème URL):', secondTextResponse);
-          
-          if (secondAttempt.ok) {
-            console.log('Contact créé avec succès dans GoHighLevel via la 2ème URL');
-            success = true;
-          } else {
-            console.warn('Échec de l\'envoi à la 2ème URL GoHighLevel:', secondAttempt.status);
-          }
-        } catch (error) {
-          console.error('Erreur lors de l\'envoi à la 2ème URL GoHighLevel:', error);
-        }
-      }
-      
-      // Essai avec une structure de données alternative si les deux premières tentatives échouent
-      if (!success) {
-        try {
-          console.log('Tentative avec une structure de données alternative...');
-          
-          // Structure alternative avec contact comme objet parent
-          const alternativeData = { contact: ghlData };
-          
-          console.log('Données alternatives:', JSON.stringify(alternativeData, null, 2));
-          
-          const altResponse = await fetch('https://services.leadconnectorhq.com/hooks/U5obEVuiFs4vtSfA8g6n/webhook-trigger/dad1e1f5-a872-40f6-9280-d0d4e0515795', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(alternativeData),
-          });
-          
-          console.log('Status de la réponse alternative:', altResponse.status);
-          
-          const altTextResponse = await altResponse.text();
-          console.log('Réponse texte alternative:', altTextResponse);
-          
-          if (altResponse.ok) {
-            console.log('Contact créé avec succès avec la structure alternative');
-            success = true;
-          } else {
-            console.warn('Échec de l\'envoi avec la structure alternative:', altResponse.status);
-          }
-        } catch (error) {
-          console.error('Erreur lors de l\'envoi avec la structure alternative:', error);
-        }
+        console.error('🔥 [HeroV2] Erreur détaillée lors de l\'envoi à Firebase:', error);
+        console.error('🔥 [HeroV2] Type d\'erreur:', typeof error);
+        console.error('🔥 [HeroV2] Message d\'erreur:', error instanceof Error ? error.message : error);
+        console.error('🔥 [HeroV2] Stack trace:', error instanceof Error ? error.stack : 'No stack');
       }
       
       // Afficher le toast approprié en fonction du résultat
@@ -254,13 +176,14 @@ const Hero = () => {
         });
       } else {
         toast({
-          title: "Avertissement",
-          description: "Votre formulaire a été soumis, mais nous avons rencontré des difficultés lors de l'enregistrement de vos données. Notre équipe vous contactera sous peu.",
+          title: "Erreur",
+          description: "Une erreur s'est produite lors de l'enregistrement de vos données. Veuillez réessayer.",
           variant: "destructive",
         });
+        return; // Ne pas rediriger en cas d'erreur
       }
 
-      // Rediriger vers la page de remerciement après les tentatives d'envoi
+      // Rediriger vers la page de remerciement après l'envoi réussi
       const queryParams = new URLSearchParams({
         email: data.email,
         metier: data.metier,
@@ -312,7 +235,7 @@ const Hero = () => {
             </li>
             {/* <li className="flex items-center gap-3">
               <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                   <line x1="8" y1="21" x2="16" y2="21"></line>
                   <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -325,7 +248,7 @@ const Hero = () => {
             </li> */}
             <li className="flex items-center gap-3">
               <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                   <circle cx="12" cy="12" r="10"></circle>
                   <circle cx="12" cy="12" r="6"></circle>
                   <circle cx="12" cy="12" r="2"></circle>
@@ -338,7 +261,7 @@ const Hero = () => {
             </li>
             <li className="flex items-center gap-3">
               <div className="flex items-center justify-center bg-yellow-500 rounded-full p-2 w-10 h-10">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -476,12 +399,16 @@ const Hero = () => {
                         }}
                         value={field.value || ''}
                       >
-                        <SelectTrigger className="mt-2 w-full bg-white">
+                        <SelectTrigger className="mt-2 w-full bg-white border-gray-300 text-gray-900 focus:border-gray-500 focus:ring-gray-500">
                           <SelectValue placeholder="Sélectionnez votre métier" />
                         </SelectTrigger>
-                        <SelectContent className="w-full">
+                        <SelectContent className="w-full bg-white border-gray-300">
                           {metiersBatiment.map((metier) => (
-                            <SelectItem key={metier} value={metier}>
+                            <SelectItem 
+                              key={metier} 
+                              value={metier}
+                              className="text-gray-900 focus:bg-gray-100 focus:text-gray-900 data-[highlighted]:bg-gray-100 data-[highlighted]:text-gray-900"
+                            >
                               {metier}
                             </SelectItem>
                           ))}

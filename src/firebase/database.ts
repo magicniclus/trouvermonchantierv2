@@ -1,83 +1,77 @@
 // firebaseUtils.ts
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { get, push, ref, set, update } from "firebase/database";
-import { auth, database } from "./firebase.config";
+import { collection, addDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { auth, db } from "./firebase.config";
 
-const date = new Date();
-const dateString = date.toISOString().split("T")[0];
-const path = `prospects/${dateString}`;
-const newRef = push(ref(database, path));
-
-const addProspect = (data: Record<string, any>): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    set(newRef, data)
-      .then(() => {
-        resolve(newRef.key!);
-      })
-      .catch((error) => {
-        console.error("Error adding prospect: ", error);
-        reject("Failed to add prospect");
-      });
-  });
+const addProspect = async (data: Record<string, any>): Promise<string> => {
+  try {
+    console.log("🔥 [Firestore] Début addProspect");
+    console.log("🔥 [Firestore] Database object:", db);
+    console.log("🔥 [Firestore] Data to save:", data);
+    
+    // Ajouter à la collection prospects
+    console.log("🔥 [Firestore] Adding to prospects collection...");
+    
+    const docRef = await addDoc(collection(db, "prospects"), data);
+    console.log("🔥 [Firestore] Document written with ID:", docRef.id);
+    
+    return docRef.id;
+  } catch (error: any) {
+    console.error("🔥 [Firestore] Error adding document:", error);
+    console.error("🔥 [Firestore] Error code:", error.code);
+    console.error("🔥 [Firestore] Error message:", error.message);
+    throw new Error(`Failed to add prospect: ${error.message}`);
+  }
 };
 
-const getProspect = (uid: string): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    const prospectRef = ref(database, `prospects/${dateString}/${uid}`);
-
-    get(prospectRef)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          resolve(snapshot.val());
-        } else {
-          reject("Prospect not found");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching prospect: ", error);
-        reject("Failed to fetch prospect");
-      });
-  });
+const getProspect = async (uid: string): Promise<any> => {
+  try {
+    const docRef = doc(db, "prospects", uid);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      throw new Error("Prospect not found");
+    }
+  } catch (error: any) {
+    console.error("Error fetching prospect: ", error);
+    throw new Error("Failed to fetch prospect");
+  }
 };
 
-const updateProspect = (
+const updateProspect = async (
   uid: string,
   data: Record<string, any>
 ): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const prospectRef = ref(database, `prospects/${dateString}/${uid}`);
-    update(prospectRef, data)
-      .then(() => resolve())
-      .catch((error) => {
-        console.error("Error updating prospect: ", error);
-        reject("Failed to update prospect");
-      });
-  });
+  try {
+    const docRef = doc(db, "prospects", uid);
+    await updateDoc(docRef, data);
+  } catch (error: any) {
+    console.error("Error updating prospect: ", error);
+    throw new Error("Failed to update prospect");
+  }
 };
 
-const transferProspectToClient = (
+const transferProspectToClient = async (
   oldUid: string,
   newUid: string
 ): Promise<void> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const prospectData = await getProspect(oldUid);
-      const clientRef = ref(database, `clients/${newUid}`);
-      const date = new Date();
-      const formattedDate = date.toISOString(); // ISO 8601 format
+  try {
+    const prospectData = await getProspect(oldUid);
+    const date = new Date();
+    const formattedDate = date.toISOString();
 
-      const clientData = {
-        ...prospectData,
-        createdAt: formattedDate,
-      };
+    const clientData = {
+      ...prospectData,
+      createdAt: formattedDate,
+    };
 
-      await set(clientRef, clientData);
-      resolve();
-    } catch (error) {
-      console.error("Error transferring prospect to client: ", error);
-      reject("Failed to transfer prospect to client");
-    }
-  });
+    await addDoc(collection(db, "clients"), clientData);
+  } catch (error: any) {
+    console.error("Error transferring prospect to client: ", error);
+    throw new Error("Failed to transfer prospect to client");
+  }
 };
 
 const createFirebaseUser = async (email: string, password: string) => {
