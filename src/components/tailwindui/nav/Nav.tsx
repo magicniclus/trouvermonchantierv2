@@ -68,12 +68,12 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
         className="mx-auto flex max-w-6xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <a href="/" className="flex lg:flex-1">
+        <Link href="/" className="flex lg:flex-1">
           <div className="-m-1.5 p-1.5">
             <span className="sr-only">Trouver mon chantier</span>
             <img className="h-14 w-auto" src="/logo.png" alt="terabois" />
           </div>
-        </a>
+        </Link>
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -133,14 +133,16 @@ const Nav = ({ withMenu }: { withMenu?: boolean }) => {
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <div className="-m-1.5 p-1.5">
-              <span className="sr-only">Trouver mon chantier</span>
-              <img
-                className="h-14 w-auto"
-                src="/logo.png"
-                alt="Trouver mon chantier"
-              />
-            </div>
+            <Link href="/" onClick={() => setMobileMenuOpen(false)}>
+              <div className="-m-1.5 p-1.5">
+                <span className="sr-only">Trouver mon chantier</span>
+                <img
+                  className="h-14 w-auto"
+                  src="/logo.png"
+                  alt="Trouver mon chantier"
+                />
+              </div>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-900 bg-gray-100 hover:bg-gray-200 transition-colors"
