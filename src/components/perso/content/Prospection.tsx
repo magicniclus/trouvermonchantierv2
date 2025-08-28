@@ -151,7 +151,7 @@ const Prospection = () => {
                   prospects qualifiés par mois
                 </h3>
               </div>
-              <h4 className="text-lg text-yellow-300 font-medium mb-6">garanti ou 2<sup>ème</sup> mois offert</h4>
+              <h4 className="text-lg text-yellow-300 font-medium mb-6">Des prospects uniques qui vous appellent directement !</h4>
               
               {/* Logo Google + texte */}
               <div className="flex items-center gap-3 mb-6">
