@@ -44,9 +44,9 @@ export default function Home() {
   }, []);
   return (
     <MobileMenuProvider>
-      <PromoBanner />
+      {/* <PromoBanner /> */}
       {/* Espace pour compenser la hauteur de la bannière fixe */}
-      <div style={{ height: 'var(--banner-height, 32px)' }}></div>
+      {/* <div style={{ height: 'var(--banner-height, 32px)' }}></div> */}
       <header>
         <Nav />
       </header>
