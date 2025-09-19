@@ -148,7 +148,7 @@ const Prospection = () => {
                   0
                 </span>
                 <h3 className="text-2xl md:text-3xl font-bold">
-                  prospects qualifiés par mois
+                  prospects qualifiés par jour
                 </h3>
               </div>
               <h4 className="text-lg text-yellow-300 font-medium mb-6">Des prospects uniques qui vous appellent directement !</h4>
