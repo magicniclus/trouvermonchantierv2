@@ -37,7 +37,7 @@ const faqs = [
       "C’est une page web unique, pensée pour transformer les visiteurs en prospects. Elle va droit au but, sans distraction, et pousse à l’action : vous contacter pour un devis.",
   },
   {
-    question: "Que comprend l’abonnement à 29€/mois ?",
+    question: "Que comprend l’abonnement à 59€/mois ?",
     answer:
       "L’abonnement couvre l’hébergement de votre site, les serveurs, les APIs et le renouvellement de votre nom de domaine.",
   },
