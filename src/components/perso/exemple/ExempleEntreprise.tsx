@@ -9,7 +9,7 @@ export default function ExempleEntreprise({ variant = 'light' }: ExempleEntrepri
     nom: "Plomberie Martin",
     metier: "Plomberie",
     experience: "15 ans",
-    ca: "32 000€",
+    ca: "320 000€",
     equipe: "1 salarié"
   }
 
