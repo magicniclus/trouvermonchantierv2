@@ -89,6 +89,9 @@
     * {
       @apply border-gray-200;
     }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       @apply bg-white text-gray-900;
     }
