@@ -24,7 +24,7 @@ const Temoignage = () => {
   const temoignage = useRef<HTMLFormElement>(null);
 
   return (
-    <section className="bg-slate-100" id="temoignages">
+    <section className="bg-gray-100" id="temoignages">
       <div className="mx-auto flex max-w-5xl p-6 lg:px-8 lg:py-32 py-20 flex-col justify-between items-center text-slate-700">
         <h2 className="text-2xl font-bold">Témoignage client</h2>
         <p className="mt-7 w-4/6 text-center">

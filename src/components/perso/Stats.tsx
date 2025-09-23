@@ -50,7 +50,7 @@ const Stats = () => {
     <section className="w-full relative py-12">
       <div className="mx-auto w-full max-w-5xl px-4 lg:px-8">
         <div className="flex flex-col md:flex-row gap-8 items-start">
-          <div className="w-full md:w-[40%] bg-slate-100/60 rounded-2xl p-6 shadow-md">
+          <div className="w-full md:w-[40%] bg-gray-100/60 rounded-2xl p-6 shadow-md">
             <h2 className="text-xl md:text-2xl font-semibold text-slate-700 mb-4 flex items-center gap-2">
               <span>
                 Comment{" "}
