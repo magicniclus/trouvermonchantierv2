@@ -252,7 +252,7 @@ const HeroNetwork = () => {
 
   return (
     <>
-      <section className="w-full bg-white relative overflow-hidden" id="hero">
+      <section className="w-full bg-white relative overflow-hidden">
         {/* Image de fond floutée */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -369,6 +369,7 @@ const HeroNetwork = () => {
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
                   className="bg-white border border-gray-200 p-8 space-y-6"
+ id="hero"
                 >
                   <div className="text-center mb-8">
                     <div className="flex items-center justify-center mb-4">
