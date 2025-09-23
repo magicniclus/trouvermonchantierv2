@@ -103,22 +103,23 @@ export default function OutilsInclus({ variant = 'light' }: OutilsInclusProps) {
 
         {/* Layout principal */}
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Constellation d'icônes */}
+          {/* Constellation d'icônes responsive */}
           <div className="relative" data-animate>
-            {/* Halo jaune sous le noyau */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-r from-amber-100/40 via-amber-50/20 to-transparent rounded-full blur-2xl"></div>
+            {/* Halo jaune sous le noyau - responsive */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-gradient-to-r from-amber-100/40 via-amber-50/20 to-transparent rounded-full blur-2xl"></div>
             
-            <div className="relative w-96 h-96 mx-auto">
-              {/* Lignes de connexion pointillées */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 384 384">
+            {/* Container responsive avec aspect ratio */}
+            <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto aspect-square">
+              {/* Lignes de connexion pointillées - responsive */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
                 {outils.map((_, index) => {
                   const angle = (index * 60) - 90
-                  const startRadius = 64
-                  const endRadius = 140
-                  const x1 = 192 + Math.cos(angle * Math.PI / 180) * startRadius
-                  const y1 = 192 + Math.sin(angle * Math.PI / 180) * startRadius
-                  const x2 = 192 + Math.cos(angle * Math.PI / 180) * endRadius
-                  const y2 = 192 + Math.sin(angle * Math.PI / 180) * endRadius
+                  const startRadius = 16 // Pourcentage du rayon
+                  const endRadius = 36 // Pourcentage du rayon
+                  const x1 = 50 + Math.cos(angle * Math.PI / 180) * startRadius
+                  const y1 = 50 + Math.sin(angle * Math.PI / 180) * startRadius
+                  const x2 = 50 + Math.cos(angle * Math.PI / 180) * endRadius
+                  const y2 = 50 + Math.sin(angle * Math.PI / 180) * endRadius
                   
                   return (
                     <line
@@ -128,48 +129,64 @@ export default function OutilsInclus({ variant = 'light' }: OutilsInclusProps) {
                       x2={x2}
                       y2={y2}
                       stroke="#cbd5e1"
-                      strokeWidth="2"
-                      strokeDasharray="4,4"
+                      strokeWidth="1"
+                      strokeDasharray="2,2"
                       opacity="0.4"
                     />
                   )
                 })}
               </svg>
 
-              {/* Disque central */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-white ring-1 ring-slate-200/70 shadow-xl/10 flex items-center justify-center z-10">
+              {/* Disque central - responsive */}
+              <div 
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-white ring-1 ring-slate-200/70 shadow-xl/10 flex items-center justify-center z-10"
+                style={{
+                  width: 'clamp(4rem, 12vw, 8rem)', // Responsive entre 64px et 128px
+                  height: 'clamp(4rem, 12vw, 8rem)'
+                }}
+              >
                 <img 
                   src="/images/favicon.png" 
                   alt="Trouver Mon Chantier" 
-                  className="w-20 h-20 rounded-full"
+                  className="rounded-full"
+                  style={{
+                    width: 'clamp(2.5rem, 8vw, 5rem)', // Responsive entre 40px et 80px
+                    height: 'clamp(2.5rem, 8vw, 5rem)'
+                  }}
                 />
               </div>
 
-              {/* Icônes satellites */}
+              {/* Icônes satellites - responsive */}
               {outils.map((outil, index) => {
                 const angle = (index * 60) - 90
-                const radius = 140
-                const x = Math.cos(angle * Math.PI / 180) * radius
-                const y = Math.sin(angle * Math.PI / 180) * radius
+                // Radius responsive basé sur la taille du container
+                const radiusPercent = 36 // 36% du container
                 
                 return (
                   <div
                     key={index}
-                    className={`absolute w-20 h-20 rounded-full bg-gradient-to-br ${outil.color} flex items-center justify-center shadow-md/10 ring-1 ring-slate-200/50 hover:-translate-y-0.5 hover:shadow-lg/10 transition-all duration-200 ease-out cursor-pointer group z-20`}
+                    className={`absolute rounded-full bg-gradient-to-br ${outil.color} flex items-center justify-center shadow-md/10 ring-1 ring-slate-200/50 hover:-translate-y-0.5 hover:shadow-lg/10 transition-all duration-200 ease-out cursor-pointer group z-20`}
                     style={{
-                      left: `calc(50% + ${x}px - 40px)`,
-                      top: `calc(50% + ${y}px - 40px)`
+                      width: 'clamp(3rem, 8vw, 5rem)', // Responsive entre 48px et 80px
+                      height: 'clamp(3rem, 8vw, 5rem)',
+                      left: `calc(50% + ${Math.cos(angle * Math.PI / 180) * radiusPercent}% - clamp(1.5rem, 4vw, 2.5rem))`,
+                      top: `calc(50% + ${Math.sin(angle * Math.PI / 180) * radiusPercent}% - clamp(1.5rem, 4vw, 2.5rem))`,
                     }}
                     data-animate
                     data-animate-delay={index * 100}
                   >
-                    <div className="flex items-center justify-center">{outil.icon}</div>
+                    <div className="flex items-center justify-center" style={{ fontSize: 'clamp(1.125rem, 3vw, 1.5rem)' }}>
+                      {outil.icon}
+                    </div>
                     
-                    {/* Tooltip */}
-                    <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-slate-900 border border-slate-200 shadow-lg"
-                    style={{ zIndex: 9999 }}>
+                    {/* Tooltip responsive */}
+                    <div className="absolute left-1/2 transform -translate-x-1/2 px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-slate-900 border border-slate-200 shadow-lg pointer-events-none"
+                    style={{ 
+                      zIndex: 9999,
+                      bottom: 'calc(100% + 0.5rem)'
+                    }}>
                       <div className="font-semibold">{outil.name}</div>
-                      <div className="text-slate-600">
+                      <div className="text-slate-600 hidden sm:block">
                         {outil.description}
                       </div>
                     </div>
