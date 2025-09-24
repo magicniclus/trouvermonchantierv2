@@ -55,7 +55,7 @@ export default function TemoignagesClients({ variant = 'light' }: TemoignagesCli
   ]
 
   return (
-    <section className="relative bg-white overflow-hidden">
+    <section className="relative overflow-hidden bg-gray-100">
       {/* Fond avec gradients décoratifs subtils selon les mémoires */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-50/40 rounded-full blur-3xl"></div>
