@@ -23,7 +23,10 @@ export default function Home() {
                     }, parseInt(delay));
                 }
             });
-        }, { threshold: 0.1 });
+        }, { 
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
 
         // Observer tous les éléments avec data-animate
         document.querySelectorAll('[data-animate]').forEach((el) => {
@@ -38,12 +41,17 @@ export default function Home() {
             <style jsx global>{`
                 [data-animate] {
                     opacity: 0;
-                    transform: translateY(14px);
-                    transition: opacity 0.6s ease, transform 0.6s ease;
+                    transform: translateY(24px);
+                    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
                 }
                 .animate-in {
                     opacity: 1;
                     transform: translateY(0);
+                }
+                
+                /* Animation plus douce pour les éléments avec délai */
+                [data-animate-delay] {
+                    transition-duration: 1s;
                 }
             `}</style>
             
