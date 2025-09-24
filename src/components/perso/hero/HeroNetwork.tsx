@@ -548,7 +548,7 @@ const HeroNetwork = () => {
       </section>
       
       {/* Bande colorée de séparation */}
-      <div className="w-full h-2 bg-blue-600"></div>
+      <div className="w-full h-6 bg-slate-400"></div>
     </>
   );
 };
