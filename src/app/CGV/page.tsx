@@ -19,7 +19,7 @@ const page = () => {
               </p>
               <p className="mt-3">
                 <strong>Trouver Mon Chantier</strong><br />
-                Entreprise individuelle – SIREN 832 414 650<br />
+                SIREN 832 414 650<br />
                 Siège social : 22 Rue de Libourne, 33100 Bordeaux<br />
                 (ci-après dénommée « le Prestataire »)
               </p>
