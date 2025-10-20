@@ -2,6 +2,13 @@
 /* eslint-disable @next/next/no-img-element */
 
 const Footer = ({ className }: { className?: string }) => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <footer className={`${className} bg-slate-900`}>
       <div className="mx-auto flex max-w-6xl justify-between flex-col p-6 lg:px-8 py-10">
@@ -49,12 +56,12 @@ const Footer = ({ className }: { className?: string }) => {
         <div className="flex sm:items-end justify-between flex-col sm:flex-row text-white mt-10">
           <div className="flex flex-col">
             <p className="">Obtenir des chantiers ?</p>
-            <a
-              href="#pricing"
-              className="px-6 py-2 mt-3 rounded-xl bg-gradient-to-r from-yellow-500 to-[#BF522A] "
+            <button
+              onClick={scrollToTop}
+              className="px-6 py-2 mt-3 rounded-xl bg-gradient-to-r from-yellow-500 to-[#BF522A] text-white font-medium hover:opacity-90 transition-opacity cursor-pointer"
             >
               OBTENIR DES CHANTIERS
-            </a>
+            </button>
           </div>
           <ul className="text-white md:gap-3 sm:gap-2 gap-1  mt-10 md:mt-0">
             <li>
