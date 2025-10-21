@@ -9,6 +9,17 @@ import {
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 
+// Fonction pour le scroll smooth vers une section
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+}
+
 interface TemoignagesClientsProps {
   variant?: 'light' | 'dark'
 }
@@ -171,15 +182,15 @@ export default function TemoignagesClients({ variant = 'light' }: TemoignagesCli
 
         {/* CTA harmonisé */}
         <div className="text-center mt-16 space-y-6" data-animate data-animate-delay="400">
-          <a 
-            href="#hero" 
-            className="inline-flex items-center rounded-xl bg-yellow-500 hover:bg-white border border-yellow-500 hover:text-yellow-500 text-white px-6 py-3 shadow-md transition-all duration-200 font-medium"
+          <button 
+            onClick={() => scrollToSection('hero')}
+            className="inline-flex items-center rounded-xl bg-yellow-500 hover:bg-white border border-yellow-500 hover:text-yellow-500 text-white px-6 py-3 shadow-md transition-all duration-200 font-medium cursor-pointer"
           >
             Rejoindre mon secteur
             <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </section>
