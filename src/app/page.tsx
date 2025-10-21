@@ -14,12 +14,20 @@ export default function Home() {
     return (
         <div>
             <Navigation />
-            <HeroV2 />
-            <RentabiliteSection />
-            <InternetSection />
-            <ProspectsSection />
-            <QuiSuisJeSection />
-            <TemoignagesClients variant="light" />
+            <section id="hero">
+                <HeroV2 />
+            </section>
+            <section id="comment-ca-marche">
+                <RentabiliteSection />
+                <InternetSection />
+                <ProspectsSection />
+            </section>
+            <section id="qui-suis-je">
+                <QuiSuisJeSection />
+            </section>
+            <section id="temoignages">
+                <TemoignagesClients variant="light" />
+            </section>
             <Footer />
             <FloatingCTA />
         </div>
