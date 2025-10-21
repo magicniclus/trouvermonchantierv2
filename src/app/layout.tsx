@@ -41,15 +41,20 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" sizes="any" />
         <link rel="shortcut icon" href="/favicon.png" />
         
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js) - Clean setup */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=AW-11128083735" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics-clean" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
+            // Nettoyer le dataLayer existant
+            window.dataLayer = [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             
+            // Configurer uniquement AW-11128083735
             gtag('config', 'AW-11128083735');
+            
+            // Log pour vérifier
+            console.log('Google Tag configuré uniquement avec AW-11128083735');
           `}
         </Script>
 
