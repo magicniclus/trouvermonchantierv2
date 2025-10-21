@@ -38,6 +38,17 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
         
+        {/* Event snippet for Envoi de formulaire pour leads (1) conversion page */}
+        <Script id="google-conversion-tracking" strategy="afterInteractive">
+          {`
+            gtag('event', 'conversion', {
+                'send_to': 'AW-11128083735/nA9JCI_nirEbEJeqpLop',
+                'value': 3.0,
+                'currency': 'EUR'
+            });
+          `}
+        </Script>
+        
         <meta name="robots" content="noindex" />
       </head>
       <body className={inter.className}>{children}</body>
