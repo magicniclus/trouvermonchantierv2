@@ -208,7 +208,7 @@ export default function HeroV2() {
                                 ))}
                             </div>
                             <p className="text-sm text-gray-600 mb-4">
-                                Nos partenaires nous notent 4,8/5
+                                Nos partenaires nous notent 4,9/5
                             </p>
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">
                                 Rejoignez notre réseau exclusif
