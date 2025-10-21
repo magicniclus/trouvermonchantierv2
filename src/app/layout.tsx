@@ -41,13 +41,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" sizes="any" />
         <link rel="shortcut icon" href="/favicon.png" />
         
-        {/* Google tag (gtag.js) - New */}
+        {/* Google tag (gtag.js) */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=AW-11128083735" strategy="afterInteractive" />
-        <Script id="google-analytics-new" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            
             gtag('config', 'AW-11128083735');
           `}
         </Script>
