@@ -5,6 +5,17 @@ import { Search } from "lucide-react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 
+// Fonction pour le scroll smooth vers une section
+const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+        element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        })
+    }
+}
+
 export default function Navigation() {
     return (
         <motion.nav 
@@ -28,23 +39,30 @@ export default function Navigation() {
 
                     {/* Menu */}
                     <motion.div 
-                        className="flex items-center space-x-8"
+                        className="flex items-center space-x-6"
                         initial={{ x: 50, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
                     >
-                        <Link 
-                            href="/qui-suis-je" 
-                            className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                        {/* Boutons d'ancrage pour les sections */}
+                        <button 
+                            onClick={() => scrollToSection('comment-ca-marche')}
+                            className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer"
                         >
-                            Qui suis-je ?
-                        </Link>
-                        <Link 
-                            href="/contact" 
-                            className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                            Comment ça marche
+                        </button>
+                        <button 
+                            onClick={() => scrollToSection('qui-suis-je')}
+                            className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer"
                         >
-                            Contact
-                        </Link>
+                            Qui suis-je 
+                        </button>
+                        <button 
+                            onClick={() => scrollToSection('temoignages')}
+                            className="text-gray-700 hover:text-gray-900 font-medium transition-colors cursor-pointer"
+                        >
+                            Témoignages
+                        </button>
                     </motion.div>
                 </div>
             </div>
