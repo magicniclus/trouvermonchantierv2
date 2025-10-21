@@ -41,11 +41,23 @@ export default function RootLayout({
         {/* Event snippet for Envoi de formulaire pour leads (1) conversion page */}
         <Script id="google-conversion-tracking" strategy="afterInteractive">
           {`
-            gtag('event', 'conversion', {
-                'send_to': 'AW-11128083735/nA9JCI_nirEbEJeqpLop',
-                'value': 3.0,
-                'currency': 'EUR'
-            });
+            // Attendre que gtag soit disponible
+            function sendConversion() {
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-11128083735/nA9JCI_nirEbEJeqpLop',
+                    'value': 3.0,
+                    'currency': 'EUR'
+                });
+                console.log('Conversion envoyée: AW-11128083735/nA9JCI_nirEbEJeqpLop');
+              } else {
+                // Réessayer dans 100ms si gtag n'est pas encore chargé
+                setTimeout(sendConversion, 100);
+              }
+            }
+            
+            // Lancer la conversion
+            sendConversion();
           `}
         </Script>
         
