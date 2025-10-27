@@ -48,7 +48,7 @@ const temoignages = [
   {
     nom: "Anne S.",
     commentaire:
-      "La qualité des leads est impressionnante. Presque tous se transforment en chantiers.",
+      "La qualité des demandes de chantier est impressionnante. Presque toutes se transforment en chantiers.",
     role: "Architecte d'intérieur",
   },
   {

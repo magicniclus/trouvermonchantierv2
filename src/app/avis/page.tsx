@@ -53,7 +53,7 @@ const reviews = {
     {
       id: 5,
       rating: 5,
-      content: `<p>Je recommande à 100% ! Les leads sont de qualité et le contact direct avec les clients permet de mieux comprendre leurs besoins.</p>`,
+      content: `<p>Je recommande à 100% ! Les demandes de chantier sont de qualité et le contact direct avec les clients permet de mieux comprendre leurs besoins.</p>`,
       author: "François Moreau",
       role: "Menuisier",
       avatarSrc: "/images/avatar5.jpg",

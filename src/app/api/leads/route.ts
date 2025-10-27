@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('Début de la route API leads');
+    console.log('Début de la route API demandes de chantier');
     const data = await request.json();
     console.log('Données reçues:', data);
 
@@ -22,12 +22,12 @@ export async function POST(request: NextRequest) {
     console.log('Connexion à Firebase...');
     console.log('Database instance:', database);
 
-    // Créer une référence à /Leads dans Firebase
-    const leadsRef = ref(database, "Leads");
+    // Créer une référence à /DemandesChantier dans Firebase
+    const leadsRef = ref(database, "DemandesChantier");
     console.log('Référence Firebase créée:', leadsRef);
     
     // Préparer les données avec un timestamp
-    const leadData = {
+    const demandeChantierData = {
       name,
       companyName,
       email,
@@ -37,22 +37,22 @@ export async function POST(request: NextRequest) {
       status: "nouveau"
     };
 
-    console.log('Données à sauvegarder:', leadData);
+    console.log('Données à sauvegarder:', demandeChantierData);
 
     try {
       // Créer un nouvel ID unique
-      const newLeadRef = push(leadsRef);
-      console.log('Nouvelle référence créée:', newLeadRef.key);
+      const newDemandeChantierRef = push(leadsRef);
+      console.log('Nouvelle référence créée:', newDemandeChantierRef.key);
 
       // Utiliser set au lieu de push pour plus de contrôle
-      await set(newLeadRef, leadData);
-      console.log('Données sauvegardées avec succès à:', newLeadRef.toString());
+      await set(newDemandeChantierRef, demandeChantierData);
+      console.log('Données sauvegardées avec succès à:', newDemandeChantierRef.toString());
 
       return NextResponse.json(
         { 
           success: true, 
-          message: "Lead enregistré avec succès",
-          leadId: newLeadRef.key
+          message: "Demande de chantier enregistrée avec succès",
+          demandeChantierId: newDemandeChantierRef.key
         },
         { status: 200 }
       );
@@ -62,11 +62,11 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (error: any) {
-    console.error("Erreur lors de l'enregistrement du lead:", error);
+    console.error("Erreur lors de l'enregistrement de la demande de chantier:", error);
     return NextResponse.json(
       { 
         success: false, 
-        error: "Erreur lors de l'enregistrement du lead",
+        error: "Erreur lors de l'enregistrement de la demande de chantier",
         details: error?.message 
       },
       { status: 500 }

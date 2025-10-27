@@ -81,7 +81,7 @@ export default function ToolsFeatures() {
     { 
       name: "Campagnes Google Ads gérées de A à Z", 
       description: "Vos annonces sortent exactement quand quelqu'un cherche « artisan + ville ». Nous optimisons mots-clés, budget et suivi des conversions.",
-      impact: "Un flux régulier de prospects chauds dès le premier jour, avec un coût par lead sous contrôle.",
+      impact: "Un flux régulier de prospects chauds dès le premier jour, avec un coût par demande de chantier sous contrôle.",
       stat: "400€",
       icon: <MegaphoneIcon className="h-6 w-6" />
     },

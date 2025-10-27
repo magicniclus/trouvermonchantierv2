@@ -241,7 +241,7 @@ const PartenaireComplete = () => {
     {
       icon: Zap,
       title: "SEA - Google Ads",
-      description: "Campagnes publicitaires optimisées pour générer des leads qualifiés",
+      description: "Campagnes publicitaires optimisées pour générer des demandes de chantier qualifiées",
       color: "bg-green-500",
     },
     {
@@ -260,7 +260,7 @@ const PartenaireComplete = () => {
 
   const advantages = [
     "Exclusivité territoriale garantie",
-    "Leads pré-qualifiés et vérifiés",
+    "Demandes de chantier pré-qualifiées et vérifiées",
     "Support technique dédié",
     "Formation incluse",
     "Outil de gestion intégré",

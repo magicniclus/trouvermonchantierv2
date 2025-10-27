@@ -16,16 +16,16 @@ const Prospection = () => {
   // État pour le compteur
   const [count, setCount] = useState(0);
   
-  // Leads simulés pour le GIF
-  const leads = [
+  // Demandes de chantier simulées pour le GIF
+  const demandesChantier = [
     { name: "Martin", cp: "75011", service: "Rénovation toiture" },
     { name: "Sophie", cp: "69003", service: "Installation électrique" },
     { name: "Thomas", cp: "33000", service: "Plomberie salle de bain" },
     { name: "Julie", cp: "59000", service: "Pose de carrelage" },
   ];
   
-  // État pour le lead actuel
-  const [currentLead, setCurrentLead] = useState(0);
+  // État pour la demande de chantier actuelle
+  const [currentDemandeChantier, setCurrentDemandeChantier] = useState(0);
   
   // Animation GSAP pour le compteur
   useEffect(() => {
@@ -63,14 +63,14 @@ const Prospection = () => {
     };
   }, []);
   
-  // Animation de rotation des leads
+  // Animation de rotation des demandes de chantier
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentLead(prev => (prev + 1) % leads.length);
+      setCurrentDemandeChantier(prev => (prev + 1) % demandesChantier.length);
     }, 3000);
     
     return () => clearInterval(interval);
-  }, [leads.length]);
+  }, [demandesChantier.length]);
 
   const scrollToVideo = () => {
     const videoSection = document.getElementById('pricing');
@@ -93,30 +93,30 @@ const Prospection = () => {
             <div className="relative">
               <img
                 src="/images/phone.png"
-                alt="Application mobile avec leads"
+                alt="Application mobile avec demandes de chantier"
                 className="w-[280px] md:w-[320px] h-auto object-contain drop-shadow-xl"
               />
               
-              {/* Overlay des leads animés */}
+              {/* Overlay des demandes de chantier animées */}
               <div className="absolute top-[25%] left-[15%] right-[15%] bg-white bg-opacity-95 rounded-md p-3 shadow-lg animate-bounce">
                 <div className="text-xs font-medium text-gray-800">
                   <div className="flex justify-between mb-1">
-                    <span className="font-semibold">Nouveau lead</span>
+                    <span className="font-semibold">Nouvelle demande de chantier</span>
                     <span className="text-green-600 font-semibold animate-pulse">À l'instant</span>
                   </div>
                   <div 
-                    key={`name-${currentLead}`} 
+                    key={`name-${currentDemandeChantier}`} 
                     className="font-bold text-sm mb-1 animate-smooth-fade" 
                     style={{ animationDuration: '0.6s' }}
                   >
-                    {leads[currentLead].name} - {leads[currentLead].cp}
+                    {demandesChantier[currentDemandeChantier].name} - {demandesChantier[currentDemandeChantier].cp}
                   </div>
                   <div 
-                    key={`service-${currentLead}`} 
+                    key={`service-${currentDemandeChantier}`} 
                     className="text-blue-600 animate-smooth-fade" 
                     style={{ animationDuration: '0.8s' }}
                   >
-                    {leads[currentLead].service}
+                    {demandesChantier[currentDemandeChantier].service}
                   </div>
                 </div>
               </div>

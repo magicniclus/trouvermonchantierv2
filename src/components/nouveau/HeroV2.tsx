@@ -256,7 +256,7 @@ export default function HeroV2() {
                             transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
                         >
                             <p className="text-gray-600 leading-relaxed">
-                                Développez rapidement votre activité avec des prospects ultra qualifiés et prêts à signer. Obtenez des leads exclusifs et ciblés dans le bâtiment et la rénovation énergétique, avec un accompagnement stratégique personnalisé pour maximiser votre taux de conversion, sans engagement ni frais cachés.
+                                Développez rapidement votre activité avec des prospects ultra qualifiés et prêts à signer. Obtenez des demandes de chantier exclusives et ciblées dans le bâtiment et la rénovation énergétique, avec un accompagnement stratégique personnalisé pour maximiser votre taux de conversion, sans engagement ni frais cachés.
                             </p>
                         </motion.div>
                     </motion.div>

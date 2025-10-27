@@ -38,7 +38,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" sizes="any" />
         
-        {/* Event snippet for Envoi de formulaire pour leads (1) conversion page */}
+        {/* Event snippet for Envoi de formulaire pour demandes de chantier (1) conversion page */}
         <Script id="google-conversion-tracking" strategy="afterInteractive">
           {`
             // Attendre que gtag soit disponible

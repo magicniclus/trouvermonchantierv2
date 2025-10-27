@@ -120,8 +120,8 @@ const Hero = () => {
 
       console.log("Envoi des données du formulaire:", data);
 
-      // Ajouter le lead à la base de données Firebase via l'API
-      const leadResponse = await fetch("/api/leads", {
+      // Ajouter la demande de chantier à la base de données Firebase via l'API
+      const demandeChantierResponse = await fetch("/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -129,17 +129,17 @@ const Hero = () => {
         body: JSON.stringify(data),
       });
 
-      console.log("Réponse de l'API leads:", leadResponse.status);
-      const leadResult = await leadResponse.json();
-      console.log("Résultat de l'API leads:", leadResult);
+      console.log("Réponse de l'API demandes de chantier:", demandeChantierResponse.status);
+      const demandeChantierResult = await demandeChantierResponse.json();
+      console.log("Résultat de l'API demandes de chantier:", demandeChantierResult);
 
-      if (!leadResult.success) {
+      if (!demandeChantierResult.success) {
         throw new Error(
-          leadResult.error || "Erreur lors de l'enregistrement du lead"
+          demandeChantierResult.error || "Erreur lors de l'enregistrement de la demande de chantier"
         );
       }
-      const uid = leadResult.leadId;
-      console.log("Lead enregistré avec l'ID:", uid);
+      const uid = demandeChantierResult.demandeChantierId;
+      console.log("Demande de chantier enregistrée avec l'ID:", uid);
 
       // Envoyer l'email de notification
       const emailSent = await sendProspectNotification({
@@ -220,7 +220,7 @@ const Hero = () => {
               {" "}
               Payez 99€ une seule fois puis 29€ par mois, et recevez
               jusqu&apos;à 10 demandes par jour toute l&apos;année — sans
-              plateforme, sans leads partagés, grâce à votre propre site et des
+              plateforme, sans demandes de chantier partagées, grâce à votre propre site et des
               campagnes Google ultra-optimisées livrées en 24h.
             </span>
           </h2>

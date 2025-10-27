@@ -55,7 +55,7 @@ export default function QuiSuisJeSection() {
                                 <p className="text-slate-700 leading-relaxed">
                                     En collaboration avec mon équipe, développeur média buyer reconnu dans le secteur 
                                     depuis plus de 10 ans, nous avons développé une expertise 
-                                    unique dans la génération de leads ultra qualifiés. Notre 
+                                    unique dans la génération de demandes de chantier ultra qualifiées. Notre 
                                     approche combine ma vision stratégique commerciale et son 
                                     savoir-faire technique pour créer des campagnes d'acquisition 
                                     hautement performantes.
@@ -107,7 +107,7 @@ export default function QuiSuisJeSection() {
                         <div className="bg-cyan-900 text-white p-8 rounded-lg">
                             <h3 className="text-xl font-bold mb-4 text-center">Performance</h3>
                             <p className="text-sm leading-relaxed text-center opacity-90">
-                                Grâce à notre expertise combinée et à notre partenariat avec un développeur média buyer spécialisé depuis plus de 10 ans dans le secteur, nous vous garantissons l'acquisition de leads ultra qualifiés pour maximiser votre taux de conversion.
+                                Grâce à notre expertise combinée et à notre partenariat avec un développeur média buyer spécialisé depuis plus de 10 ans dans le secteur, nous vous garantissons l'acquisition de demandes de chantier ultra qualifiées pour maximiser votre taux de conversion.
                             </p>
                         </div>
 

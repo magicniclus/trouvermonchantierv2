@@ -184,7 +184,7 @@ const Hero = () => {
             <span className=" font-semibold">
               {" "}
               Payez 99€ une seule fois, et recevez jusqu&apos;à 10 demandes par
-              jour toute l&apos;année — sans plateforme, sans leads partagés,
+              jour toute l&apos;année — sans plateforme, sans demandes de chantier partagées,
               grâce à votre propre site livrés en 24h.
             </span>
           </h2>

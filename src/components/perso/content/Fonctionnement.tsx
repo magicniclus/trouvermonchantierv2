@@ -150,7 +150,7 @@ const Fonctionnement = () => {
               
               <div className="mt-6">
                 <p className="font-medium text-slate-800 mb-2">Pour tous les secteurs de la construction et du bâtiment.</p>
-                <p className="font-medium text-slate-800 mb-2">Zéro plateforme. Zéro lead partagé.</p>
+                <p className="font-medium text-slate-800 mb-2">Zéro plateforme. Zéro demande de chantier partagée.</p>
                 <p className="font-medium text-slate-800 mb-2">Les demandes vous arrivent en direct, sans intermédiaire.</p>
               </div>
               <button 
