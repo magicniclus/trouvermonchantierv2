@@ -12,7 +12,7 @@ const page = () => {
               Conditions générales de vente
             </h1>
             <div className="w-full mt-16 text-sm">
-              <p className="text-sm text-slate-600 mb-6">Dernière mise à jour : 1er octobre 2025</p>
+              <p className="text-sm text-slate-600 mb-6">Dernière mise à jour : 1er novembre 2025</p>
               
               <p className="mt-3">
                 Les présentes Conditions Générales de Vente (ci-après « CGV ») régissent les relations contractuelles entre :
@@ -44,11 +44,35 @@ const page = () => {
                 En contrepartie, le Client règle un abonnement mensuel ainsi que des commissions sur les contrats obtenus via le dispositif mis en place.
               </p>
 
-              <h3 className="text-lg font-semibold mt-7">Article 2 – Abonnement mensuel</h3>
+              <h3 className="text-lg font-semibold mt-7">Article 2 – Offres d'abonnement</h3>
+              
+              <h4 className="text-base font-semibold mt-5 text-slate-800">2.1 – Offre Premium (à partir du 1er novembre 2025)</h4>
               <p className="mt-3">
-                Le Client règle un abonnement mensuel de 29 € HT, payable d&apos;avance par prélèvement automatique via Stripe ou tout autre moyen prévu.
+                <strong>Tarif :</strong> 89 € HT par mois, payable d&apos;avance par prélèvement automatique via Stripe ou tout autre moyen prévu.
               </p>
-              <p className="mt-3">Cet abonnement comprend :</p>
+              <p className="mt-3">
+                <strong>Engagement :</strong> 6 mois minimum, renouvelable automatiquement par périodes de 6 mois sauf résiliation notifiée par écrit au moins 2 semaines avant l&apos;échéance.
+              </p>
+              <p className="mt-3"><strong>Cette offre comprend :</strong></p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>la création d&apos;un site internet personnalisé au nom et à l&apos;image de l&apos;entreprise cliente,</li>
+                <li>la création et gestion d&apos;une campagne Google Ads au nom et à l&apos;image de l&apos;entreprise cliente,</li>
+                <li>l&apos;optimisation pour obtenir un maximum de prospects en fonction du budget déterminé conjointement avec le Client,</li>
+                <li>la maintenance et l&apos;hébergement du site internet,</li>
+                <li>l&apos;utilisation du label « Certifié Trouver Mon Chantier ».</li>
+              </ul>
+              <p className="mt-3">
+                <strong>Propriété :</strong> Le Prestataire reste propriétaire du site internet et de la campagne Google Ads. Le Client bénéficie d&apos;un droit d&apos;usage exclusif tant que l&apos;abonnement est actif.
+              </p>
+              <p className="mt-3">
+                <strong>Option site seul :</strong> En cas d&apos;arrêt de la gestion Google Ads, l&apos;abonnement peut être maintenu à 29 € HT par mois pour conserver uniquement l&apos;accès au site internet.
+              </p>
+
+              <h4 className="text-base font-semibold mt-7 text-slate-800">2.2 – Offre Standard (antérieure au 1er novembre 2025)</h4>
+              <p className="mt-3">
+                <strong>Tarif :</strong> 29 € HT par mois, payable d&apos;avance par prélèvement automatique via Stripe ou tout autre moyen prévu.
+              </p>
+              <p className="mt-3"><strong>Cette offre comprend :</strong></p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>la création d&apos;un site internet à l&apos;image du Client, incluant jusqu&apos;à 3 allers-retours de modification à la livraison et 2 allers-retours de modification par an,</li>
                 <li>la configuration d&apos;une campagne Google Ads sur le secteur géographique et le métier du Client,</li>
@@ -56,7 +80,22 @@ const page = () => {
                 <li>l&apos;utilisation du label « Certifié Trouver Mon Chantier » (réservé aux adhérents).</li>
               </ul>
 
-              <h3 className="text-lg font-semibold mt-7">Article 3 – Commissions</h3>
+              <h3 className="text-lg font-semibold mt-7">Article 3 – Modalités de paiement et pénalités</h3>
+              
+              <h4 className="text-base font-semibold mt-5 text-slate-800">3.1 – Paiement des abonnements</h4>
+              <p className="mt-3">
+                Les abonnements sont payables d&apos;avance par prélèvement automatique via Stripe ou tout autre moyen prévu, le même jour de chaque mois.
+              </p>
+              <p className="mt-3">
+                <strong>Pénalités de retard :</strong> Tout retard de paiement entraîne automatiquement :
+              </p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>Des pénalités de retard au taux de 3 fois le taux d&apos;intérêt légal en vigueur,</li>
+                <li>Une indemnité forfaitaire pour frais de recouvrement de 40 € minimum,</li>
+                <li>La suspension immédiate des services après mise en demeure restée sans effet pendant 8 jours.</li>
+              </ul>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">3.2 – Commissions (Offre Standard uniquement)</h4>
               <p className="mt-3">
                 En complément de l&apos;abonnement, le Client s&apos;engage à reverser au Prestataire une commission sur chaque contrat signé grâce aux prospects générés :
               </p>
@@ -64,7 +103,7 @@ const page = () => {
                 <li>5 % HT du montant TTC de tout devis signé avec un client provenant des landing pages et sites gérés directement par le Prestataire,</li>
                 <li>3 % HT du montant TTC de tout devis signé avec un client provenant du site internet personnalisé fourni au Client.</li>
               </ul>
-              <p className="mt-3"><strong>Modalités de règlement :</strong></p>
+              <p className="mt-3"><strong>Modalités de règlement des commissions :</strong></p>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Les commissions sont dues dans un délai de 15 jours suivant la validation du devis par le client final.</li>
                 <li>Les paiements s&apos;effectuent par virement bancaire sur le compte indiqué par le Prestataire.</li>
@@ -113,22 +152,64 @@ const page = () => {
                 En cas de résiliation, le Client perd l&apos;accès à son site, ses campagnes et aux prospects générés.
               </p>
 
-              <h3 className="text-lg font-semibold mt-7">Article 8 – Résiliation</h3>
+              <h3 className="text-lg font-semibold mt-7">Article 8 – Résiliation et engagement</h3>
+              
+              <h4 className="text-base font-semibold mt-5 text-slate-800">8.1 – Offre Premium</h4>
+              <p className="mt-3">
+                <strong>Engagement minimum :</strong> Le contrat est conclu pour une durée minimale de 6 mois à compter de la date de souscription.
+              </p>
+              <p className="mt-3">
+                <strong>Renouvellement :</strong> À l&apos;issue de la période d&apos;engagement, le contrat se renouvelle automatiquement par périodes successives de 6 mois, sauf résiliation notifiée par écrit par le Client au moins 2 semaines avant l&apos;échéance.
+              </p>
+              <p className="mt-3">
+                <strong>Résiliation anticipée :</strong> Toute résiliation avant l&apos;échéance de la période d&apos;engagement entraîne le paiement immédiat des mensualités restant dues jusqu&apos;à l&apos;échéance.
+              </p>
+              <p className="mt-3">
+                <strong>Suspension pour impayé :</strong> En cas de non-paiement d&apos;une mensualité, le Prestataire peut suspendre immédiatement l&apos;accès au site et aux campagnes Google Ads après mise en demeure restée sans effet pendant 8 jours. Les pénalités de retard continuent de courir.
+              </p>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">8.2 – Offre Standard</h4>
               <p className="mt-3">Le contrat est sans engagement de durée.</p>
               <p className="mt-3">Le Client peut résilier à tout moment par simple notification écrite.</p>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">8.3 – Dispositions communes</h4>
               <p className="mt-3">En cas de résiliation, l&apos;accès au site et aux services est immédiatement interrompu.</p>
               <p className="mt-3">Le Prestataire peut résilier le contrat en cas de manquement grave du Client (non-paiement, fraude, atteinte à l&apos;image).</p>
 
-              <h3 className="text-lg font-semibold mt-7">Article 9 – Responsabilités</h3>
+              <h3 className="text-lg font-semibold mt-7">Article 9 – Responsabilités et limitations</h3>
+              
+              <h4 className="text-base font-semibold mt-5 text-slate-800">9.1 – Limitation générale de responsabilité</h4>
               <p className="mt-3">
                 Le Prestataire n&apos;est pas responsable des résultats commerciaux du Client, ceux-ci dépendant de nombreux facteurs indépendants (qualité du service du Client, concurrence locale, budget publicitaire).
               </p>
               <p className="mt-3">
                 Le Prestataire ne pourra être tenu responsable d&apos;un préjudice indirect (perte de chiffre d&apos;affaires, perte de réputation).
               </p>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">9.2 – Décharge spécifique pour l'offre Premium</h4>
               <p className="mt-3">
-                <strong>Limitation de responsabilité spécifique :</strong>
+                <strong>Résultats et prospects :</strong> Le Prestataire décline expressément toute responsabilité concernant :
               </p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>Le nombre de prospects générés par le site internet et les campagnes Google Ads,</li>
+                <li>La qualité des prospects générés,</li>
+                <li>Le taux de conversion des prospects en clients,</li>
+                <li>Le chiffre d&apos;affaires réalisé par le Client suite aux contacts générés.</li>
+              </ul>
+              <p className="mt-3">
+                <strong>Gestion des contacts :</strong> Le Client est seul responsable de :
+              </p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>La réception et le traitement des appels téléphoniques générés par le site,</li>
+                <li>La réponse aux demandes de contact reçues via le site internet,</li>
+                <li>Le suivi commercial des prospects,</li>
+                <li>La conclusion des contrats avec les prospects.</li>
+              </ul>
+              <p className="mt-3">
+                Le Prestataire ne peut être tenu responsable d&apos;une perte de prospects due à l&apos;indisponibilité du Client, à un défaut de réactivité ou à une mauvaise gestion commerciale.
+              </p>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">9.3 – Autres limitations</h4>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Le Prestataire n&apos;est pas tenu de résultats concernant le volume de prospects fournis aux partenaires via les sites internet.</li>
                 <li>Le Prestataire décline toute responsabilité concernant le manque de rigueur du Client en matière d&apos;assurances, de déclarations administratives, fiscales ou sociales, de conformité réglementaire ou de toute autre obligation légale incombant au Client dans le cadre de son activité professionnelle.</li>
