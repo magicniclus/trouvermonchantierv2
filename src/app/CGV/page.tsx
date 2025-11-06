@@ -68,7 +68,30 @@ const page = () => {
                 <strong>Option site seul :</strong> En cas d&apos;arrêt de la gestion Google Ads, l&apos;abonnement peut être maintenu à 29 € HT par mois pour conserver uniquement l&apos;accès au site internet.
               </p>
 
-              <h4 className="text-base font-semibold mt-7 text-slate-800">2.2 – Offre Standard (antérieure au 1er novembre 2025)</h4>
+              <h4 className="text-base font-semibold mt-7 text-slate-800">2.2 – Offre Premium Site SEO</h4>
+              <p className="mt-3">
+                <strong>Tarif :</strong> 49 € HT par mois, payable d&apos;avance par prélèvement automatique via Stripe ou tout autre moyen prévu.
+              </p>
+              <p className="mt-3">
+                <strong>Engagement :</strong> 12 mois minimum, renouvelable automatiquement par périodes de 12 mois sauf résiliation notifiée par écrit au moins 2 semaines avant l&apos;échéance.
+              </p>
+              <p className="mt-3"><strong>Cette offre comprend :</strong></p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>la création d&apos;un site internet avec toutes les pages SEO optimisées,</li>
+                <li>l&apos;optimisation SEO pour un maximum de 15 villes du secteur géographique du Client,</li>
+                <li>l&apos;optimisation SEO pour un maximum de 5 prestations/services du Client,</li>
+                <li>l&apos;optimisation pour que le Client soit bien positionné sur son secteur d&apos;activité et son secteur géographique,</li>
+                <li>la maintenance et l&apos;hébergement du site internet,</li>
+                <li>l&apos;utilisation du label « Certifié Trouver Mon Chantier ».</li>
+              </ul>
+              <p className="mt-3">
+                <strong>Propriété :</strong> Le Prestataire reste propriétaire du site internet. Le Client bénéficie d&apos;un droit d&apos;usage exclusif tant que l&apos;abonnement est actif.
+              </p>
+              <p className="mt-3">
+                <strong>Objectif SEO :</strong> Cette offre vise à optimiser le référencement naturel du Client pour améliorer sa visibilité sur les moteurs de recherche sur son secteur d&apos;activité et sa zone géographique définie.
+              </p>
+
+              <h4 className="text-base font-semibold mt-7 text-slate-800">2.3 – Offre Standard (antérieure au 1er novembre 2025)</h4>
               <p className="mt-3">
                 <strong>Tarif :</strong> 29 € HT par mois, payable d&apos;avance par prélèvement automatique via Stripe ou tout autre moyen prévu.
               </p>
@@ -80,7 +103,7 @@ const page = () => {
                 <li>l&apos;utilisation du label « Certifié Trouver Mon Chantier » (réservé aux adhérents).</li>
               </ul>
 
-              <h3 className="text-lg font-semibold mt-7">Article 3 – Modalités de paiement et pénalités</h3>
+
               
               <h4 className="text-base font-semibold mt-5 text-slate-800">3.1 – Paiement des abonnements</h4>
               <p className="mt-3">
@@ -168,11 +191,25 @@ const page = () => {
                 <strong>Suspension pour impayé :</strong> En cas de non-paiement d&apos;une mensualité, le Prestataire peut suspendre immédiatement l&apos;accès au site et aux campagnes Google Ads après mise en demeure restée sans effet pendant 8 jours. Les pénalités de retard continuent de courir.
               </p>
               
-              <h4 className="text-base font-semibold mt-7 text-slate-800">8.2 – Offre Standard</h4>
+              <h4 className="text-base font-semibold mt-7 text-slate-800">8.2 – Offre Premium Site SEO</h4>
+              <p className="mt-3">
+                <strong>Engagement minimum :</strong> Le contrat est conclu pour une durée minimale de 12 mois à compter de la date de souscription.
+              </p>
+              <p className="mt-3">
+                <strong>Renouvellement :</strong> À l&apos;issue de la période d&apos;engagement, le contrat se renouvelle automatiquement par périodes successives de 12 mois, sauf résiliation notifiée par écrit par le Client au moins 2 semaines avant l&apos;échéance.
+              </p>
+              <p className="mt-3">
+                <strong>Résiliation anticipée :</strong> Toute résiliation avant l&apos;échéance de la période d&apos;engagement entraîne le paiement immédiat des mensualités restant dues jusqu&apos;à l&apos;échéance.
+              </p>
+              <p className="mt-3">
+                <strong>Suspension pour impayé :</strong> En cas de non-paiement d&apos;une mensualité, le Prestataire peut suspendre immédiatement l&apos;accès au site après mise en demeure restée sans effet pendant 8 jours. Les pénalités de retard continuent de courir.
+              </p>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">8.3 – Offre Standard</h4>
               <p className="mt-3">Le contrat est sans engagement de durée.</p>
               <p className="mt-3">Le Client peut résilier à tout moment par simple notification écrite.</p>
               
-              <h4 className="text-base font-semibold mt-7 text-slate-800">8.3 – Dispositions communes</h4>
+              <h4 className="text-base font-semibold mt-7 text-slate-800">8.4 – Dispositions communes</h4>
               <p className="mt-3">En cas de résiliation, l&apos;accès au site et aux services est immédiatement interrompu.</p>
               <p className="mt-3">Le Prestataire peut résilier le contrat en cas de manquement grave du Client (non-paiement, fraude, atteinte à l&apos;image).</p>
 
@@ -209,7 +246,25 @@ const page = () => {
                 Le Prestataire ne peut être tenu responsable d&apos;une perte de prospects due à l&apos;indisponibilité du Client, à un défaut de réactivité ou à une mauvaise gestion commerciale.
               </p>
               
-              <h4 className="text-base font-semibold mt-7 text-slate-800">9.3 – Autres limitations</h4>
+              <h4 className="text-base font-semibold mt-7 text-slate-800">9.3 – Décharge spécifique pour l'offre Premium Site SEO</h4>
+              <p className="mt-3">
+                <strong>Résultats SEO :</strong> Le Prestataire décline expressément toute responsabilité concernant :
+              </p>
+              <ul className="list-disc pl-6 mt-2 space-y-2">
+                <li>Le positionnement exact du site internet dans les résultats de recherche Google,</li>
+                <li>Le délai d&apos;apparition du site dans les résultats de recherche,</li>
+                <li>Le nombre de visiteurs générés par le référencement naturel,</li>
+                <li>Le taux de conversion des visiteurs en prospects ou clients,</li>
+                <li>Les variations de positionnement dues aux mises à jour des algorithmes de Google.</li>
+              </ul>
+              <p className="mt-3">
+                <strong>Optimisation SEO :</strong> Le Prestataire s&apos;engage à mettre en œuvre les meilleures pratiques SEO connues au moment de la création du site, mais ne garantit aucun résultat spécifique en termes de positionnement ou de trafic. Les résultats SEO dépendent de nombreux facteurs externes (concurrence, algorithmes des moteurs de recherche, évolution du marché) sur lesquels le Prestataire n&apos;a aucun contrôle.
+              </p>
+              <p className="mt-3">
+                <strong>Limitations géographiques et sectorielles :</strong> L&apos;optimisation SEO est limitée aux 15 villes et 5 prestations définies contractuellement. Toute demande d&apos;extension au-delà de ces limites fera l&apos;objet d&apos;un avenant au contrat.
+              </p>
+              
+              <h4 className="text-base font-semibold mt-7 text-slate-800">9.4 – Autres limitations</h4>
               <ul className="list-disc pl-6 mt-2 space-y-2">
                 <li>Le Prestataire n&apos;est pas tenu de résultats concernant le volume de prospects fournis aux partenaires via les sites internet.</li>
                 <li>Le Prestataire décline toute responsabilité concernant le manque de rigueur du Client en matière d&apos;assurances, de déclarations administratives, fiscales ou sociales, de conformité réglementaire ou de toute autre obligation légale incombant au Client dans le cadre de son activité professionnelle.</li>
