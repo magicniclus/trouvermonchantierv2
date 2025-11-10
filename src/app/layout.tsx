@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import ChatWidget from "@/components/common/ChatWidget";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -59,6 +60,7 @@ export default function RootLayout({
           <MobileMenuProvider>
             {children}
             {/* <ChatWidget /> */}
+            <Toaster />
           </MobileMenuProvider>
         </AuthProvider>
       </body>
