@@ -63,18 +63,24 @@ const Footer = ({ className }: { className?: string }) => {
               OBTENIR DES CHANTIERS
             </button>
           </div>
-          <ul className="text-white md:gap-3 sm:gap-2 gap-1  mt-10 md:mt-0">
+          <ul className="text-white md:gap-3 sm:gap-2 gap-1 mt-10 md:mt-0 space-y-2">
             <li>
-              <a href="https://app.trouver-mon-chantier.fr/">Mon espace</a>
+              <a href="/secteurs" className="hover:text-yellow-500 transition-colors">Secteurs</a>
             </li>
-            <li className="">
-              <a href="mentions-legales">Mentions légales</a>
+            <li>
+              <a href="/blog" className="hover:text-yellow-500 transition-colors">Blog</a>
             </li>
-            <li className="">
-              <a href="/CGV">CGV</a>
+            <li>
+              <a href="/contact" className="hover:text-yellow-500 transition-colors">Contact</a>
             </li>
-            <li className="">
-              <a href="mailto:support@trouver-mon-chantier.fr">Contact</a>
+            <li>
+              <a href="https://app.trouver-mon-chantier.fr/" className="hover:text-yellow-500 transition-colors">Mon espace</a>
+            </li>
+            <li>
+              <a href="/mentions-legales" className="hover:text-yellow-500 transition-colors">Mentions légales</a>
+            </li>
+            <li>
+              <a href="/CGV" className="hover:text-yellow-500 transition-colors">CGV</a>
             </li>
           </ul>
         </div>
