@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-const DOMAIN = 'https://trouvermonchantier.fr';
+const DOMAIN = 'https://trouver-mon-chantier.fr';
 const BLOG_DIR = path.join(process.cwd(), 'content/blog');
 const SECTEURS_DIR = path.join(process.cwd(), 'content/secteurs');
 

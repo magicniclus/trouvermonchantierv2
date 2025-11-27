@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://trouvermonchantier.fr/sitemap.xml
+Sitemap: https://trouver-mon-chantier.fr/sitemap.xml
 
 # Disallow admin pages
 Disallow: /admin/
