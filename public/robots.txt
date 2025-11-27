@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://trouvermonchantier.com/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /api/
+Disallow: /onboarding/
+Disallow: /auth/
+Disallow: /pricing/checkout
+Disallow: /pricing/connexion
+
+# Allow important pages
+Allow: /blog/
+Allow: /secteurs/
+Allow: /devenir-partenaire
+Allow: /tarifs
+Allow: /contact
+Allow: /avis
